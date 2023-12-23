@@ -1,9 +1,21 @@
 ﻿Imports System.Drawing.Printing
 
 Public Class GraphPaperControl
-    Public Details As GraphPaper = New GraphPaper
+    Public Sub New()
+        InitializeComponent()
+
+        'Details = New GraphPaper
+        'AddHandler Details.PropertyChanged, AddressOf DetailsChanged
+    End Sub
+    Private Sub DetailsChanged()
+        Invalidate()
+    End Sub
+    Public Details As GraphPaper    ' = New GraphPaper
 
     Private Sub GraphPaperControl_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+        If Details Is Nothing Then
+            Return
+        End If
         Dim gs As Drawing2D.GraphicsState = e.Graphics.Save
         Try
             e.Graphics.CompositingQuality = Drawing2D.CompositingQuality.HighQuality

@@ -4,8 +4,8 @@ Imports System.Runtime.CompilerServices
 
 Public Class GraphPaper
     Const CatAppearance = "Appearance"
-    Public Enum Shapes
-        Triangles
+    Public Enum Shapes As ULong
+        Triangles = 1
         Diamonds
         Squares
         Hexagons
@@ -13,17 +13,22 @@ Public Class GraphPaper
     <DefaultValue(DefaultShape)> <Category(CatAppearance)> <Description("Shape of the grid drawn on the page.")>
     Public Property Shape As Shapes
         Get
+            'Return _shape
+            'Return Shapes.Triangles
             Return Settings.GetValueEnum(Of Shapes)("Main", "Shape", DefaultShape)
         End Get
         Set(value As Shapes)
-            If value <> Shape Then
+            _shape = value
+            If Settings.GetValueEnum(Of Shapes)("Main", "Shape", DefaultShape) <> value Then
                 Settings.SetValue("Main", "Shape", value)
                 WriteSettings()
-                NotifyPropertyChanged(value)
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Shape"))
+                'NotifyPropertyChanged(value)
             End If
         End Set
     End Property
     Friend Const DefaultShape As Shapes = Shapes.Squares
+    Private _shape As Shapes = DefaultShape
 
     Public Enum Units
         Millimeters
@@ -31,7 +36,7 @@ Public Class GraphPaper
     End Enum
     ' overload to change the description to include inches
     <DefaultValue(DefaultLineWidth)> <Category(CatAppearance)> <Description("Width in mm or inches of the outlines and dividers.")>
-    Public Overloads Property LineWidth As Single
+    Public Property LineWidth As Single
         Get
             Return Settings.GetValueDouble("Main", "LineWidth", DefaultLineWidth)
         End Get
@@ -39,7 +44,8 @@ Public Class GraphPaper
             If value <> LineWidth Then
                 Settings.SetValue("Main", "LineWidth", value)
                 WriteSettings()
-                NotifyPropertyChanged(value)
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("LineWidth"))
+                'NotifyPropertyChanged(value)
             End If
         End Set
     End Property
@@ -54,7 +60,8 @@ Public Class GraphPaper
             If value <> LineWidthUnits Then
                 Settings.SetValue("Main", "LineWidthUnits", value)
                 WriteSettings()
-                NotifyPropertyChanged(value)
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("LineWidthUnits"))
+                'NotifyPropertyChanged(value)
             End If
         End Set
     End Property
@@ -62,7 +69,7 @@ Public Class GraphPaper
 
     ' shadow to change the default and description
     <DefaultValue(GetType(Color), DefaultLineColorOfGraphPaper)> <Category(CatAppearance)> <Description("Color of the gridlines.")>
-    Public Overloads Property LineColor As Color
+    Public Property LineColor As Color
         Get
             Return Settings.GetValueObject("Main", "LineColor", Color.FromName(DefaultLineColorOfGraphPaper))
         End Get
@@ -70,7 +77,8 @@ Public Class GraphPaper
             If Not value.Equals(LineColor) Then
                 Settings.SetValue("Main", "LineColor", value)
                 WriteSettings()
-                NotifyPropertyChanged(value)
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("LineColor"))
+                'NotifyPropertyChanged(value)
             End If
         End Set
     End Property
@@ -85,7 +93,8 @@ Public Class GraphPaper
             If value <> ShapeWidth Then
                 Settings.SetValue("Main", "ShapeWidth", value)
                 WriteSettings()
-                NotifyPropertyChanged(value)
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("ShapeWidth"))
+                'NotifyPropertyChanged(value)
             End If
         End Set
     End Property
@@ -100,7 +109,8 @@ Public Class GraphPaper
             If value <> ShapeWidthUnits Then
                 Settings.SetValue("Main", "ShapeWidthUnits", value)
                 WriteSettings()
-                NotifyPropertyChanged(value)
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("ShapeWidthUnits"))
+                'NotifyPropertyChanged(value)
             End If
         End Set
     End Property
@@ -113,25 +123,36 @@ Public Class GraphPaper
     ''' </summary>
     ''' <param name="NewValue">New value of this Property.</param>
     ''' <param name="propertyName">If named Property does not exist in inherting class, this Sub does nothing.</param>
-    Protected Sub NotifyPropertyChanged(NewValue As Object, <CallerMemberName()> Optional ByVal propertyName As String = Nothing, Optional Index As Object = Nothing)
-        If Parent IsNot Nothing Then
-            Dim pi As PropertyInfo = Parent.GetType().GetProperty(propertyName)
-            If pi IsNot Nothing Then
-                If Index Is Nothing Then
-                    Parent.GetType.InvokeMember(propertyName, BindingFlags.SetProperty, Nothing, Parent, New Object() {NewValue})
-                Else
-                    Parent.GetType.InvokeMember(propertyName, BindingFlags.SetProperty, Nothing, Parent, New Object() {Index, NewValue})
-                End If
-            Else
-                ' Uncomment the line below to help debugging; this could be on purpose and if done on purpose, should not be reported.
-                'Trace.WriteLine($"MontessoriInfo.NotifyPropertyChanged: Unknown Field or Property ""{propertyName}"".")
-            End If
-        End If
-    End Sub
+    'Protected Sub NotifyPropertyChanged(NewValue As Object, <CallerMemberName()> Optional ByVal propertyName As String = Nothing, Optional Index As Object = Nothing)
+    '    If Parent IsNot Nothing Then
+    '        Dim pi As PropertyInfo = Parent.GetType().GetProperty(propertyName)
+    '        If pi IsNot Nothing Then
+    '            If Index Is Nothing Then
+    '                Parent.GetType.InvokeMember(propertyName, BindingFlags.SetProperty, Nothing, Parent, New Object() {NewValue})
+    '            Else
+    '                Parent.GetType.InvokeMember(propertyName, BindingFlags.SetProperty, Nothing, Parent, New Object() {Index, NewValue})
+    '            End If
+    '        Else
+    '            ' Uncomment the line below to help debugging; this could be on purpose and if done on purpose, should not be reported.
+    '            'Trace.WriteLine($"MontessoriInfo.NotifyPropertyChanged: Unknown Field or Property ""{propertyName}"".")
+    '        End If
+    '    End If
+    'End Sub
 
     'Private Sub Write()
     '    If Not DesignMode Then
     '        Settings.Write()
     '    End If
     'End Sub
+    Public Class PropertyChangedEventArgs
+        Inherits EventArgs
+
+        Public Sub New(Name As String)
+            Me.Name = Name
+        End Sub
+
+        Public ReadOnly Name As String
+    End Class
+    Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs)
+
 End Class

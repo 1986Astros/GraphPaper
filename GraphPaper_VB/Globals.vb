@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 
 Module Globals
-    Public Settings As SettingsVB.SharkInSeine.Settings
+    Public Settings As SharkInSeine.Settings
     Public DesignMode As Boolean = LicenseManager.UsageMode = LicenseUsageMode.Designtime
     Public Sub WriteSettings()
         If Settings IsNot Nothing AndAlso Not DesignMode Then
