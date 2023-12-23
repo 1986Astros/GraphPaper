@@ -57,6 +57,13 @@ Partial Class Console
         tlpMain = New TableLayoutPanel()
         rbInvisible0 = New RadioButton()
         rbInvisible1 = New RadioButton()
+        MenuStrip1 = New MenuStrip()
+        PrintingToolStripMenuItem = New ToolStripMenuItem()
+        PrintToolStripMenuItem = New ToolStripMenuItem()
+        PageSetupToolStripMenuItem = New ToolStripMenuItem()
+        ObservePageMarginsToolStripMenuItem = New ToolStripMenuItem()
+        TableLayoutPanel1 = New TableLayoutPanel()
+        GraphPaperControl1 = New GraphPaperControl()
         tlpShapeSize.SuspendLayout()
         CType(NumericUpDown5, ComponentModel.ISupportInitialize).BeginInit()
         gbLineColor.SuspendLayout()
@@ -72,6 +79,8 @@ Partial Class Console
         CType(nudLineWeight, ComponentModel.ISupportInitialize).BeginInit()
         tlpShape.SuspendLayout()
         tlpMain.SuspendLayout()
+        MenuStrip1.SuspendLayout()
+        TableLayoutPanel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' Label1
@@ -80,7 +89,7 @@ Partial Class Console
         Label1.Location = New Point(3, 0)
         Label1.Name = "Label1"
         Label1.Size = New Size(39, 15)
-        Label1.TabIndex = 3
+        Label1.TabIndex = 2
         Label1.Text = "Shape"
         ' 
         ' lbShape
@@ -91,7 +100,7 @@ Partial Class Console
         lbShape.Location = New Point(3, 18)
         lbShape.Name = "lbShape"
         lbShape.Size = New Size(81, 64)
-        lbShape.TabIndex = 1
+        lbShape.TabIndex = 3
         ' 
         ' tlpShapeSize
         ' 
@@ -118,8 +127,7 @@ Partial Class Console
         rbSizeIn.Location = New Point(65, 28)
         rbSizeIn.Name = "rbSizeIn"
         rbSizeIn.Size = New Size(35, 19)
-        rbSizeIn.TabIndex = 1
-        rbSizeIn.TabStop = True
+        rbSizeIn.TabIndex = 7
         rbSizeIn.Text = "in"
         rbSizeIn.UseVisualStyleBackColor = True
         ' 
@@ -134,7 +142,7 @@ Partial Class Console
         NumericUpDown5.Name = "NumericUpDown5"
         tlpShapeSize.SetRowSpan(NumericUpDown5, 2)
         NumericUpDown5.Size = New Size(56, 23)
-        NumericUpDown5.TabIndex = 0
+        NumericUpDown5.TabIndex = 5
         NumericUpDown5.Value = New Decimal(New Integer() {25, 0, 0, 131072})
         ' 
         ' rbSizeMM
@@ -144,7 +152,8 @@ Partial Class Console
         rbSizeMM.Location = New Point(65, 3)
         rbSizeMM.Name = "rbSizeMM"
         rbSizeMM.Size = New Size(47, 19)
-        rbSizeMM.TabIndex = 1
+        rbSizeMM.TabIndex = 6
+        rbSizeMM.TabStop = True
         rbSizeMM.Text = "mm"
         rbSizeMM.UseVisualStyleBackColor = True
         ' 
@@ -158,7 +167,7 @@ Partial Class Console
         gbLineColor.Margin = New Padding(3, 20, 3, 3)
         gbLineColor.Name = "gbLineColor"
         gbLineColor.Size = New Size(263, 162)
-        gbLineColor.TabIndex = 4
+        gbLineColor.TabIndex = 8
         gbLineColor.TabStop = False
         gbLineColor.Text = "Line color"
         ' 
@@ -181,7 +190,7 @@ Partial Class Console
         tlpLineColor.RowStyles.Add(New RowStyle())
         tlpLineColor.RowStyles.Add(New RowStyle())
         tlpLineColor.Size = New Size(257, 140)
-        tlpLineColor.TabIndex = 5
+        tlpLineColor.TabIndex = 9
         ' 
         ' tlpHex
         ' 
@@ -203,7 +212,7 @@ Partial Class Console
         tlpHex.RowStyles.Add(New RowStyle())
         tlpHex.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
         tlpHex.Size = New Size(251, 30)
-        tlpHex.TabIndex = 14
+        tlpHex.TabIndex = 21
         ' 
         ' Label7
         ' 
@@ -212,7 +221,7 @@ Partial Class Console
         Label7.Location = New Point(94, 7)
         Label7.Name = "Label7"
         Label7.Size = New Size(21, 15)
-        Label7.TabIndex = 13
+        Label7.TabIndex = 22
         Label7.Text = "##"
         ' 
         ' tbHexColor
@@ -220,7 +229,7 @@ Partial Class Console
         tbHexColor.Location = New Point(121, 3)
         tbHexColor.Name = "tbHexColor"
         tbHexColor.Size = New Size(55, 23)
-        tbHexColor.TabIndex = 12
+        tbHexColor.TabIndex = 23
         ' 
         ' tlpRGBbutton
         ' 
@@ -254,7 +263,7 @@ Partial Class Console
         panelRGB.Location = New Point(59, 3)
         panelRGB.Name = "panelRGB"
         panelRGB.Size = New Size(40, 20)
-        panelRGB.TabIndex = 3
+        panelRGB.TabIndex = 13
         ' 
         ' tlpWebColor
         ' 
@@ -280,7 +289,7 @@ Partial Class Console
         rbWebColor.Location = New Point(3, 5)
         rbWebColor.Name = "rbWebColor"
         rbWebColor.Size = New Size(82, 19)
-        rbWebColor.TabIndex = 0
+        rbWebColor.TabIndex = 10
         rbWebColor.TabStop = True
         rbWebColor.Text = "Web color:"
         rbWebColor.UseVisualStyleBackColor = True
@@ -293,7 +302,7 @@ Partial Class Console
         cboxWebColor.Location = New Point(91, 3)
         cboxWebColor.Name = "cboxWebColor"
         cboxWebColor.Size = New Size(157, 24)
-        cboxWebColor.TabIndex = 1
+        cboxWebColor.TabIndex = 11
         ' 
         ' tlpRGB
         ' 
@@ -323,7 +332,7 @@ Partial Class Console
         tlpRGB.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
         tlpRGB.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
         tlpRGB.Size = New Size(251, 30)
-        tlpRGB.TabIndex = 5
+        tlpRGB.TabIndex = 14
         ' 
         ' NumericUpDown4
         ' 
@@ -332,7 +341,7 @@ Partial Class Console
         NumericUpDown4.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         NumericUpDown4.Name = "NumericUpDown4"
         NumericUpDown4.Size = New Size(41, 23)
-        NumericUpDown4.TabIndex = 4
+        NumericUpDown4.TabIndex = 20
         NumericUpDown4.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' Label2
@@ -342,7 +351,7 @@ Partial Class Console
         Label2.Location = New Point(23, 7)
         Label2.Name = "Label2"
         Label2.Size = New Size(14, 15)
-        Label2.TabIndex = 3
+        Label2.TabIndex = 15
         Label2.Text = "R"
         Label2.TextAlign = ContentAlignment.MiddleRight
         ' 
@@ -354,7 +363,7 @@ Partial Class Console
         nudR.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         nudR.Name = "nudR"
         nudR.Size = New Size(41, 23)
-        nudR.TabIndex = 4
+        nudR.TabIndex = 16
         nudR.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' nudG
@@ -364,7 +373,7 @@ Partial Class Console
         nudG.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         nudG.Name = "nudG"
         nudG.Size = New Size(41, 23)
-        nudG.TabIndex = 4
+        nudG.TabIndex = 18
         nudG.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' Label3
@@ -374,7 +383,7 @@ Partial Class Console
         Label3.Location = New Point(104, 7)
         Label3.Name = "Label3"
         Label3.Size = New Size(15, 15)
-        Label3.TabIndex = 3
+        Label3.TabIndex = 17
         Label3.Text = "G"
         Label3.TextAlign = ContentAlignment.MiddleRight
         ' 
@@ -385,7 +394,7 @@ Partial Class Console
         nudB.Location = New Point(186, 7)
         nudB.Name = "nudB"
         nudB.Size = New Size(14, 15)
-        nudB.TabIndex = 3
+        nudB.TabIndex = 19
         nudB.Text = "B"
         nudB.TextAlign = ContentAlignment.MiddleRight
         ' 
@@ -408,7 +417,7 @@ Partial Class Console
         tlpLineWeight.RowStyles.Add(New RowStyle())
         tlpLineWeight.RowStyles.Add(New RowStyle())
         tlpLineWeight.Size = New Size(115, 70)
-        tlpLineWeight.TabIndex = 5
+        tlpLineWeight.TabIndex = 24
         ' 
         ' rbLineWeightIn
         ' 
@@ -416,7 +425,7 @@ Partial Class Console
         rbLineWeightIn.Location = New Point(65, 48)
         rbLineWeightIn.Name = "rbLineWeightIn"
         rbLineWeightIn.Size = New Size(35, 19)
-        rbLineWeightIn.TabIndex = 1
+        rbLineWeightIn.TabIndex = 28
         rbLineWeightIn.Text = "in"
         rbLineWeightIn.UseVisualStyleBackColor = True
         ' 
@@ -431,7 +440,7 @@ Partial Class Console
         nudLineWeight.Name = "nudLineWeight"
         tlpLineWeight.SetRowSpan(nudLineWeight, 2)
         nudLineWeight.Size = New Size(56, 23)
-        nudLineWeight.TabIndex = 0
+        nudLineWeight.TabIndex = 26
         nudLineWeight.Value = New Decimal(New Integer() {1, 0, 0, 65536})
         ' 
         ' rbLineWeightMM
@@ -442,7 +451,7 @@ Partial Class Console
         rbLineWeightMM.Location = New Point(65, 23)
         rbLineWeightMM.Name = "rbLineWeightMM"
         rbLineWeightMM.Size = New Size(47, 19)
-        rbLineWeightMM.TabIndex = 1
+        rbLineWeightMM.TabIndex = 27
         rbLineWeightMM.TabStop = True
         rbLineWeightMM.Text = "mm"
         rbLineWeightMM.UseVisualStyleBackColor = True
@@ -454,7 +463,7 @@ Partial Class Console
         Label8.Location = New Point(3, 0)
         Label8.Name = "Label8"
         Label8.Size = New Size(68, 15)
-        Label8.TabIndex = 0
+        Label8.TabIndex = 25
         Label8.Text = "Line weight"
         ' 
         ' tlpShape
@@ -474,7 +483,7 @@ Partial Class Console
         tlpShape.RowStyles.Add(New RowStyle())
         tlpShape.RowStyles.Add(New RowStyle())
         tlpShape.Size = New Size(208, 85)
-        tlpShape.TabIndex = 8
+        tlpShape.TabIndex = 1
         ' 
         ' Label5
         ' 
@@ -503,14 +512,14 @@ Partial Class Console
         tlpMain.Controls.Add(tlpLineWeight, 0, 2)
         tlpMain.Controls.Add(tlpShape, 0, 0)
         tlpMain.Controls.Add(gbLineColor, 0, 1)
-        tlpMain.Location = New Point(12, 12)
+        tlpMain.Location = New Point(23, 3)
         tlpMain.Name = "tlpMain"
         tlpMain.RowCount = 3
         tlpMain.RowStyles.Add(New RowStyle())
         tlpMain.RowStyles.Add(New RowStyle())
         tlpMain.RowStyles.Add(New RowStyle())
         tlpMain.Size = New Size(269, 352)
-        tlpMain.TabIndex = 12
+        tlpMain.TabIndex = 0
         ' 
         ' rbInvisible0
         ' 
@@ -518,8 +527,7 @@ Partial Class Console
         rbInvisible0.Location = New Point(3, 32)
         rbInvisible0.Name = "rbInvisible0"
         rbInvisible0.Size = New Size(14, 1)
-        rbInvisible0.TabIndex = 5
-        rbInvisible0.TabStop = True
+        rbInvisible0.TabIndex = 20
         rbInvisible0.UseVisualStyleBackColor = True
         ' 
         ' rbInvisible1
@@ -528,17 +536,80 @@ Partial Class Console
         rbInvisible1.Location = New Point(3, 32)
         rbInvisible1.Name = "rbInvisible1"
         rbInvisible1.Size = New Size(14, 1)
-        rbInvisible1.TabIndex = 14
-        rbInvisible1.TabStop = True
+        rbInvisible1.TabIndex = 23
         rbInvisible1.UseVisualStyleBackColor = True
+        ' 
+        ' MenuStrip1
+        ' 
+        MenuStrip1.Items.AddRange(New ToolStripItem() {PrintingToolStripMenuItem})
+        MenuStrip1.Location = New Point(0, 0)
+        MenuStrip1.Name = "MenuStrip1"
+        MenuStrip1.Size = New Size(800, 24)
+        MenuStrip1.TabIndex = 13
+        MenuStrip1.Text = "MenuStrip1"
+        ' 
+        ' PrintingToolStripMenuItem
+        ' 
+        PrintingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PrintToolStripMenuItem, PageSetupToolStripMenuItem, ObservePageMarginsToolStripMenuItem})
+        PrintingToolStripMenuItem.Name = "PrintingToolStripMenuItem"
+        PrintingToolStripMenuItem.Size = New Size(61, 20)
+        PrintingToolStripMenuItem.Text = "Printing"
+        ' 
+        ' PrintToolStripMenuItem
+        ' 
+        PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
+        PrintToolStripMenuItem.ShortcutKeys = Keys.Control Or Keys.P
+        PrintToolStripMenuItem.Size = New Size(192, 22)
+        PrintToolStripMenuItem.Text = "Print"
+        ' 
+        ' PageSetupToolStripMenuItem
+        ' 
+        PageSetupToolStripMenuItem.Name = "PageSetupToolStripMenuItem"
+        PageSetupToolStripMenuItem.Size = New Size(192, 22)
+        PageSetupToolStripMenuItem.Text = "Page setup"
+        ' 
+        ' ObservePageMarginsToolStripMenuItem
+        ' 
+        ObservePageMarginsToolStripMenuItem.Checked = True
+        ObservePageMarginsToolStripMenuItem.CheckState = CheckState.Checked
+        ObservePageMarginsToolStripMenuItem.Name = "ObservePageMarginsToolStripMenuItem"
+        ObservePageMarginsToolStripMenuItem.Size = New Size(192, 22)
+        ObservePageMarginsToolStripMenuItem.Text = "Observe page margins"
+        ' 
+        ' TableLayoutPanel1
+        ' 
+        TableLayoutPanel1.ColumnCount = 4
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle())
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
+        TableLayoutPanel1.Controls.Add(tlpMain, 1, 0)
+        TableLayoutPanel1.Controls.Add(GraphPaperControl1, 2, 0)
+        TableLayoutPanel1.Dock = DockStyle.Fill
+        TableLayoutPanel1.Location = New Point(0, 24)
+        TableLayoutPanel1.Name = "TableLayoutPanel1"
+        TableLayoutPanel1.RowCount = 1
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        TableLayoutPanel1.Size = New Size(800, 426)
+        TableLayoutPanel1.TabIndex = 14
+        ' 
+        ' GraphPaperControl1
+        ' 
+        GraphPaperControl1.Dock = DockStyle.Fill
+        GraphPaperControl1.Location = New Point(298, 3)
+        GraphPaperControl1.Name = "GraphPaperControl1"
+        GraphPaperControl1.Size = New Size(479, 420)
+        GraphPaperControl1.TabIndex = 1
         ' 
         ' Console
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
-        Controls.Add(tlpMain)
+        Controls.Add(TableLayoutPanel1)
         Controls.Add(Label6)
+        Controls.Add(MenuStrip1)
+        MainMenuStrip = MenuStrip1
         Name = "Console"
         Text = "Print graph paper"
         tlpShapeSize.ResumeLayout(False)
@@ -566,6 +637,10 @@ Partial Class Console
         tlpShape.PerformLayout()
         tlpMain.ResumeLayout(False)
         tlpMain.PerformLayout()
+        MenuStrip1.ResumeLayout(False)
+        MenuStrip1.PerformLayout()
+        TableLayoutPanel1.ResumeLayout(False)
+        TableLayoutPanel1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -606,5 +681,12 @@ Partial Class Console
     Friend WithEvents tlpMain As TableLayoutPanel
     Friend WithEvents rbInvisible0 As RadioButton
     Friend WithEvents rbInvisible1 As RadioButton
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents PrintingToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PageSetupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ObservePageMarginsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents GraphPaperControl1 As GraphPaperControl
 
 End Class
