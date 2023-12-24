@@ -26,13 +26,14 @@ Partial Class Console
         lbShape = New ListBox()
         tlpShapeSize = New TableLayoutPanel()
         rbSizeIn = New RadioButton()
-        NumericUpDown5 = New NumericUpDown()
+        nudSize = New NumericUpDown()
         rbSizeMM = New RadioButton()
         gbLineColor = New GroupBox()
         tlpLineColor = New TableLayoutPanel()
         tlpHex = New TableLayoutPanel()
         Label7 = New Label()
         tbHexColor = New TextBox()
+        rbInvisible1 = New RadioButton()
         tlpRGBbutton = New TableLayoutPanel()
         rbRGB = New RadioButton()
         panelRGB = New Panel()
@@ -40,12 +41,13 @@ Partial Class Console
         rbWebColor = New RadioButton()
         cboxWebColor = New ComboBox()
         tlpRGB = New TableLayoutPanel()
-        NumericUpDown4 = New NumericUpDown()
+        nudB = New NumericUpDown()
         Label2 = New Label()
         nudR = New NumericUpDown()
         nudG = New NumericUpDown()
         Label3 = New Label()
-        nudB = New Label()
+        lblB = New Label()
+        rbInvisible0 = New RadioButton()
         tlpLineWeight = New TableLayoutPanel()
         rbLineWeightIn = New RadioButton()
         nudLineWeight = New NumericUpDown()
@@ -55,8 +57,6 @@ Partial Class Console
         Label5 = New Label()
         Label6 = New Label()
         tlpMain = New TableLayoutPanel()
-        rbInvisible0 = New RadioButton()
-        rbInvisible1 = New RadioButton()
         MenuStrip1 = New MenuStrip()
         PrintingToolStripMenuItem = New ToolStripMenuItem()
         PrintToolStripMenuItem = New ToolStripMenuItem()
@@ -65,14 +65,14 @@ Partial Class Console
         TableLayoutPanel1 = New TableLayoutPanel()
         GraphPaperControl1 = New GraphPaperControl()
         tlpShapeSize.SuspendLayout()
-        CType(NumericUpDown5, ComponentModel.ISupportInitialize).BeginInit()
+        CType(nudSize, ComponentModel.ISupportInitialize).BeginInit()
         gbLineColor.SuspendLayout()
         tlpLineColor.SuspendLayout()
         tlpHex.SuspendLayout()
         tlpRGBbutton.SuspendLayout()
         tlpWebColor.SuspendLayout()
         tlpRGB.SuspendLayout()
-        CType(NumericUpDown4, ComponentModel.ISupportInitialize).BeginInit()
+        CType(nudB, ComponentModel.ISupportInitialize).BeginInit()
         CType(nudR, ComponentModel.ISupportInitialize).BeginInit()
         CType(nudG, ComponentModel.ISupportInitialize).BeginInit()
         tlpLineWeight.SuspendLayout()
@@ -110,7 +110,7 @@ Partial Class Console
         tlpShapeSize.ColumnStyles.Add(New ColumnStyle())
         tlpShapeSize.ColumnStyles.Add(New ColumnStyle())
         tlpShapeSize.Controls.Add(rbSizeIn, 1, 1)
-        tlpShapeSize.Controls.Add(NumericUpDown5, 0, 0)
+        tlpShapeSize.Controls.Add(nudSize, 0, 0)
         tlpShapeSize.Controls.Add(rbSizeMM, 1, 0)
         tlpShapeSize.Location = New Point(90, 18)
         tlpShapeSize.Name = "tlpShapeSize"
@@ -128,22 +128,23 @@ Partial Class Console
         rbSizeIn.Name = "rbSizeIn"
         rbSizeIn.Size = New Size(35, 19)
         rbSizeIn.TabIndex = 7
+        rbSizeIn.TabStop = True
         rbSizeIn.Text = "in"
         rbSizeIn.UseVisualStyleBackColor = True
         ' 
-        ' NumericUpDown5
+        ' nudSize
         ' 
-        NumericUpDown5.Anchor = AnchorStyles.Right
-        NumericUpDown5.AutoSize = True
-        NumericUpDown5.DecimalPlaces = 2
-        NumericUpDown5.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
-        NumericUpDown5.Location = New Point(3, 13)
-        NumericUpDown5.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
-        NumericUpDown5.Name = "NumericUpDown5"
-        tlpShapeSize.SetRowSpan(NumericUpDown5, 2)
-        NumericUpDown5.Size = New Size(56, 23)
-        NumericUpDown5.TabIndex = 5
-        NumericUpDown5.Value = New Decimal(New Integer() {25, 0, 0, 131072})
+        nudSize.Anchor = AnchorStyles.Right
+        nudSize.AutoSize = True
+        nudSize.DecimalPlaces = 2
+        nudSize.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
+        nudSize.Location = New Point(3, 13)
+        nudSize.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
+        nudSize.Name = "nudSize"
+        tlpShapeSize.SetRowSpan(nudSize, 2)
+        nudSize.Size = New Size(56, 23)
+        nudSize.TabIndex = 5
+        nudSize.Value = New Decimal(New Integer() {25, 0, 0, 131072})
         ' 
         ' rbSizeMM
         ' 
@@ -206,11 +207,12 @@ Partial Class Console
         tlpHex.Controls.Add(tbHexColor, 3, 0)
         tlpHex.Controls.Add(rbInvisible1, 0, 1)
         tlpHex.Dock = DockStyle.Fill
+        tlpHex.Enabled = False
         tlpHex.Location = New Point(3, 107)
         tlpHex.Name = "tlpHex"
         tlpHex.RowCount = 2
         tlpHex.RowStyles.Add(New RowStyle())
-        tlpHex.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
+        tlpHex.RowStyles.Add(New RowStyle(SizeType.Absolute, 1.0F))
         tlpHex.Size = New Size(251, 30)
         tlpHex.TabIndex = 21
         ' 
@@ -231,13 +233,22 @@ Partial Class Console
         tbHexColor.Size = New Size(55, 23)
         tbHexColor.TabIndex = 23
         ' 
+        ' rbInvisible1
+        ' 
+        rbInvisible1.AutoSize = True
+        rbInvisible1.Location = New Point(3, 32)
+        rbInvisible1.Name = "rbInvisible1"
+        rbInvisible1.Size = New Size(14, 1)
+        rbInvisible1.TabIndex = 23
+        rbInvisible1.UseVisualStyleBackColor = True
+        ' 
         ' tlpRGBbutton
         ' 
         tlpRGBbutton.AutoSize = True
         tlpRGBbutton.AutoSizeMode = AutoSizeMode.GrowAndShrink
         tlpRGBbutton.ColumnCount = 2
         tlpRGBbutton.ColumnStyles.Add(New ColumnStyle())
-        tlpRGBbutton.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpRGBbutton.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0F))
         tlpRGBbutton.Controls.Add(rbRGB, 0, 0)
         tlpRGBbutton.Controls.Add(panelRGB, 1, 0)
         tlpRGBbutton.Location = New Point(3, 39)
@@ -271,7 +282,7 @@ Partial Class Console
         tlpWebColor.AutoSizeMode = AutoSizeMode.GrowAndShrink
         tlpWebColor.ColumnCount = 2
         tlpWebColor.ColumnStyles.Add(New ColumnStyle())
-        tlpWebColor.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpWebColor.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0F))
         tlpWebColor.Controls.Add(rbWebColor, 0, 0)
         tlpWebColor.Controls.Add(cboxWebColor, 1, 0)
         tlpWebColor.Location = New Point(3, 3)
@@ -312,20 +323,21 @@ Partial Class Console
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.Controls.Add(NumericUpDown4, 8, 0)
+        tlpRGB.Controls.Add(nudB, 8, 0)
         tlpRGB.Controls.Add(Label2, 1, 0)
         tlpRGB.Controls.Add(nudR, 2, 0)
         tlpRGB.Controls.Add(nudG, 5, 0)
         tlpRGB.Controls.Add(Label3, 4, 0)
-        tlpRGB.Controls.Add(nudB, 7, 0)
+        tlpRGB.Controls.Add(lblB, 7, 0)
         tlpRGB.Controls.Add(rbInvisible0, 0, 1)
         tlpRGB.Dock = DockStyle.Fill
+        tlpRGB.Enabled = False
         tlpRGB.Location = New Point(3, 71)
         tlpRGB.Name = "tlpRGB"
         tlpRGB.RowCount = 2
@@ -334,15 +346,15 @@ Partial Class Console
         tlpRGB.Size = New Size(251, 30)
         tlpRGB.TabIndex = 14
         ' 
-        ' NumericUpDown4
+        ' nudB
         ' 
-        NumericUpDown4.AutoSize = True
-        NumericUpDown4.Location = New Point(206, 3)
-        NumericUpDown4.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        NumericUpDown4.Name = "NumericUpDown4"
-        NumericUpDown4.Size = New Size(41, 23)
-        NumericUpDown4.TabIndex = 20
-        NumericUpDown4.Value = New Decimal(New Integer() {255, 0, 0, 0})
+        nudB.AutoSize = True
+        nudB.Location = New Point(206, 3)
+        nudB.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        nudB.Name = "nudB"
+        nudB.Size = New Size(41, 23)
+        nudB.TabIndex = 20
+        nudB.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' Label2
         ' 
@@ -387,16 +399,25 @@ Partial Class Console
         Label3.Text = "G"
         Label3.TextAlign = ContentAlignment.MiddleRight
         ' 
-        ' nudB
+        ' lblB
         ' 
-        nudB.Anchor = AnchorStyles.None
-        nudB.AutoSize = True
-        nudB.Location = New Point(186, 7)
-        nudB.Name = "nudB"
-        nudB.Size = New Size(14, 15)
-        nudB.TabIndex = 19
-        nudB.Text = "B"
-        nudB.TextAlign = ContentAlignment.MiddleRight
+        lblB.Anchor = AnchorStyles.None
+        lblB.AutoSize = True
+        lblB.Location = New Point(186, 7)
+        lblB.Name = "lblB"
+        lblB.Size = New Size(14, 15)
+        lblB.TabIndex = 19
+        lblB.Text = "B"
+        lblB.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' rbInvisible0
+        ' 
+        rbInvisible0.AutoSize = True
+        rbInvisible0.Location = New Point(3, 32)
+        rbInvisible0.Name = "rbInvisible0"
+        rbInvisible0.Size = New Size(14, 1)
+        rbInvisible0.TabIndex = 20
+        rbInvisible0.UseVisualStyleBackColor = True
         ' 
         ' tlpLineWeight
         ' 
@@ -436,12 +457,12 @@ Partial Class Console
         nudLineWeight.DecimalPlaces = 2
         nudLineWeight.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
         nudLineWeight.Location = New Point(3, 33)
-        nudLineWeight.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
+        nudLineWeight.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
         nudLineWeight.Name = "nudLineWeight"
         tlpLineWeight.SetRowSpan(nudLineWeight, 2)
         nudLineWeight.Size = New Size(56, 23)
         nudLineWeight.TabIndex = 26
-        nudLineWeight.Value = New Decimal(New Integer() {1, 0, 0, 65536})
+        nudLineWeight.Value = New Decimal(New Integer() {1, 0, 0, 131072})
         ' 
         ' rbLineWeightMM
         ' 
@@ -521,24 +542,6 @@ Partial Class Console
         tlpMain.Size = New Size(269, 352)
         tlpMain.TabIndex = 0
         ' 
-        ' rbInvisible0
-        ' 
-        rbInvisible0.AutoSize = True
-        rbInvisible0.Location = New Point(3, 32)
-        rbInvisible0.Name = "rbInvisible0"
-        rbInvisible0.Size = New Size(14, 1)
-        rbInvisible0.TabIndex = 20
-        rbInvisible0.UseVisualStyleBackColor = True
-        ' 
-        ' rbInvisible1
-        ' 
-        rbInvisible1.AutoSize = True
-        rbInvisible1.Location = New Point(3, 32)
-        rbInvisible1.Name = "rbInvisible1"
-        rbInvisible1.Size = New Size(14, 1)
-        rbInvisible1.TabIndex = 23
-        rbInvisible1.UseVisualStyleBackColor = True
-        ' 
         ' MenuStrip1
         ' 
         MenuStrip1.Items.AddRange(New ToolStripItem() {PrintingToolStripMenuItem})
@@ -614,7 +617,7 @@ Partial Class Console
         Text = "Print graph paper"
         tlpShapeSize.ResumeLayout(False)
         tlpShapeSize.PerformLayout()
-        CType(NumericUpDown5, ComponentModel.ISupportInitialize).EndInit()
+        CType(nudSize, ComponentModel.ISupportInitialize).EndInit()
         gbLineColor.ResumeLayout(False)
         gbLineColor.PerformLayout()
         tlpLineColor.ResumeLayout(False)
@@ -627,7 +630,7 @@ Partial Class Console
         tlpWebColor.PerformLayout()
         tlpRGB.ResumeLayout(False)
         tlpRGB.PerformLayout()
-        CType(NumericUpDown4, ComponentModel.ISupportInitialize).EndInit()
+        CType(nudB, ComponentModel.ISupportInitialize).EndInit()
         CType(nudR, ComponentModel.ISupportInitialize).EndInit()
         CType(nudG, ComponentModel.ISupportInitialize).EndInit()
         tlpLineWeight.ResumeLayout(False)
@@ -654,16 +657,16 @@ Partial Class Console
     Friend WithEvents rbLineWeightMM As RadioButton
     Friend WithEvents nudLineWeight As NumericUpDown
     Friend WithEvents Label2 As Label
-    Friend WithEvents nudB As Label
+    Friend WithEvents lblB As Label
     Friend WithEvents nudR As NumericUpDown
     Friend WithEvents nudG As NumericUpDown
     Friend WithEvents tlpLineColor As TableLayoutPanel
-    Friend WithEvents NumericUpDown4 As NumericUpDown
+    Friend WithEvents nudB As NumericUpDown
     Friend WithEvents Label3 As Label
     Friend WithEvents tlpRGB As TableLayoutPanel
     Friend WithEvents rbSizeIn As RadioButton
     Friend WithEvents rbSizeMM As RadioButton
-    Friend WithEvents NumericUpDown5 As NumericUpDown
+    Friend WithEvents nudSize As NumericUpDown
     Friend WithEvents tlpShapeSize As TableLayoutPanel
     Friend WithEvents tlpLineWeight As TableLayoutPanel
     Friend WithEvents tlpMain As TableLayoutPanel
@@ -678,7 +681,6 @@ Partial Class Console
     Friend WithEvents tlpHex As TableLayoutPanel
     Friend WithEvents tbHexColor As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents tlpMain As TableLayoutPanel
     Friend WithEvents rbInvisible0 As RadioButton
     Friend WithEvents rbInvisible1 As RadioButton
     Friend WithEvents MenuStrip1 As MenuStrip

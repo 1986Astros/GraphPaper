@@ -626,6 +626,28 @@ Namespace SharkInSeine
             End If
         End Function
 
+        Public Function GetValueColor(section As String, name As String, Optional def As Color = Nothing) As Color
+            Dim dt As DataTable = DataTableFromSection(section)
+            If dt Is Nothing Then
+                Return def
+            End If
+            Dim drs As DataRow() = dt.Select($"Name = '{name}'")
+            Select Case drs.Count()
+                Case 0
+                    Return Nothing
+                Case 1
+                    Dim cs As String = drs(0)("Value").ToString()
+                    Dim c As Color = Color.FromName(cs)
+                    If c.ToArgb = 0 Then
+                        c = Color.FromArgb(GetValueInt(section, name, 0))
+                    End If
+                    Return c
+                Case Else
+                    Throw New DuplicateNameException($"Duplicate entry {section}/{name}")
+            End Select
+            Return def
+        End Function
+
         ''' <summary>
         ''' Retrieve the value of an enum from Settings.
         ''' </summary>
@@ -1388,6 +1410,36 @@ Namespace SharkInSeine
                 dt.Rows.Add(dr)
             End If
             dr("Value") = value.ToString()
+        End Sub
+
+        Public Sub SetValueColor(section As String, name As String, value As Color)
+            Dim dt As DataTable = DataTableFromSection(section)
+            Dim dr As DataRow = Nothing
+            If dt Is Nothing Then
+                dt = New DataTable(section)
+                dt.Columns.Add(New DataColumn("Name", GetType(String)))
+                dt.Columns.Add(New DataColumn("Value", GetType(Object)))
+                AddTable(dt)
+            Else
+                Dim drs As DataRow() = dt.Select($"Name = '{name}'")
+                Select Case drs.Count()
+                    Case 0
+                    Case 1
+                        dr = drs(0)
+                    Case Else
+                        Throw New DuplicateNameException($"SetValue: Duplicate entry {section}/{name}")
+                End Select
+            End If
+            If dr Is Nothing Then
+                dr = dt.NewRow()
+                dr("Name") = name
+                dt.Rows.Add(dr)
+            End If
+            If value.IsNamedColor Then
+                dr("value") = value.Name
+            Else
+                dr("value") = value.ToArgb.ToString()
+            End If
         End Sub
 
         ''' <summary>

@@ -71,11 +71,11 @@ Public Class GraphPaper
     <DefaultValue(GetType(Color), DefaultLineColorOfGraphPaper)> <Category(CatAppearance)> <Description("Color of the gridlines.")>
     Public Property LineColor As Color
         Get
-            Return Settings.GetValueObject("Main", "LineColor", Color.FromName(DefaultLineColorOfGraphPaper))
+            Return Settings.GetValueColor("Main", "LineColor", Color.FromName(DefaultLineColorOfGraphPaper))
         End Get
         Set(value As Color)
             If Not value.Equals(LineColor) Then
-                Settings.SetValue("Main", "LineColor", value)
+                Settings.SetValueColor("Main", "LineColor", value)
                 WriteSettings()
                 RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("LineColor"))
                 'NotifyPropertyChanged(value)
