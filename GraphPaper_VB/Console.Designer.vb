@@ -28,59 +28,57 @@ Partial Class Console
         rbSizeIn = New RadioButton()
         nudSize = New NumericUpDown()
         rbSizeMM = New RadioButton()
-        gbLineColor = New GroupBox()
-        tlpLineColor = New TableLayoutPanel()
-        tlpHex = New TableLayoutPanel()
-        Label7 = New Label()
-        rbInvisible1 = New RadioButton()
-        tbHexColor = New TextBox()
-        tlpRGBbutton = New TableLayoutPanel()
-        rbRGB = New RadioButton()
-        panelRGB = New Panel()
-        tlpWebColor = New TableLayoutPanel()
-        rbWebColor = New RadioButton()
+        gbGridlines = New GroupBox()
+        tlpGridLines = New TableLayoutPanel()
+        TableLayoutPanel4 = New TableLayoutPanel()
         cboxWebColor = New ComboBox()
-        tlpRGB = New TableLayoutPanel()
-        nudB = New NumericUpDown()
-        Label2 = New Label()
-        nudR = New NumericUpDown()
-        nudG = New NumericUpDown()
-        Label3 = New Label()
-        lblB = New Label()
-        rbInvisible0 = New RadioButton()
-        tlpLineWeight = New TableLayoutPanel()
+        tlpLineWidth = New TableLayoutPanel()
         rbLineWeightIn = New RadioButton()
-        nudLineWeight = New NumericUpDown()
+        nudLineWidth = New NumericUpDown()
         rbLineWeightMM = New RadioButton()
-        Label8 = New Label()
+        Label12 = New Label()
+        rbWebColor = New RadioButton()
+        rbRGB = New RadioButton()
+        tlpRGB = New TableLayoutPanel()
+        Label11 = New Label()
+        Label4 = New Label()
+        tbHexColor = New TextBox()
+        nudR = New NumericUpDown()
+        Label9 = New Label()
+        nudG = New NumericUpDown()
+        Label10 = New Label()
+        nudB = New NumericUpDown()
         tlpShape = New TableLayoutPanel()
         Label5 = New Label()
         Label6 = New Label()
-        tlpMain = New TableLayoutPanel()
+        tlpDetails = New TableLayoutPanel()
         MenuStrip1 = New MenuStrip()
         PrintingToolStripMenuItem = New ToolStripMenuItem()
         PrintToolStripMenuItem = New ToolStripMenuItem()
         PageSetupToolStripMenuItem = New ToolStripMenuItem()
         ObservePageMarginsToolStripMenuItem = New ToolStripMenuItem()
-        TableLayoutPanel1 = New TableLayoutPanel()
+        tlpMain = New TableLayoutPanel()
         GraphPaperControl1 = New GraphPaperControl()
+        TableLayoutPanel3 = New TableLayoutPanel()
+        RadioButton3 = New RadioButton()
+        NumericUpDown4 = New NumericUpDown()
         tlpShapeSize.SuspendLayout()
         CType(nudSize, ComponentModel.ISupportInitialize).BeginInit()
-        gbLineColor.SuspendLayout()
-        tlpLineColor.SuspendLayout()
-        tlpHex.SuspendLayout()
-        tlpRGBbutton.SuspendLayout()
-        tlpWebColor.SuspendLayout()
+        gbGridlines.SuspendLayout()
+        tlpGridLines.SuspendLayout()
+        TableLayoutPanel4.SuspendLayout()
+        tlpLineWidth.SuspendLayout()
+        CType(nudLineWidth, ComponentModel.ISupportInitialize).BeginInit()
         tlpRGB.SuspendLayout()
-        CType(nudB, ComponentModel.ISupportInitialize).BeginInit()
         CType(nudR, ComponentModel.ISupportInitialize).BeginInit()
         CType(nudG, ComponentModel.ISupportInitialize).BeginInit()
-        tlpLineWeight.SuspendLayout()
-        CType(nudLineWeight, ComponentModel.ISupportInitialize).BeginInit()
+        CType(nudB, ComponentModel.ISupportInitialize).BeginInit()
         tlpShape.SuspendLayout()
-        tlpMain.SuspendLayout()
+        tlpDetails.SuspendLayout()
         MenuStrip1.SuspendLayout()
-        TableLayoutPanel1.SuspendLayout()
+        tlpMain.SuspendLayout()
+        TableLayoutPanel3.SuspendLayout()
+        CType(NumericUpDown4, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Label1
@@ -158,291 +156,90 @@ Partial Class Console
         rbSizeMM.Text = "mm"
         rbSizeMM.UseVisualStyleBackColor = True
         ' 
-        ' gbLineColor
+        ' gbGridlines
         ' 
-        gbLineColor.AutoSize = True
-        gbLineColor.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        gbLineColor.Controls.Add(tlpLineColor)
-        gbLineColor.Dock = DockStyle.Fill
-        gbLineColor.Location = New Point(3, 111)
-        gbLineColor.Margin = New Padding(3, 20, 3, 3)
-        gbLineColor.Name = "gbLineColor"
-        gbLineColor.Size = New Size(263, 162)
-        gbLineColor.TabIndex = 8
-        gbLineColor.TabStop = False
-        gbLineColor.Text = "Line color"
+        gbGridlines.AutoSize = True
+        gbGridlines.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        gbGridlines.Controls.Add(tlpGridLines)
+        gbGridlines.Dock = DockStyle.Fill
+        gbGridlines.Location = New Point(3, 111)
+        gbGridlines.Margin = New Padding(3, 20, 3, 3)
+        gbGridlines.Name = "gbGridlines"
+        gbGridlines.Size = New Size(243, 163)
+        gbGridlines.TabIndex = 8
+        gbGridlines.TabStop = False
+        gbGridlines.Text = "Gridlines"
         ' 
-        ' tlpLineColor
+        ' tlpGridLines
         ' 
-        tlpLineColor.AutoSize = True
-        tlpLineColor.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        tlpLineColor.ColumnCount = 1
-        tlpLineColor.ColumnStyles.Add(New ColumnStyle())
-        tlpLineColor.Controls.Add(tlpHex, 0, 3)
-        tlpLineColor.Controls.Add(tlpRGBbutton, 0, 1)
-        tlpLineColor.Controls.Add(tlpWebColor, 0, 0)
-        tlpLineColor.Controls.Add(tlpRGB, 0, 2)
-        tlpLineColor.Dock = DockStyle.Fill
-        tlpLineColor.Location = New Point(3, 19)
-        tlpLineColor.Name = "tlpLineColor"
-        tlpLineColor.RowCount = 4
-        tlpLineColor.RowStyles.Add(New RowStyle())
-        tlpLineColor.RowStyles.Add(New RowStyle())
-        tlpLineColor.RowStyles.Add(New RowStyle())
-        tlpLineColor.RowStyles.Add(New RowStyle())
-        tlpLineColor.Size = New Size(257, 140)
-        tlpLineColor.TabIndex = 13
+        tlpGridLines.AutoSize = True
+        tlpGridLines.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpGridLines.ColumnCount = 2
+        tlpGridLines.ColumnStyles.Add(New ColumnStyle())
+        tlpGridLines.ColumnStyles.Add(New ColumnStyle())
+        tlpGridLines.Controls.Add(TableLayoutPanel4, 0, 1)
+        tlpGridLines.Controls.Add(rbWebColor, 0, 0)
+        tlpGridLines.Controls.Add(rbRGB, 1, 0)
+        tlpGridLines.Controls.Add(tlpRGB, 1, 1)
+        tlpGridLines.Dock = DockStyle.Fill
+        tlpGridLines.Location = New Point(3, 19)
+        tlpGridLines.Name = "tlpGridLines"
+        tlpGridLines.RowCount = 2
+        tlpGridLines.RowStyles.Add(New RowStyle())
+        tlpGridLines.RowStyles.Add(New RowStyle())
+        tlpGridLines.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        tlpGridLines.Size = New Size(237, 141)
+        tlpGridLines.TabIndex = 0
         ' 
-        ' tlpHex
+        ' TableLayoutPanel4
         ' 
-        tlpHex.AutoSize = True
-        tlpHex.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        tlpHex.ColumnCount = 5
-        tlpHex.ColumnStyles.Add(New ColumnStyle())
-        tlpHex.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        tlpHex.ColumnStyles.Add(New ColumnStyle())
-        tlpHex.ColumnStyles.Add(New ColumnStyle())
-        tlpHex.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        tlpHex.Controls.Add(Label7, 2, 0)
-        tlpHex.Controls.Add(rbInvisible1, 0, 1)
-        tlpHex.Controls.Add(tbHexColor, 3, 0)
-        tlpHex.Dock = DockStyle.Fill
-        tlpHex.Enabled = False
-        tlpHex.Location = New Point(3, 107)
-        tlpHex.Name = "tlpHex"
-        tlpHex.RowCount = 2
-        tlpHex.RowStyles.Add(New RowStyle())
-        tlpHex.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
-        tlpHex.Size = New Size(251, 30)
-        tlpHex.TabIndex = 23
-        ' 
-        ' Label7
-        ' 
-        Label7.Anchor = AnchorStyles.None
-        Label7.AutoSize = True
-        Label7.Location = New Point(94, 7)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(21, 15)
-        Label7.TabIndex = 24
-        Label7.Text = "##"
-        ' 
-        ' rbInvisible1
-        ' 
-        rbInvisible1.AutoSize = True
-        rbInvisible1.Enabled = False
-        rbInvisible1.Location = New Point(3, 32)
-        rbInvisible1.Name = "rbInvisible1"
-        rbInvisible1.Size = New Size(14, 1)
-        rbInvisible1.TabIndex = 23
-        rbInvisible1.UseVisualStyleBackColor = True
-        ' 
-        ' tbHexColor
-        ' 
-        tbHexColor.Location = New Point(121, 3)
-        tbHexColor.MaxLength = 6
-        tbHexColor.Name = "tbHexColor"
-        tbHexColor.Size = New Size(55, 23)
-        tbHexColor.TabIndex = 25
-        ' 
-        ' tlpRGBbutton
-        ' 
-        tlpRGBbutton.AutoSize = True
-        tlpRGBbutton.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        tlpRGBbutton.ColumnCount = 2
-        tlpRGBbutton.ColumnStyles.Add(New ColumnStyle())
-        tlpRGBbutton.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
-        tlpRGBbutton.Controls.Add(rbRGB, 0, 0)
-        tlpRGBbutton.Controls.Add(panelRGB, 1, 0)
-        tlpRGBbutton.Location = New Point(3, 39)
-        tlpRGBbutton.Name = "tlpRGBbutton"
-        tlpRGBbutton.RowCount = 1
-        tlpRGBbutton.RowStyles.Add(New RowStyle())
-        tlpRGBbutton.Size = New Size(102, 26)
-        tlpRGBbutton.TabIndex = 12
-        ' 
-        ' rbRGB
-        ' 
-        rbRGB.AutoSize = True
-        rbRGB.Location = New Point(3, 3)
-        rbRGB.Name = "rbRGB"
-        rbRGB.Size = New Size(50, 19)
-        rbRGB.TabIndex = 14
-        rbRGB.TabStop = True
-        rbRGB.Text = "RGB:"
-        rbRGB.UseVisualStyleBackColor = True
-        ' 
-        ' panelRGB
-        ' 
-        panelRGB.BorderStyle = BorderStyle.FixedSingle
-        panelRGB.Location = New Point(59, 3)
-        panelRGB.Name = "panelRGB"
-        panelRGB.Size = New Size(40, 20)
-        panelRGB.TabIndex = 15
-        ' 
-        ' tlpWebColor
-        ' 
-        tlpWebColor.AutoSize = True
-        tlpWebColor.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        tlpWebColor.ColumnCount = 2
-        tlpWebColor.ColumnStyles.Add(New ColumnStyle())
-        tlpWebColor.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
-        tlpWebColor.Controls.Add(rbWebColor, 0, 0)
-        tlpWebColor.Controls.Add(cboxWebColor, 1, 0)
-        tlpWebColor.Location = New Point(3, 3)
-        tlpWebColor.Name = "tlpWebColor"
-        tlpWebColor.RowCount = 1
-        tlpWebColor.RowStyles.Add(New RowStyle())
-        tlpWebColor.Size = New Size(251, 30)
-        tlpWebColor.TabIndex = 10
-        ' 
-        ' rbWebColor
-        ' 
-        rbWebColor.Anchor = AnchorStyles.None
-        rbWebColor.AutoSize = True
-        rbWebColor.Checked = True
-        rbWebColor.Location = New Point(3, 5)
-        rbWebColor.Name = "rbWebColor"
-        rbWebColor.Size = New Size(82, 19)
-        rbWebColor.TabIndex = 11
-        rbWebColor.TabStop = True
-        rbWebColor.Text = "Web color:"
-        rbWebColor.UseVisualStyleBackColor = True
+        TableLayoutPanel4.AutoSize = True
+        TableLayoutPanel4.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        TableLayoutPanel4.ColumnCount = 1
+        TableLayoutPanel4.ColumnStyles.Add(New ColumnStyle())
+        TableLayoutPanel4.Controls.Add(cboxWebColor, 0, 0)
+        TableLayoutPanel4.Controls.Add(tlpLineWidth, 0, 1)
+        TableLayoutPanel4.Dock = DockStyle.Fill
+        TableLayoutPanel4.Location = New Point(0, 25)
+        TableLayoutPanel4.Margin = New Padding(0)
+        TableLayoutPanel4.Name = "TableLayoutPanel4"
+        TableLayoutPanel4.RowCount = 2
+        TableLayoutPanel4.RowStyles.Add(New RowStyle())
+        TableLayoutPanel4.RowStyles.Add(New RowStyle())
+        TableLayoutPanel4.Size = New Size(136, 116)
+        TableLayoutPanel4.TabIndex = 1
         ' 
         ' cboxWebColor
         ' 
         cboxWebColor.DrawMode = DrawMode.OwnerDrawFixed
         cboxWebColor.DropDownStyle = ComboBoxStyle.DropDownList
         cboxWebColor.FormattingEnabled = True
-        cboxWebColor.Location = New Point(91, 3)
+        cboxWebColor.Location = New Point(3, 3)
         cboxWebColor.Name = "cboxWebColor"
-        cboxWebColor.Size = New Size(157, 24)
-        cboxWebColor.TabIndex = 12
+        cboxWebColor.Size = New Size(130, 24)
+        cboxWebColor.TabIndex = 16
         ' 
-        ' tlpRGB
+        ' tlpLineWidth
         ' 
-        tlpRGB.AutoSize = True
-        tlpRGB.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        tlpRGB.ColumnCount = 9
-        tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.Controls.Add(nudB, 8, 0)
-        tlpRGB.Controls.Add(Label2, 1, 0)
-        tlpRGB.Controls.Add(nudR, 2, 0)
-        tlpRGB.Controls.Add(nudG, 5, 0)
-        tlpRGB.Controls.Add(Label3, 4, 0)
-        tlpRGB.Controls.Add(lblB, 7, 0)
-        tlpRGB.Controls.Add(rbInvisible0, 0, 1)
-        tlpRGB.Dock = DockStyle.Fill
-        tlpRGB.Enabled = False
-        tlpRGB.Location = New Point(3, 71)
-        tlpRGB.Name = "tlpRGB"
-        tlpRGB.RowCount = 2
-        tlpRGB.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
-        tlpRGB.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
-        tlpRGB.Size = New Size(251, 30)
-        tlpRGB.TabIndex = 16
-        ' 
-        ' nudB
-        ' 
-        nudB.AutoSize = True
-        nudB.Location = New Point(206, 3)
-        nudB.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        nudB.Name = "nudB"
-        nudB.Size = New Size(41, 23)
-        nudB.TabIndex = 22
-        nudB.Value = New Decimal(New Integer() {255, 0, 0, 0})
-        ' 
-        ' Label2
-        ' 
-        Label2.Anchor = AnchorStyles.None
-        Label2.AutoSize = True
-        Label2.Location = New Point(23, 7)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(14, 15)
-        Label2.TabIndex = 17
-        Label2.Text = "R"
-        Label2.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' nudR
-        ' 
-        nudR.AllowDrop = True
-        nudR.AutoSize = True
-        nudR.Location = New Point(43, 3)
-        nudR.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        nudR.Name = "nudR"
-        nudR.Size = New Size(41, 23)
-        nudR.TabIndex = 18
-        nudR.Value = New Decimal(New Integer() {255, 0, 0, 0})
-        ' 
-        ' nudG
-        ' 
-        nudG.AutoSize = True
-        nudG.Location = New Point(125, 3)
-        nudG.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        nudG.Name = "nudG"
-        nudG.Size = New Size(41, 23)
-        nudG.TabIndex = 20
-        nudG.Value = New Decimal(New Integer() {255, 0, 0, 0})
-        ' 
-        ' Label3
-        ' 
-        Label3.Anchor = AnchorStyles.None
-        Label3.AutoSize = True
-        Label3.Location = New Point(104, 7)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(15, 15)
-        Label3.TabIndex = 19
-        Label3.Text = "G"
-        Label3.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' lblB
-        ' 
-        lblB.Anchor = AnchorStyles.None
-        lblB.AutoSize = True
-        lblB.Location = New Point(186, 7)
-        lblB.Name = "lblB"
-        lblB.Size = New Size(14, 15)
-        lblB.TabIndex = 21
-        lblB.Text = "B"
-        lblB.TextAlign = ContentAlignment.MiddleRight
-        ' 
-        ' rbInvisible0
-        ' 
-        rbInvisible0.AutoSize = True
-        rbInvisible0.Enabled = False
-        rbInvisible0.Location = New Point(3, 32)
-        rbInvisible0.Name = "rbInvisible0"
-        rbInvisible0.Size = New Size(14, 1)
-        rbInvisible0.TabIndex = 20
-        rbInvisible0.UseVisualStyleBackColor = True
-        ' 
-        ' tlpLineWeight
-        ' 
-        tlpLineWeight.AutoSize = True
-        tlpLineWeight.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        tlpLineWeight.ColumnCount = 2
-        tlpLineWeight.ColumnStyles.Add(New ColumnStyle())
-        tlpLineWeight.ColumnStyles.Add(New ColumnStyle())
-        tlpLineWeight.Controls.Add(rbLineWeightIn, 1, 2)
-        tlpLineWeight.Controls.Add(nudLineWeight, 0, 1)
-        tlpLineWeight.Controls.Add(rbLineWeightMM, 1, 1)
-        tlpLineWeight.Controls.Add(Label8, 0, 0)
-        tlpLineWeight.Location = New Point(3, 279)
-        tlpLineWeight.Margin = New Padding(3, 3, 6, 3)
-        tlpLineWeight.Name = "tlpLineWeight"
-        tlpLineWeight.RowCount = 3
-        tlpLineWeight.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
-        tlpLineWeight.RowStyles.Add(New RowStyle())
-        tlpLineWeight.RowStyles.Add(New RowStyle())
-        tlpLineWeight.Size = New Size(115, 70)
-        tlpLineWeight.TabIndex = 26
+        tlpLineWidth.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        tlpLineWidth.AutoSize = True
+        tlpLineWidth.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpLineWidth.ColumnCount = 2
+        tlpLineWidth.ColumnStyles.Add(New ColumnStyle())
+        tlpLineWidth.ColumnStyles.Add(New ColumnStyle())
+        tlpLineWidth.Controls.Add(rbLineWeightIn, 1, 2)
+        tlpLineWidth.Controls.Add(nudLineWidth, 0, 1)
+        tlpLineWidth.Controls.Add(rbLineWeightMM, 1, 1)
+        tlpLineWidth.Controls.Add(Label12, 0, 0)
+        tlpLineWidth.Location = New Point(0, 46)
+        tlpLineWidth.Margin = New Padding(0)
+        tlpLineWidth.Name = "tlpLineWidth"
+        tlpLineWidth.RowCount = 3
+        tlpLineWidth.RowStyles.Add(New RowStyle(SizeType.Absolute, 20F))
+        tlpLineWidth.RowStyles.Add(New RowStyle())
+        tlpLineWidth.RowStyles.Add(New RowStyle())
+        tlpLineWidth.Size = New Size(115, 70)
+        tlpLineWidth.TabIndex = 27
         ' 
         ' rbLineWeightIn
         ' 
@@ -454,19 +251,19 @@ Partial Class Console
         rbLineWeightIn.Text = "in"
         rbLineWeightIn.UseVisualStyleBackColor = True
         ' 
-        ' nudLineWeight
+        ' nudLineWidth
         ' 
-        nudLineWeight.Anchor = AnchorStyles.Right
-        nudLineWeight.AutoSize = True
-        nudLineWeight.DecimalPlaces = 2
-        nudLineWeight.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
-        nudLineWeight.Location = New Point(3, 33)
-        nudLineWeight.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
-        nudLineWeight.Name = "nudLineWeight"
-        tlpLineWeight.SetRowSpan(nudLineWeight, 2)
-        nudLineWeight.Size = New Size(56, 23)
-        nudLineWeight.TabIndex = 28
-        nudLineWeight.Value = New Decimal(New Integer() {1, 0, 0, 131072})
+        nudLineWidth.Anchor = AnchorStyles.Right
+        nudLineWidth.AutoSize = True
+        nudLineWidth.DecimalPlaces = 2
+        nudLineWidth.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
+        nudLineWidth.Location = New Point(3, 33)
+        nudLineWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
+        nudLineWidth.Name = "nudLineWidth"
+        tlpLineWidth.SetRowSpan(nudLineWidth, 2)
+        nudLineWidth.Size = New Size(56, 23)
+        nudLineWidth.TabIndex = 28
+        nudLineWidth.Value = New Decimal(New Integer() {1, 0, 0, 131072})
         ' 
         ' rbLineWeightMM
         ' 
@@ -481,15 +278,153 @@ Partial Class Console
         rbLineWeightMM.Text = "mm"
         rbLineWeightMM.UseVisualStyleBackColor = True
         ' 
-        ' Label8
+        ' Label12
         ' 
-        Label8.AutoSize = True
-        tlpLineWeight.SetColumnSpan(Label8, 2)
-        Label8.Location = New Point(3, 0)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(68, 15)
-        Label8.TabIndex = 27
-        Label8.Text = "Line weight"
+        Label12.AutoSize = True
+        tlpLineWidth.SetColumnSpan(Label12, 2)
+        Label12.Location = New Point(3, 0)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(61, 15)
+        Label12.TabIndex = 27
+        Label12.Text = "LineWidth"
+        ' 
+        ' rbWebColor
+        ' 
+        rbWebColor.Anchor = AnchorStyles.Left
+        rbWebColor.AutoSize = True
+        rbWebColor.Checked = True
+        rbWebColor.Location = New Point(3, 3)
+        rbWebColor.Name = "rbWebColor"
+        rbWebColor.Size = New Size(79, 19)
+        rbWebColor.TabIndex = 12
+        rbWebColor.TabStop = True
+        rbWebColor.Text = "Web color"
+        rbWebColor.UseVisualStyleBackColor = True
+        ' 
+        ' rbRGB
+        ' 
+        rbRGB.AutoSize = True
+        rbRGB.Location = New Point(139, 3)
+        rbRGB.Name = "rbRGB"
+        rbRGB.Size = New Size(47, 19)
+        rbRGB.TabIndex = 15
+        rbRGB.TabStop = True
+        rbRGB.Text = "RGB"
+        rbRGB.UseVisualStyleBackColor = True
+        ' 
+        ' tlpRGB
+        ' 
+        tlpRGB.AutoSize = True
+        tlpRGB.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpRGB.ColumnCount = 2
+        tlpRGB.ColumnStyles.Add(New ColumnStyle())
+        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpRGB.Controls.Add(Label11, 0, 3)
+        tlpRGB.Controls.Add(Label4, 0, 0)
+        tlpRGB.Controls.Add(tbHexColor, 1, 3)
+        tlpRGB.Controls.Add(nudR, 1, 0)
+        tlpRGB.Controls.Add(Label9, 0, 1)
+        tlpRGB.Controls.Add(nudG, 1, 1)
+        tlpRGB.Controls.Add(Label10, 0, 2)
+        tlpRGB.Controls.Add(nudB, 1, 2)
+        tlpRGB.Enabled = False
+        tlpRGB.Location = New Point(136, 25)
+        tlpRGB.Margin = New Padding(0)
+        tlpRGB.Name = "tlpRGB"
+        tlpRGB.RowCount = 4
+        tlpRGB.RowStyles.Add(New RowStyle())
+        tlpRGB.RowStyles.Add(New RowStyle())
+        tlpRGB.RowStyles.Add(New RowStyle())
+        tlpRGB.RowStyles.Add(New RowStyle())
+        tlpRGB.Size = New Size(101, 116)
+        tlpRGB.TabIndex = 17
+        ' 
+        ' Label11
+        ' 
+        Label11.Anchor = AnchorStyles.Right
+        Label11.AutoSize = True
+        Label11.Location = New Point(16, 94)
+        Label11.Margin = New Padding(16, 0, 3, 0)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(21, 15)
+        Label11.TabIndex = 24
+        Label11.Text = "##"
+        ' 
+        ' Label4
+        ' 
+        Label4.Anchor = AnchorStyles.Right
+        Label4.AutoSize = True
+        Label4.Location = New Point(20, 7)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(17, 15)
+        Label4.TabIndex = 17
+        Label4.Text = "R:"
+        Label4.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' tbHexColor
+        ' 
+        tbHexColor.Anchor = AnchorStyles.Left
+        tbHexColor.Location = New Point(43, 90)
+        tbHexColor.MaxLength = 6
+        tbHexColor.Name = "tbHexColor"
+        tbHexColor.Size = New Size(55, 23)
+        tbHexColor.TabIndex = 25
+        ' 
+        ' nudR
+        ' 
+        nudR.AllowDrop = True
+        nudR.Anchor = AnchorStyles.Left
+        nudR.AutoSize = True
+        nudR.Location = New Point(43, 3)
+        nudR.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        nudR.Name = "nudR"
+        nudR.Size = New Size(41, 23)
+        nudR.TabIndex = 18
+        nudR.Value = New Decimal(New Integer() {255, 0, 0, 0})
+        ' 
+        ' Label9
+        ' 
+        Label9.Anchor = AnchorStyles.Right
+        Label9.AutoSize = True
+        Label9.Location = New Point(19, 36)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(18, 15)
+        Label9.TabIndex = 19
+        Label9.Text = "G:"
+        Label9.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' nudG
+        ' 
+        nudG.Anchor = AnchorStyles.Left
+        nudG.AutoSize = True
+        nudG.Location = New Point(43, 32)
+        nudG.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        nudG.Name = "nudG"
+        nudG.Size = New Size(41, 23)
+        nudG.TabIndex = 20
+        nudG.Value = New Decimal(New Integer() {255, 0, 0, 0})
+        ' 
+        ' Label10
+        ' 
+        Label10.Anchor = AnchorStyles.Right
+        Label10.AutoSize = True
+        Label10.Location = New Point(20, 65)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(17, 15)
+        Label10.TabIndex = 21
+        Label10.Text = "B:"
+        Label10.TextAlign = ContentAlignment.MiddleRight
+        ' 
+        ' nudB
+        ' 
+        nudB.Anchor = AnchorStyles.Left
+        nudB.AutoSize = True
+        nudB.Location = New Point(43, 61)
+        nudB.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        nudB.Name = "nudB"
+        nudB.Size = New Size(41, 23)
+        nudB.TabIndex = 22
+        nudB.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' tlpShape
         ' 
@@ -528,23 +463,22 @@ Partial Class Console
         Label6.TabIndex = 11
         Label6.Text = "."
         ' 
-        ' tlpMain
+        ' tlpDetails
         ' 
-        tlpMain.AutoSize = True
-        tlpMain.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        tlpMain.ColumnCount = 1
-        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
-        tlpMain.Controls.Add(tlpLineWeight, 0, 2)
-        tlpMain.Controls.Add(tlpShape, 0, 0)
-        tlpMain.Controls.Add(gbLineColor, 0, 1)
-        tlpMain.Location = New Point(23, 3)
-        tlpMain.Name = "tlpMain"
-        tlpMain.RowCount = 3
-        tlpMain.RowStyles.Add(New RowStyle())
-        tlpMain.RowStyles.Add(New RowStyle())
-        tlpMain.RowStyles.Add(New RowStyle())
-        tlpMain.Size = New Size(269, 352)
-        tlpMain.TabIndex = 0
+        tlpDetails.AutoSize = True
+        tlpDetails.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        tlpDetails.ColumnCount = 1
+        tlpDetails.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpDetails.Controls.Add(tlpShape, 0, 0)
+        tlpDetails.Controls.Add(gbGridlines, 0, 1)
+        tlpDetails.Location = New Point(23, 3)
+        tlpDetails.Name = "tlpDetails"
+        tlpDetails.RowCount = 3
+        tlpDetails.RowStyles.Add(New RowStyle())
+        tlpDetails.RowStyles.Add(New RowStyle())
+        tlpDetails.RowStyles.Add(New RowStyle())
+        tlpDetails.Size = New Size(249, 277)
+        tlpDetails.TabIndex = 0
         ' 
         ' MenuStrip1
         ' 
@@ -583,37 +517,76 @@ Partial Class Console
         ObservePageMarginsToolStripMenuItem.Size = New Size(192, 22)
         ObservePageMarginsToolStripMenuItem.Text = "Observe page margins"
         ' 
-        ' TableLayoutPanel1
+        ' tlpMain
         ' 
-        TableLayoutPanel1.ColumnCount = 4
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle())
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
-        TableLayoutPanel1.Controls.Add(tlpMain, 1, 0)
-        TableLayoutPanel1.Controls.Add(GraphPaperControl1, 2, 0)
-        TableLayoutPanel1.Dock = DockStyle.Fill
-        TableLayoutPanel1.Location = New Point(0, 24)
-        TableLayoutPanel1.Name = "TableLayoutPanel1"
-        TableLayoutPanel1.RowCount = 1
-        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
-        TableLayoutPanel1.Size = New Size(800, 426)
-        TableLayoutPanel1.TabIndex = 14
+        tlpMain.ColumnCount = 4
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
+        tlpMain.ColumnStyles.Add(New ColumnStyle())
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
+        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
+        tlpMain.Controls.Add(tlpDetails, 1, 0)
+        tlpMain.Controls.Add(GraphPaperControl1, 2, 0)
+        tlpMain.Dock = DockStyle.Fill
+        tlpMain.Location = New Point(0, 24)
+        tlpMain.Name = "tlpMain"
+        tlpMain.RowCount = 1
+        tlpMain.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        tlpMain.Size = New Size(800, 426)
+        tlpMain.TabIndex = 14
         ' 
         ' GraphPaperControl1
         ' 
+        GraphPaperControl1.BackColor = SystemColors.Window
         GraphPaperControl1.Dock = DockStyle.Fill
-        GraphPaperControl1.Location = New Point(298, 3)
+        GraphPaperControl1.Location = New Point(278, 3)
         GraphPaperControl1.Name = "GraphPaperControl1"
-        GraphPaperControl1.Size = New Size(479, 420)
+        GraphPaperControl1.Size = New Size(499, 420)
         GraphPaperControl1.TabIndex = 1
+        ' 
+        ' TableLayoutPanel3
+        ' 
+        TableLayoutPanel3.AutoSize = True
+        TableLayoutPanel3.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        TableLayoutPanel3.ColumnCount = 2
+        TableLayoutPanel3.ColumnStyles.Add(New ColumnStyle())
+        TableLayoutPanel3.ColumnStyles.Add(New ColumnStyle())
+        TableLayoutPanel3.Controls.Add(RadioButton3, 1, 2)
+        TableLayoutPanel3.Location = New Point(0, 0)
+        TableLayoutPanel3.Name = "TableLayoutPanel3"
+        TableLayoutPanel3.RowCount = 3
+        TableLayoutPanel3.Size = New Size(200, 100)
+        TableLayoutPanel3.TabIndex = 0
+        ' 
+        ' RadioButton3
+        ' 
+        RadioButton3.AutoSize = True
+        RadioButton3.Location = New Point(3, 3)
+        RadioButton3.Name = "RadioButton3"
+        RadioButton3.Size = New Size(35, 19)
+        RadioButton3.TabIndex = 30
+        RadioButton3.Text = "in"
+        RadioButton3.UseVisualStyleBackColor = True
+        ' 
+        ' NumericUpDown4
+        ' 
+        NumericUpDown4.Anchor = AnchorStyles.Right
+        NumericUpDown4.AutoSize = True
+        NumericUpDown4.DecimalPlaces = 2
+        NumericUpDown4.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
+        NumericUpDown4.Location = New Point(3, 38)
+        NumericUpDown4.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
+        NumericUpDown4.Name = "NumericUpDown4"
+        NumericUpDown4.Size = New Size(56, 23)
+        NumericUpDown4.TabIndex = 28
+        NumericUpDown4.Value = New Decimal(New Integer() {1, 0, 0, 131072})
         ' 
         ' Console
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
-        Controls.Add(TableLayoutPanel1)
+        Controls.Add(tlpMain)
         Controls.Add(Label6)
         Controls.Add(MenuStrip1)
         MainMenuStrip = MenuStrip1
@@ -622,77 +595,74 @@ Partial Class Console
         tlpShapeSize.ResumeLayout(False)
         tlpShapeSize.PerformLayout()
         CType(nudSize, ComponentModel.ISupportInitialize).EndInit()
-        gbLineColor.ResumeLayout(False)
-        gbLineColor.PerformLayout()
-        tlpLineColor.ResumeLayout(False)
-        tlpLineColor.PerformLayout()
-        tlpHex.ResumeLayout(False)
-        tlpHex.PerformLayout()
-        tlpRGBbutton.ResumeLayout(False)
-        tlpRGBbutton.PerformLayout()
-        tlpWebColor.ResumeLayout(False)
-        tlpWebColor.PerformLayout()
+        gbGridlines.ResumeLayout(False)
+        gbGridlines.PerformLayout()
+        tlpGridLines.ResumeLayout(False)
+        tlpGridLines.PerformLayout()
+        TableLayoutPanel4.ResumeLayout(False)
+        TableLayoutPanel4.PerformLayout()
+        tlpLineWidth.ResumeLayout(False)
+        tlpLineWidth.PerformLayout()
+        CType(nudLineWidth, ComponentModel.ISupportInitialize).EndInit()
         tlpRGB.ResumeLayout(False)
         tlpRGB.PerformLayout()
-        CType(nudB, ComponentModel.ISupportInitialize).EndInit()
         CType(nudR, ComponentModel.ISupportInitialize).EndInit()
         CType(nudG, ComponentModel.ISupportInitialize).EndInit()
-        tlpLineWeight.ResumeLayout(False)
-        tlpLineWeight.PerformLayout()
-        CType(nudLineWeight, ComponentModel.ISupportInitialize).EndInit()
+        CType(nudB, ComponentModel.ISupportInitialize).EndInit()
         tlpShape.ResumeLayout(False)
         tlpShape.PerformLayout()
-        tlpMain.ResumeLayout(False)
-        tlpMain.PerformLayout()
+        tlpDetails.ResumeLayout(False)
+        tlpDetails.PerformLayout()
         MenuStrip1.ResumeLayout(False)
         MenuStrip1.PerformLayout()
-        TableLayoutPanel1.ResumeLayout(False)
-        TableLayoutPanel1.PerformLayout()
+        tlpMain.ResumeLayout(False)
+        tlpMain.PerformLayout()
+        TableLayoutPanel3.ResumeLayout(False)
+        TableLayoutPanel3.PerformLayout()
+        CType(NumericUpDown4, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
     Friend WithEvents PropertyGrid1 As PropertyGrid
     Friend WithEvents lbShape As ListBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents gbLineColor As GroupBox
-    Friend WithEvents cboxWebColor As ComboBox
-    Friend WithEvents rbWebColor As RadioButton
-    Friend WithEvents rbLineWeightIn As RadioButton
-    Friend WithEvents rbLineWeightMM As RadioButton
-    Friend WithEvents nudLineWeight As NumericUpDown
-    Friend WithEvents Label2 As Label
-    Friend WithEvents lblB As Label
-    Friend WithEvents nudR As NumericUpDown
-    Friend WithEvents nudG As NumericUpDown
-    Friend WithEvents tlpLineColor As TableLayoutPanel
-    Friend WithEvents nudB As NumericUpDown
-    Friend WithEvents Label3 As Label
-    Friend WithEvents tlpRGB As TableLayoutPanel
+    Friend WithEvents gbGridlines As GroupBox
     Friend WithEvents rbSizeIn As RadioButton
     Friend WithEvents rbSizeMM As RadioButton
     Friend WithEvents nudSize As NumericUpDown
     Friend WithEvents tlpShapeSize As TableLayoutPanel
-    Friend WithEvents tlpLineWeight As TableLayoutPanel
-    Friend WithEvents tlpMain As TableLayoutPanel
-    Friend WithEvents tlpWebColor As TableLayoutPanel
+    Friend WithEvents tlpDetails As TableLayoutPanel
     Friend WithEvents tlpShape As TableLayoutPanel
     Friend WithEvents Label5 As Label
-    Friend WithEvents panelRGB As Panel
     Friend WithEvents Label6 As Label
-    Friend WithEvents rbRGB As RadioButton
-    Friend WithEvents tlpRGBbutton As TableLayoutPanel
-    Friend WithEvents Label7 As Label
-    Friend WithEvents tlpHex As TableLayoutPanel
-    Friend WithEvents tbHexColor As TextBox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents rbInvisible0 As RadioButton
-    Friend WithEvents rbInvisible1 As RadioButton
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents PrintingToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PageSetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ObservePageMarginsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents tlpMain As TableLayoutPanel
     Friend WithEvents GraphPaperControl1 As GraphPaperControl
+    Friend WithEvents tlpGridLines As TableLayoutPanel
+    Friend WithEvents rbWebColor As RadioButton
+    Friend WithEvents rbRGB As RadioButton
+    Friend WithEvents cboxWebColor As ComboBox
+    Friend WithEvents tlpRGB As TableLayoutPanel
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents nudR As NumericUpDown
+    Friend WithEvents Label9 As Label
+    Friend WithEvents nudG As NumericUpDown
+    Friend WithEvents Label10 As Label
+    Friend WithEvents nudB As NumericUpDown
+    Friend WithEvents tbHexColor As TextBox
+    Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
+    Friend WithEvents tlpLineWidth As TableLayoutPanel
+    Friend WithEvents rbLineWeightIn As RadioButton
+    Friend WithEvents nudLineWidth As NumericUpDown
+    Friend WithEvents rbLineWeightMM As RadioButton
+    Friend WithEvents Label12 As Label
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents NumericUpDown4 As NumericUpDown
 
 End Class

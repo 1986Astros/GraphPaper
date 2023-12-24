@@ -12,18 +12,18 @@ Public Class GraphPaperControl
     End Sub
     Public Details As GraphPaper    ' = New GraphPaper
 
-    Private Sub GraphPaperControl_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+    Private Sub GraphPaperControl_Paint(sender As Object, e As PaintEventArgs) Handles MyBase.Paint
         If Details Is Nothing Then
             Return
         End If
-        Dim gs As Drawing2D.GraphicsState = e.Graphics.Save
+        Dim gs = e.Graphics.Save
         Try
             e.Graphics.CompositingQuality = Drawing2D.CompositingQuality.HighQuality
             e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
             e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
             e.Graphics.PageUnit = GraphicsUnit.Point        ' working with e.graphics.Dpi, but the UserControl Me.Size is incorrect
 
-            Dim DpmmX As Single = e.Graphics.DpiX / 25.4!
+            Dim DpmmX = e.Graphics.DpiX / 25.4!
             Dim DpmmY As Single = e.Graphics.DpiY / 25.41
             Dim LineSizeInPixels As SizeF
             Dim SquareSizeInPixels As SizeF
@@ -40,7 +40,7 @@ Public Class GraphPaperControl
                 SquareSizeInPixels = New SizeF(DpmmX * Details.ShapeWidth, DpmmY * Details.ShapeWidth)
             End If
 
-            Dim gs2 As Drawing2D.GraphicsState = e.Graphics.Save
+            Dim gs2 = e.Graphics.Save
             Try
                 e.Graphics.PageUnit = GraphicsUnit.Pixel
                 Dim NewSize As Size
@@ -59,15 +59,15 @@ Public Class GraphPaperControl
                 End If
                 Select Case Details.Shape
                     Case GraphPaper.Shapes.Triangles, GraphPaper.Shapes.Diamonds
-                        NewSize = New Size(CInt(Math.Ceiling(LineSizeInPixels2.Width + 10.0! * SquareSizeInPixels2.Width)),
-                                           CInt(Math.Ceiling(LineSizeInPixels2.Height + 10.0! * SquareSizeInPixels2.Height / 2.0! * CSng(Math.Sqrt(3)))))
+                        NewSize = New Size(Math.Ceiling(LineSizeInPixels2.Width + 10.0! * SquareSizeInPixels2.Width),
+                                           Math.Ceiling(LineSizeInPixels2.Height + 10.0! * SquareSizeInPixels2.Height / 2.0! * CSng(Math.Sqrt(3))))
                     Case GraphPaper.Shapes.Squares
-                        NewSize = New Size(CInt(Math.Ceiling(LineSizeInPixels2.Width + 10.0! * SquareSizeInPixels2.Width)), CInt(Math.Ceiling(LineSizeInPixels2.Height + 10.0! * SquareSizeInPixels2.Height)))
+                        NewSize = New Size(Math.Ceiling(LineSizeInPixels2.Width + 10.0! * SquareSizeInPixels2.Width), Math.Ceiling(LineSizeInPixels2.Height + 10.0! * SquareSizeInPixels2.Height))
                     Case GraphPaper.Shapes.Hexagons
                         Dim HexHeight As Single = SquareSizeInPixels2.Height * Math.Sin(Math.PI / 3.0!)
-                        NewSize = New Size(CInt(Math.Ceiling(LineSizeInPixels2.Width + (15.0! + 15.0! * Math.PI / 180.0!) * SquareSizeInPixels2.Width)), CInt(Math.Ceiling(LineSizeInPixels2.Height + 10.5! * HexHeight)))
+                        NewSize = New Size(Math.Ceiling(LineSizeInPixels2.Width + (15.0! + 15.0! * Math.PI / 180.0!) * SquareSizeInPixels2.Width), Math.Ceiling(LineSizeInPixels2.Height + 10.5! * HexHeight))
                 End Select
-                Select Case Me.BorderStyle
+                Select Case BorderStyle
                     Case BorderStyle.None
                     Case BorderStyle.FixedSingle
                         NewSize.Width += SystemInformation.BorderSize.Width + 1
@@ -77,8 +77,8 @@ Public Class GraphPaperControl
                         NewSize.Height += SystemInformation.Border3DSize.Height + 1
                 End Select
 
-                If Not Me.Size.Equals(NewSize) Then
-                    Me.Size = NewSize
+                If Not Size.Equals(NewSize) Then
+                    Size = NewSize
                 End If
             Catch ex2 As Exception
             Finally
@@ -87,13 +87,13 @@ Public Class GraphPaperControl
 
             Select Case Details.Shape
                 Case GraphPaper.Shapes.Triangles, GraphPaper.Shapes.Diamonds
-                    Using LinePen As Pen = New Pen(Details.LineColor, LineSizeInPixels.Width)
-                        Dim y As Single = LineSizeInPixels.Height / 2.0!
-                        Dim dy As Single = SquareSizeInPixels.Height / 2.0! * CSng(Math.Sqrt(3))
+                    Using LinePen = New Pen(Details.LineColor, LineSizeInPixels.Width)
+                        Dim y = LineSizeInPixels.Height / 2.0!
+                        Dim dy = SquareSizeInPixels.Height / 2.0! * CSng(Math.Sqrt(3))
                         If Details.Shape = GraphPaper.Shapes.Triangles Then
                             ' horizontal lines
-                            For row As Integer = 1 To 11
-                                If (row Mod 2) = 0 Then
+                            For row = 1 To 11
+                                If row Mod 2 = 0 Then
                                     e.Graphics.DrawLine(LinePen, SquareSizeInPixels.Width / 2.0!, y, 9.5! * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!, y)
                                 Else
                                     e.Graphics.DrawLine(LinePen, 0, y, 10.0! * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!, y)
@@ -103,14 +103,14 @@ Public Class GraphPaperControl
                         End If
                         ' diagonal lines starting at top
                         dy *= 2
-                        Dim x As Single = 0!    ' LineSizeInPixels.Width / 2.0!
-                        Dim dx As Single = SquareSizeInPixels.Width / 2.0! * CSng(Math.Sqrt(3))
-                        For col As Integer = 1 To 10
+                        Dim x = 0!    ' LineSizeInPixels.Width / 2.0!
+                        Dim dx = SquareSizeInPixels.Width / 2.0! * CSng(Math.Sqrt(3))
+                        For col = 1 To 10
                             ' left-to-right
                             e.Graphics.DrawLine(LinePen,
                                                 x,
                                                 LineSizeInPixels.Height / 2.0!,
-                                                Math.Min(10.0!, CSng(col + 4)) * SquareSizeInPixels.Width,
+                                                Math.Min(10.0!, col + 4) * SquareSizeInPixels.Width,
                                                 IIf(col <= 5, 5.0!, CSng(11 - col)) * dy)
                             x += SquareSizeInPixels.Width
                             ' right-to-left
@@ -119,84 +119,84 @@ Public Class GraphPaperControl
                                                 x,
                                                 LineSizeInPixels.Height / 2.0!,
                                                 LineSizeInPixels.Width / 2,
-                                                Math.Min(CSng(col), 5.5!) * dy)
+                                                Math.Min(col, 5.5!) * dy)
                             Else
                                 e.Graphics.DrawLine(LinePen,
                                                     x + LineSizeInPixels.Width / 2.0!,
                                                     LineSizeInPixels.Height / 2.0!,
-                                                    (CSng(col) - 5.0!) * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!,
+                                                    (col - 5.0!) * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!,
                                                     5.0! * dy)
                             End If
                         Next
                         ' diagonal lines starting from left and right endpoints of each row
                         y = LineSizeInPixels.Height / 2.0!
-                        For row As Integer = 2 To 8 Step 2
+                        For row = 2 To 8 Step 2
                             y += dy
                             e.Graphics.DrawLine(LinePen,
                                                 LineSizeInPixels.Width / 2.0!,
                                                 y,
-                                                CSng(10 - row) / 2.0! * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!,
-                                                y + CSng(10 - row) / 2.0! * dy)
+                                                10 - row / 2.0! * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!,
+                                                y + 10 - row / 2.0! * dy)
                             e.Graphics.DrawLine(LinePen,
                                                 10.0! * SquareSizeInPixels.Width,
                                                 y,
-                                                CSng(row + 10) / 2.0! * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!,
-                                                y + CSng(10 - row) / 2.0! * dy)
+                                                row + 10 / 2.0! * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2.0!,
+                                                y + 10 - row / 2.0! * dy)
                         Next
                     End Using
                 Case GraphPaper.Shapes.Squares
-                    Using LinePen As Pen = New Pen(Details.LineColor, LineSizeInPixels.Width)
-                        Dim x As Single = 0!
-                        Dim y As Single = LineSizeInPixels.Height + 10.0! * SquareSizeInPixels.Height
-                        For i As Integer = 1 To 11
+                    Using LinePen = New Pen(Details.LineColor, LineSizeInPixels.Width)
+                        Dim x = 0!
+                        Dim y = LineSizeInPixels.Height + 10.0! * SquareSizeInPixels.Height
+                        For i = 1 To 11
                             e.Graphics.DrawLine(LinePen, x, 0!, x, y)
                             x += SquareSizeInPixels.Width
                         Next
 
                         x = LineSizeInPixels.Width + 10.0! * SquareSizeInPixels.Width
                         y = 0!
-                        For i As Integer = 1 To 11
+                        For i = 1 To 11
                             e.Graphics.DrawLine(LinePen, 0, y, x, y)
                             y += SquareSizeInPixels.Height
                         Next
                     End Using
                 Case GraphPaper.Shapes.Hexagons
-                    Dim points As List(Of PointF) = New List(Of PointF)
+                    Dim points = New List(Of PointF)
                     Dim angle As Single = 2.0! * Math.PI / 6.0!
-                    For i As Single = 0! To 5.0!
+                    For i = 0! To 5.0!
                         points.Add(New PointF(SquareSizeInPixels.Width / 2.0! * Math.Sin(i * angle), SquareSizeInPixels.Width / 2.0! * Math.Cos(i * angle)))
                     Next
                     points.Add(points(0))
 
-                    Using gpOddRows As Drawing2D.GraphicsPath = New Drawing2D.GraphicsPath
+                    Using gpOddRows = New Drawing2D.GraphicsPath
                         gpOddRows.AddPolygon(points.ToArray)
 
-                        Using m As Drawing2D.Matrix = New Drawing2D.Matrix
+                        Using m = New Drawing2D.Matrix
                             m.RotateAt(30.0!, PointF.Empty)
                             gpOddRows.Transform(m)
                         End Using
 
-                        Using mOffset As Drawing2D.Matrix = New Drawing2D.Matrix
+                        Using mOffset = New Drawing2D.Matrix
                             mOffset.Translate(-gpOddRows.PathPoints.Min(Function(p) p.X) + LineSizeInPixels.Width / 2.0!, -gpOddRows.PathPoints.Min(Function(p) p.Y) + LineSizeInPixels.Width / 2.0!)
                             gpOddRows.Transform(mOffset)
                         End Using
 
-                        Using gpEvenRows As Drawing2D.GraphicsPath = gpOddRows.Clone()
-                            Using mEvenRows As Drawing2D.Matrix = New Drawing2D.Matrix
+                        Using gpEvenRows As Drawing2D.GraphicsPath = gpOddRows.Clone
+                            Using mEvenRows = New Drawing2D.Matrix
                                 mEvenRows.Translate(gpEvenRows.PathPoints(1).X - gpEvenRows.PathPoints(5).X, gpEvenRows.PathPoints(2).Y - gpEvenRows.PathPoints(3).Y)
                                 gpEvenRows.Transform(mEvenRows)
                             End Using
 
-                            Using mMoveRight As Drawing2D.Matrix = New Drawing2D.Matrix
+                            Using mMoveRight = New Drawing2D.Matrix
                                 mMoveRight.Translate(gpOddRows.PathPoints(3).X - gpOddRows.PathPoints(4).X + SquareSizeInPixels.Width, 0!)
 
-                                Using mMoveDown As Drawing2D.Matrix = New Drawing2D.Matrix
+                                Using mMoveDown = New Drawing2D.Matrix
                                     mMoveDown.Translate(0!, gpOddRows.PathPoints(1).Y - gpOddRows.PathPoints(3).Y)
 
-                                    Using LinePen As Pen = New Pen(Details.LineColor, LineSizeInPixels.Width)
-                                        For xx As Integer = 1 To 10
+                                    Using LinePen = New Pen(Details.LineColor, LineSizeInPixels.Width)
+                                        For xx = 1 To 10
                                             Using gpThisOddRow As Drawing2D.GraphicsPath = gpOddRows.Clone
-                                                For i As Integer = 1 To 10
+                                                For i = 1 To 10
                                                     e.Graphics.DrawPath(LinePen, gpThisOddRow)
                                                     gpThisOddRow.Transform(mMoveRight)
                                                 Next
@@ -204,7 +204,7 @@ Public Class GraphPaperControl
                                             gpOddRows.Transform(mMoveDown)
 
                                             Using gpThisEvenRow As Drawing2D.GraphicsPath = gpEvenRows.Clone
-                                                For i As Integer = 1 To 10
+                                                For i = 1 To 10
                                                     e.Graphics.DrawPath(LinePen, gpThisEvenRow)
                                                     gpThisEvenRow.Transform(mMoveRight)
                                                 Next

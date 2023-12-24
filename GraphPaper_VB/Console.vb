@@ -29,7 +29,7 @@ Public Class Console
         Else
             rbSizeIn.Checked = True
         End If
-        nudLineWeight.Value = Details.LineWidth
+        nudLineWidth.Value = Details.LineWidth
         If Details.LineWidthUnits = GraphPaper.Units.Millimeters Then
             rbLineWeightMM.Checked = True
         Else
@@ -106,11 +106,9 @@ Public Class Console
 
     Private Sub rbWebColor_CheckedChanged(sender As Object, e As EventArgs) Handles rbWebColor.CheckedChanged
         If Initialized Then
-            If rbWebColor.Checked = rbRGB.Checked Then
-                rbRGB.Checked = Not rbWebColor.Checked
+            If rbWebColor.Checked Then
                 cboxWebColor.Enabled = True
                 tlpRGB.Enabled = False
-                tlpHex.Enabled = False
                 Details.LineColor = cboxWebColor.SelectedItem
                 GraphPaperControl1.Invalidate()
             End If
@@ -151,33 +149,31 @@ Public Class Console
 
     Private Sub rbRGB_CheckedChanged(sender As Object, e As EventArgs) Handles rbRGB.CheckedChanged
         If Initialized Then
-            If rbWebColor.Checked = rbRGB.Checked Then
-                rbWebColor.Checked = Not rbRGB.Checked
+            If rbRGB.Checked Then
                 cboxWebColor.Enabled = False
                 tlpRGB.Enabled = True
-                tlpHex.Enabled = True
-                Details.LineColor = panelRGB.BackColor
+                Details.LineColor = GridlineColor
                 GraphPaperControl1.Invalidate()
             End If
         End If
     End Sub
 
     Private ChangingHex As Boolean = False
-    Private Sub nudR_ValueChanged(sender As Object, e As EventArgs) Handles nudR.ValueChanged
+    Private Sub nudR_ValueChanged(sender As Object, e As EventArgs) Handles nudR.ValueChanged, nudR.ValueChanged
         If Initialized Then
             UpdateHexFromRGB()
             GraphPaperControl1.Invalidate()
         End If
     End Sub
 
-    Private Sub nudG_ValueChanged(sender As Object, e As EventArgs) Handles nudG.ValueChanged
+    Private Sub nudG_ValueChanged(sender As Object, e As EventArgs) Handles nudG.ValueChanged, nudG.ValueChanged
         If Initialized Then
             UpdateHexFromRGB()
             GraphPaperControl1.Invalidate()
         End If
     End Sub
 
-    Private Sub nudB_ValueChanged(sender As Object, e As EventArgs) Handles nudB.ValueChanged
+    Private Sub nudB_ValueChanged(sender As Object, e As EventArgs) Handles nudB.ValueChanged, nudB.ValueChanged
         If Initialized Then
             UpdateHexFromRGB()
             GraphPaperControl1.Invalidate()
@@ -188,39 +184,14 @@ Public Class Console
         If Not ChangingHex Then
             tbHexColor.Text = (nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value).ToString("x")
             GraphPaperControl1.Invalidate()
-            panelRGB.BackColor = Details.LineColor
-            '            panelRGB.Invalidate()
+            GridlineColor = Details.LineColor
         End If
     End Sub
 
-    Private Sub tbHexColor_TextChanged(sender As Object, e As EventArgs) Handles tbHexColor.TextChanged
+    Private Sub tbHexColor_TextChanged(sender As Object, e As EventArgs) Handles tbHexColor.TextChanged, tbHexColor.TextChanged
         If Initialized Then
             UpdateRGBFromHex()
-            'ChangingHex = True
-            'Dim s As String = tbHexColor.Text.Trim()
-            'Dim result As Integer
-            'Dim r, b, g As Integer
-            'Try
-            '    result = Convert.ToInt32(0 & tbHexColor.Text, 16)
-            '    r = (result And &HFF0000) >> 16
-            '    g = (result And &HFF00) >> 8
-            '    b = result And &HFF
-            'Catch ex As FormatException
-            '    result = 0
-            '    r = 0
-            '    g = 0
-            '    b = 0
-            'Catch ex As Exception
-            'End Try
-            'nudR.Value = r
-            'nudG.Value = g
-            'nudB.Value = b
-            'Details.LineColor = Color.FromArgb(255, r, g, b)
-            'GraphPaperControl1.Invalidate()
-            'ChangingHex = False
-            'panelRGB.Invalidate()
         End If
-
 
     End Sub
     Private Sub UpdateRGBFromHex()
@@ -246,13 +217,12 @@ Public Class Console
         Details.LineColor = Color.FromArgb(255, r, g, b)
         GraphPaperControl1.Invalidate()
         ChangingHex = False
-        panelRGB.BackColor = Details.LineColor
-        'panelRGB.Invalidate()
+        GridlineColor = Details.LineColor
     End Sub
 
-    Private Sub nudLineWeight_ValueChanged(sender As Object, e As EventArgs) Handles nudLineWeight.ValueChanged
+    Private Sub nudLineWeight_ValueChanged(sender As Object, e As EventArgs) Handles nudLineWidth.ValueChanged
         If Initialized Then
-            Details.LineWidth = nudLineWeight.Value
+            Details.LineWidth = nudLineWidth.Value
             GraphPaperControl1.Invalidate()
         End If
     End Sub
@@ -275,12 +245,5 @@ Public Class Console
         End If
     End Sub
 
-    'Private Sub panelRGB_Paint(sender As Object, e As PaintEventArgs) Handles panelRGB.Paint
-    '    panelRGB.BackColor = (Color.FromArgb(&HFF000000 Or nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value))
-    '    Return
-    '    ' paint the color specified by RGB
-    '    Using brush As SolidBrush = New SolidBrush(Color.FromArgb(&HFF000000 Or nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value))
-    '        e.Graphics.FillRectangle(brush, New Rectangle(Point.Empty, panelRGB.Bounds.Size))
-    '    End Using
-    'End Sub
+    Private GridlineColor As Color
 End Class
