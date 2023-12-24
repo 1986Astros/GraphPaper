@@ -204,15 +204,15 @@ Partial Class Console
         tlpHex.ColumnStyles.Add(New ColumnStyle())
         tlpHex.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
         tlpHex.Controls.Add(Label7, 2, 0)
-        tlpHex.Controls.Add(tbHexColor, 3, 0)
         tlpHex.Controls.Add(rbInvisible1, 0, 1)
+        tlpHex.Controls.Add(tbHexColor, 3, 0)
         tlpHex.Dock = DockStyle.Fill
         tlpHex.Enabled = False
         tlpHex.Location = New Point(3, 107)
         tlpHex.Name = "tlpHex"
         tlpHex.RowCount = 2
         tlpHex.RowStyles.Add(New RowStyle())
-        tlpHex.RowStyles.Add(New RowStyle(SizeType.Absolute, 1.0F))
+        tlpHex.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
         tlpHex.Size = New Size(251, 30)
         tlpHex.TabIndex = 21
         ' 
@@ -229,6 +229,7 @@ Partial Class Console
         ' tbHexColor
         ' 
         tbHexColor.Location = New Point(121, 3)
+        tbHexColor.MaxLength = 6
         tbHexColor.Name = "tbHexColor"
         tbHexColor.Size = New Size(55, 23)
         tbHexColor.TabIndex = 23
@@ -236,6 +237,7 @@ Partial Class Console
         ' rbInvisible1
         ' 
         rbInvisible1.AutoSize = True
+        rbInvisible1.Enabled = False
         rbInvisible1.Location = New Point(3, 32)
         rbInvisible1.Name = "rbInvisible1"
         rbInvisible1.Size = New Size(14, 1)
@@ -248,7 +250,7 @@ Partial Class Console
         tlpRGBbutton.AutoSizeMode = AutoSizeMode.GrowAndShrink
         tlpRGBbutton.ColumnCount = 2
         tlpRGBbutton.ColumnStyles.Add(New ColumnStyle())
-        tlpRGBbutton.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0F))
+        tlpRGBbutton.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
         tlpRGBbutton.Controls.Add(rbRGB, 0, 0)
         tlpRGBbutton.Controls.Add(panelRGB, 1, 0)
         tlpRGBbutton.Location = New Point(3, 39)
@@ -282,7 +284,7 @@ Partial Class Console
         tlpWebColor.AutoSizeMode = AutoSizeMode.GrowAndShrink
         tlpWebColor.ColumnCount = 2
         tlpWebColor.ColumnStyles.Add(New ColumnStyle())
-        tlpWebColor.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100.0F))
+        tlpWebColor.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
         tlpWebColor.Controls.Add(rbWebColor, 0, 0)
         tlpWebColor.Controls.Add(cboxWebColor, 1, 0)
         tlpWebColor.Location = New Point(3, 3)
@@ -323,10 +325,10 @@ Partial Class Console
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
-        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        tlpRGB.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.ColumnStyles.Add(New ColumnStyle())
         tlpRGB.Controls.Add(nudB, 8, 0)
@@ -413,6 +415,7 @@ Partial Class Console
         ' rbInvisible0
         ' 
         rbInvisible0.AutoSize = True
+        rbInvisible0.Enabled = False
         rbInvisible0.Location = New Point(3, 32)
         rbInvisible0.Name = "rbInvisible0"
         rbInvisible0.Size = New Size(14, 1)

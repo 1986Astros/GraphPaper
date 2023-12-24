@@ -46,7 +46,13 @@ Public Class Console
                 cboxWebColor.Items.Add(Color.FromName(ColorName))
             End If
         Next
-        cboxWebColor.SelectedItem = Details.LineColor
+        If Details.LineColor.IsKnownColor Then
+            rbWebColor.Checked = True
+            cboxWebColor.SelectedItem = Details.LineColor
+        Else
+            rbRGB.Checked = True
+        End If
+        tbHexColor.Text = Strings.Right(Details.LineColor.ToArgb.ToString("x"), 6)
 
         Initialized = True
     End Sub
@@ -93,7 +99,10 @@ Public Class Console
     Private Sub rbWebColor_CheckedChanged(sender As Object, e As EventArgs) Handles rbWebColor.CheckedChanged
         If Initialized Then
             If rbWebColor.Checked = rbRGB.Checked Then
-                rbWebColor.Checked = Not rbRGB.Checked
+                rbRGB.Checked = Not rbWebColor.Checked
+                cboxWebColor.Enabled = True
+                tlpRGB.Enabled = False
+                tlpHex.Enabled = False
                 GraphPaperControl1.Invalidate()
             End If
         End If
@@ -112,17 +121,13 @@ Public Class Console
             End Using
             r = New Rectangle(e.Bounds.Left + 30, e.Bounds.Top, e.Bounds.Width - 30, e.Bounds.Height)
             e.Graphics.DrawString(CType(cboxWebColor.Items(e.Index), Color).Name, e.Font, Brushes.Black, r, StringFormat.GenericDefault)
-        Else
             If e.State = DrawItemState.Selected Then
 
             End If
             If e.State = DrawItemState.Focus Then
 
             End If
-            e.Graphics.FillRectangle(Brushes.Pink, e.Bounds)
-            If cboxWebColor.Focused Then
-                e.Graphics.DrawRectangle(Pens.Gray, e.Bounds)
-            End If
+        Else
         End If
     End Sub
 
@@ -137,14 +142,22 @@ Public Class Console
         If Initialized Then
             If rbWebColor.Checked = rbRGB.Checked Then
                 rbWebColor.Checked = Not rbRGB.Checked
+                cboxWebColor.Enabled = False
+                tlpRGB.Enabled = True
+                tlpHex.Enabled = True
                 GraphPaperControl1.Invalidate()
             End If
         End If
     End Sub
 
+    Private ChangingHex As Boolean = False
     Private Sub nudR_ValueChanged(sender As Object, e As EventArgs) Handles nudR.ValueChanged
         If Initialized Then
+            If Not ChangingHex Then
+                tbHexColor.Text = (nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value).ToString("x")
+            End If
             GraphPaperControl1.Invalidate()
+            panelRGB.Invalidate()
         End If
     End Sub
 
@@ -162,7 +175,28 @@ Public Class Console
 
     Private Sub tbHexColor_TextChanged(sender As Object, e As EventArgs) Handles tbHexColor.TextChanged
         If Initialized Then
+            ChangingHex = True
+            Dim s As String = tbHexColor.Text.Trim()
+            Dim result As Integer
+            Dim r, b, g As Integer
+            Try
+                result = Convert.ToInt32(0 & tbHexColor.Text, 16)
+                r = (result And &HFF0000) >> 16
+                g = (result And &HFF00) >> 8
+                b = result And &HFF
+            Catch ex As FormatException
+                result = 0
+                r = 0
+                g = 0
+                b = 0
+            Catch ex As Exception
+            End Try
+            nudR.Value = r
+            nudG.Value = g
+            nudB.Value = b
             GraphPaperControl1.Invalidate()
+            ChangingHex = False
+            panelRGB.Invalidate()
         End If
     End Sub
 
@@ -189,5 +223,12 @@ Public Class Console
                 GraphPaperControl1.Invalidate()
             End If
         End If
+    End Sub
+
+    Private Sub panelRGB_Paint(sender As Object, e As PaintEventArgs) Handles panelRGB.Paint
+        ' paint the color specified by RGB
+        Using brush As SolidBrush = New SolidBrush(Color.FromArgb(nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value))
+            e.Graphics.FillRectangle(brush, panelRGB.Bounds())
+        End Using
     End Sub
 End Class
