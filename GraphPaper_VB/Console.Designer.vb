@@ -32,8 +32,8 @@ Partial Class Console
         tlpLineColor = New TableLayoutPanel()
         tlpHex = New TableLayoutPanel()
         Label7 = New Label()
-        tbHexColor = New TextBox()
         rbInvisible1 = New RadioButton()
+        tbHexColor = New TextBox()
         tlpRGBbutton = New TableLayoutPanel()
         rbRGB = New RadioButton()
         panelRGB = New Panel()
@@ -191,7 +191,7 @@ Partial Class Console
         tlpLineColor.RowStyles.Add(New RowStyle())
         tlpLineColor.RowStyles.Add(New RowStyle())
         tlpLineColor.Size = New Size(257, 140)
-        tlpLineColor.TabIndex = 9
+        tlpLineColor.TabIndex = 13
         ' 
         ' tlpHex
         ' 
@@ -214,7 +214,7 @@ Partial Class Console
         tlpHex.RowStyles.Add(New RowStyle())
         tlpHex.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
         tlpHex.Size = New Size(251, 30)
-        tlpHex.TabIndex = 21
+        tlpHex.TabIndex = 23
         ' 
         ' Label7
         ' 
@@ -223,16 +223,8 @@ Partial Class Console
         Label7.Location = New Point(94, 7)
         Label7.Name = "Label7"
         Label7.Size = New Size(21, 15)
-        Label7.TabIndex = 22
+        Label7.TabIndex = 24
         Label7.Text = "##"
-        ' 
-        ' tbHexColor
-        ' 
-        tbHexColor.Location = New Point(121, 3)
-        tbHexColor.MaxLength = 6
-        tbHexColor.Name = "tbHexColor"
-        tbHexColor.Size = New Size(55, 23)
-        tbHexColor.TabIndex = 23
         ' 
         ' rbInvisible1
         ' 
@@ -243,6 +235,14 @@ Partial Class Console
         rbInvisible1.Size = New Size(14, 1)
         rbInvisible1.TabIndex = 23
         rbInvisible1.UseVisualStyleBackColor = True
+        ' 
+        ' tbHexColor
+        ' 
+        tbHexColor.Location = New Point(121, 3)
+        tbHexColor.MaxLength = 6
+        tbHexColor.Name = "tbHexColor"
+        tbHexColor.Size = New Size(55, 23)
+        tbHexColor.TabIndex = 25
         ' 
         ' tlpRGBbutton
         ' 
@@ -266,7 +266,8 @@ Partial Class Console
         rbRGB.Location = New Point(3, 3)
         rbRGB.Name = "rbRGB"
         rbRGB.Size = New Size(50, 19)
-        rbRGB.TabIndex = 0
+        rbRGB.TabIndex = 14
+        rbRGB.TabStop = True
         rbRGB.Text = "RGB:"
         rbRGB.UseVisualStyleBackColor = True
         ' 
@@ -276,7 +277,7 @@ Partial Class Console
         panelRGB.Location = New Point(59, 3)
         panelRGB.Name = "panelRGB"
         panelRGB.Size = New Size(40, 20)
-        panelRGB.TabIndex = 13
+        panelRGB.TabIndex = 15
         ' 
         ' tlpWebColor
         ' 
@@ -302,7 +303,7 @@ Partial Class Console
         rbWebColor.Location = New Point(3, 5)
         rbWebColor.Name = "rbWebColor"
         rbWebColor.Size = New Size(82, 19)
-        rbWebColor.TabIndex = 10
+        rbWebColor.TabIndex = 11
         rbWebColor.TabStop = True
         rbWebColor.Text = "Web color:"
         rbWebColor.UseVisualStyleBackColor = True
@@ -315,7 +316,7 @@ Partial Class Console
         cboxWebColor.Location = New Point(91, 3)
         cboxWebColor.Name = "cboxWebColor"
         cboxWebColor.Size = New Size(157, 24)
-        cboxWebColor.TabIndex = 11
+        cboxWebColor.TabIndex = 12
         ' 
         ' tlpRGB
         ' 
@@ -346,7 +347,7 @@ Partial Class Console
         tlpRGB.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
         tlpRGB.RowStyles.Add(New RowStyle(SizeType.Absolute, 1F))
         tlpRGB.Size = New Size(251, 30)
-        tlpRGB.TabIndex = 14
+        tlpRGB.TabIndex = 16
         ' 
         ' nudB
         ' 
@@ -355,7 +356,7 @@ Partial Class Console
         nudB.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         nudB.Name = "nudB"
         nudB.Size = New Size(41, 23)
-        nudB.TabIndex = 20
+        nudB.TabIndex = 22
         nudB.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' Label2
@@ -365,7 +366,7 @@ Partial Class Console
         Label2.Location = New Point(23, 7)
         Label2.Name = "Label2"
         Label2.Size = New Size(14, 15)
-        Label2.TabIndex = 15
+        Label2.TabIndex = 17
         Label2.Text = "R"
         Label2.TextAlign = ContentAlignment.MiddleRight
         ' 
@@ -377,7 +378,7 @@ Partial Class Console
         nudR.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         nudR.Name = "nudR"
         nudR.Size = New Size(41, 23)
-        nudR.TabIndex = 16
+        nudR.TabIndex = 18
         nudR.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' nudG
@@ -387,7 +388,7 @@ Partial Class Console
         nudG.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         nudG.Name = "nudG"
         nudG.Size = New Size(41, 23)
-        nudG.TabIndex = 18
+        nudG.TabIndex = 20
         nudG.Value = New Decimal(New Integer() {255, 0, 0, 0})
         ' 
         ' Label3
@@ -397,7 +398,7 @@ Partial Class Console
         Label3.Location = New Point(104, 7)
         Label3.Name = "Label3"
         Label3.Size = New Size(15, 15)
-        Label3.TabIndex = 17
+        Label3.TabIndex = 19
         Label3.Text = "G"
         Label3.TextAlign = ContentAlignment.MiddleRight
         ' 
@@ -408,7 +409,7 @@ Partial Class Console
         lblB.Location = New Point(186, 7)
         lblB.Name = "lblB"
         lblB.Size = New Size(14, 15)
-        lblB.TabIndex = 19
+        lblB.TabIndex = 21
         lblB.Text = "B"
         lblB.TextAlign = ContentAlignment.MiddleRight
         ' 
@@ -441,7 +442,7 @@ Partial Class Console
         tlpLineWeight.RowStyles.Add(New RowStyle())
         tlpLineWeight.RowStyles.Add(New RowStyle())
         tlpLineWeight.Size = New Size(115, 70)
-        tlpLineWeight.TabIndex = 24
+        tlpLineWeight.TabIndex = 26
         ' 
         ' rbLineWeightIn
         ' 
@@ -449,7 +450,7 @@ Partial Class Console
         rbLineWeightIn.Location = New Point(65, 48)
         rbLineWeightIn.Name = "rbLineWeightIn"
         rbLineWeightIn.Size = New Size(35, 19)
-        rbLineWeightIn.TabIndex = 28
+        rbLineWeightIn.TabIndex = 30
         rbLineWeightIn.Text = "in"
         rbLineWeightIn.UseVisualStyleBackColor = True
         ' 
@@ -464,7 +465,7 @@ Partial Class Console
         nudLineWeight.Name = "nudLineWeight"
         tlpLineWeight.SetRowSpan(nudLineWeight, 2)
         nudLineWeight.Size = New Size(56, 23)
-        nudLineWeight.TabIndex = 26
+        nudLineWeight.TabIndex = 28
         nudLineWeight.Value = New Decimal(New Integer() {1, 0, 0, 131072})
         ' 
         ' rbLineWeightMM
@@ -475,7 +476,7 @@ Partial Class Console
         rbLineWeightMM.Location = New Point(65, 23)
         rbLineWeightMM.Name = "rbLineWeightMM"
         rbLineWeightMM.Size = New Size(47, 19)
-        rbLineWeightMM.TabIndex = 27
+        rbLineWeightMM.TabIndex = 29
         rbLineWeightMM.TabStop = True
         rbLineWeightMM.Text = "mm"
         rbLineWeightMM.UseVisualStyleBackColor = True
@@ -487,7 +488,7 @@ Partial Class Console
         Label8.Location = New Point(3, 0)
         Label8.Name = "Label8"
         Label8.Size = New Size(68, 15)
-        Label8.TabIndex = 25
+        Label8.TabIndex = 27
         Label8.Text = "Line weight"
         ' 
         ' tlpShape
