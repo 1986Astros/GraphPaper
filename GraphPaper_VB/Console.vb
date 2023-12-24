@@ -48,11 +48,14 @@ Public Class Console
         Next
         If Details.LineColor.IsKnownColor Then
             rbWebColor.Checked = True
+            rbRGB.Checked = False
             cboxWebColor.SelectedItem = Details.LineColor
         Else
+            rbWebColor.Checked = False
             rbRGB.Checked = True
         End If
         tbHexColor.Text = Strings.Right(Details.LineColor.ToArgb.ToString("x"), 6)
+        UpdateRGBFromHex()
 
         Initialized = True
     End Sub
@@ -103,6 +106,7 @@ Public Class Console
                 cboxWebColor.Enabled = True
                 tlpRGB.Enabled = False
                 tlpHex.Enabled = False
+                Details.LineColor = cboxWebColor.SelectedItem
                 GraphPaperControl1.Invalidate()
             End If
         End If
@@ -112,6 +116,11 @@ Public Class Console
         If e.Index >= 0 Then
             Dim r As Rectangle
             Using gp As GraphicsPath = New GraphicsPath
+                If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
+                    e.Graphics.FillRectangle(SystemBrushes.Menu, e.Bounds)
+                Else
+                    e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds)
+                End If
                 r = New Rectangle(e.Bounds.Left + 5, e.Bounds.Top + 2, 20, e.Bounds.Height - 4)
                 gp.AddRectangle(r)
                 Using br As Brush = New SolidBrush(CType(cboxWebColor.Items(e.Index), Color))
@@ -121,11 +130,8 @@ Public Class Console
             End Using
             r = New Rectangle(e.Bounds.Left + 30, e.Bounds.Top, e.Bounds.Width - 30, e.Bounds.Height)
             e.Graphics.DrawString(CType(cboxWebColor.Items(e.Index), Color).Name, e.Font, Brushes.Black, r, StringFormat.GenericDefault)
-            If e.State = DrawItemState.Selected Then
-
-            End If
-            If e.State = DrawItemState.Focus Then
-
+            If (e.State And DrawItemState.Focus) = DrawItemState.Focus Then
+                ControlPaint.DrawFocusRectangle(e.Graphics, e.Bounds)
             End If
         Else
         End If
@@ -145,6 +151,7 @@ Public Class Console
                 cboxWebColor.Enabled = False
                 tlpRGB.Enabled = True
                 tlpHex.Enabled = True
+                Details.LineColor = panelRGB.BackColor
                 GraphPaperControl1.Invalidate()
             End If
         End If
@@ -153,51 +160,89 @@ Public Class Console
     Private ChangingHex As Boolean = False
     Private Sub nudR_ValueChanged(sender As Object, e As EventArgs) Handles nudR.ValueChanged
         If Initialized Then
-            If Not ChangingHex Then
-                tbHexColor.Text = (nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value).ToString("x")
-            End If
+            UpdateHexFromRGB()
             GraphPaperControl1.Invalidate()
-            panelRGB.Invalidate()
         End If
     End Sub
 
     Private Sub nudG_ValueChanged(sender As Object, e As EventArgs) Handles nudG.ValueChanged
         If Initialized Then
+            UpdateHexFromRGB()
             GraphPaperControl1.Invalidate()
         End If
     End Sub
 
     Private Sub nudB_ValueChanged(sender As Object, e As EventArgs) Handles nudB.ValueChanged
         If Initialized Then
+            UpdateHexFromRGB()
             GraphPaperControl1.Invalidate()
+        End If
+    End Sub
+
+    Private Sub UpdateHexFromRGB()
+        If Not ChangingHex Then
+            tbHexColor.Text = (nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value).ToString("x")
+            GraphPaperControl1.Invalidate()
+            panelRGB.BackColor = Details.LineColor
+            '            panelRGB.Invalidate()
         End If
     End Sub
 
     Private Sub tbHexColor_TextChanged(sender As Object, e As EventArgs) Handles tbHexColor.TextChanged
         If Initialized Then
-            ChangingHex = True
-            Dim s As String = tbHexColor.Text.Trim()
-            Dim result As Integer
-            Dim r, b, g As Integer
-            Try
-                result = Convert.ToInt32(0 & tbHexColor.Text, 16)
-                r = (result And &HFF0000) >> 16
-                g = (result And &HFF00) >> 8
-                b = result And &HFF
-            Catch ex As FormatException
-                result = 0
-                r = 0
-                g = 0
-                b = 0
-            Catch ex As Exception
-            End Try
-            nudR.Value = r
-            nudG.Value = g
-            nudB.Value = b
-            GraphPaperControl1.Invalidate()
-            ChangingHex = False
-            panelRGB.Invalidate()
+            UpdateRGBFromHex()
+            'ChangingHex = True
+            'Dim s As String = tbHexColor.Text.Trim()
+            'Dim result As Integer
+            'Dim r, b, g As Integer
+            'Try
+            '    result = Convert.ToInt32(0 & tbHexColor.Text, 16)
+            '    r = (result And &HFF0000) >> 16
+            '    g = (result And &HFF00) >> 8
+            '    b = result And &HFF
+            'Catch ex As FormatException
+            '    result = 0
+            '    r = 0
+            '    g = 0
+            '    b = 0
+            'Catch ex As Exception
+            'End Try
+            'nudR.Value = r
+            'nudG.Value = g
+            'nudB.Value = b
+            'Details.LineColor = Color.FromArgb(255, r, g, b)
+            'GraphPaperControl1.Invalidate()
+            'ChangingHex = False
+            'panelRGB.Invalidate()
         End If
+
+
+    End Sub
+    Private Sub UpdateRGBFromHex()
+        ChangingHex = True
+        Dim s As String = tbHexColor.Text.Trim()
+        Dim result As Integer
+        Dim r, b, g As Integer
+        Try
+            result = Convert.ToInt32(0 & tbHexColor.Text, 16)
+            r = (result And &HFF0000) >> 16
+            g = (result And &HFF00) >> 8
+            b = result And &HFF
+        Catch ex As FormatException
+            result = 0
+            r = 0
+            g = 0
+            b = 0
+        Catch ex As Exception
+        End Try
+        nudR.Value = r
+        nudG.Value = g
+        nudB.Value = b
+        Details.LineColor = Color.FromArgb(255, r, g, b)
+        GraphPaperControl1.Invalidate()
+        ChangingHex = False
+        panelRGB.BackColor = Details.LineColor
+        'panelRGB.Invalidate()
     End Sub
 
     Private Sub nudLineWeight_ValueChanged(sender As Object, e As EventArgs) Handles nudLineWeight.ValueChanged
@@ -225,10 +270,12 @@ Public Class Console
         End If
     End Sub
 
-    Private Sub panelRGB_Paint(sender As Object, e As PaintEventArgs) Handles panelRGB.Paint
-        ' paint the color specified by RGB
-        Using brush As SolidBrush = New SolidBrush(Color.FromArgb(nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value))
-            e.Graphics.FillRectangle(brush, panelRGB.Bounds())
-        End Using
-    End Sub
+    'Private Sub panelRGB_Paint(sender As Object, e As PaintEventArgs) Handles panelRGB.Paint
+    '    panelRGB.BackColor = (Color.FromArgb(&HFF000000 Or nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value))
+    '    Return
+    '    ' paint the color specified by RGB
+    '    Using brush As SolidBrush = New SolidBrush(Color.FromArgb(&HFF000000 Or nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value))
+    '        e.Graphics.FillRectangle(brush, New Rectangle(Point.Empty, panelRGB.Bounds.Size))
+    '    End Using
+    'End Sub
 End Class
