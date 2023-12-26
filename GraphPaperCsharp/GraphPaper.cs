@@ -158,6 +158,6 @@ namespace SharkInSeine
             public readonly string Name;
         }
         public delegate void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e);
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

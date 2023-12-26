@@ -17,13 +17,14 @@ namespace SharkInSeine
         public GraphPaperControl()
         {
             InitializeComponent();
+            DoubleBuffered = true;
         }
-        public GraphPaper Details;
+        public GraphPaper? Details;
 
         private void GraphPaperControl_Paint(object sender, PaintEventArgs e)
         {
             if (Details == null)
-                return;
+                Details = new GraphPaper();
 
             GraphicsState gs = e.Graphics.Save();
             e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
@@ -59,101 +60,22 @@ namespace SharkInSeine
                     throw new Exception($"ShapeWidthUnits {Details.ShapeWidthUnits} not supported.");
            }
 
-            GraphicsState gs2 = e.Graphics.Save();
-            try
-            {
-                e.Graphics.PageUnit = GraphicsUnit.Pixel;
-                //Size NewSize;
-                SizeF LineSizeInPixels2;
-                SizeF SquareSizeInPixels2;
-
-                switch (Details.LineWidthUnits)
-                {
-                    case GraphPaper.Units.Inches:
-                        LineSizeInPixels2 = new SizeF(128F * Details.LineWidth, 128F * Details.LineWidth);
-                        break;
-                    case GraphPaper.Units.Millimeters:
-                        LineSizeInPixels2 = new SizeF(128F / 25.4F * Details.LineWidth, 128F / 25.4F * Details.LineWidth);
-                        break;
-                    default:
-                        throw new Exception($"LineWidthUnits {Details.LineWidthUnits.ToString()} not supported.");
-                }
-                switch (Details.ShapeWidthUnits)
-                {
-                    case GraphPaper.Units.Inches:
-                        SquareSizeInPixels2 = new SizeF(128F * Details.ShapeWidth, 128F * Details.ShapeWidth);
-                        break;
-                    case GraphPaper.Units.Millimeters:
-                        SquareSizeInPixels2 = new SizeF(128F / 25.4F * Details.ShapeWidth, 128F / 25.4F * Details.ShapeWidth);
-                        break;
-                    default:
-                        throw new Exception($"LineWidthUnits {Details.LineWidthUnits.ToString()} not supported.");
-                }
-                // calculate the size of the page that will contain 10 rows and columns
-                // TODO: Use the entire page, don't limit to 10, don't resize the surface
-                //switch (Details.Shape)
-                //{
-                //    case GraphPaper.Shapes.Triangles:
-                //    case GraphPaper.Shapes.Diamonds:
-                //        NewSize = new Size(
-                //            (int)Math.Ceiling(LineSizeInPixels2.Width + 10F * SquareSizeInPixels2.Width),
-                //            (int)Math.Ceiling(LineSizeInPixels2.Height + 10F * SquareSizeInPixels2.Height / 2F * (float)Math.Sqrt(3))
-                //            );
-                //        break;
-                //    case GraphPaper.Shapes.Squares:
-                //        NewSize = new Size((int)Math.Ceiling(LineSizeInPixels2.Width + 10F * SquareSizeInPixels2.Width),
-                //            (int)Math.Ceiling(LineSizeInPixels2.Height + 10F * SquareSizeInPixels2.Height));
-                //        break;
-                //    case GraphPaper.Shapes.Hexagons:
-                //        Single HexHeight = SquareSizeInPixels2.Height * (float)Math.Sin(Math.PI / 3F);
-                //        NewSize = new Size(
-                //            (int)Math.Ceiling(LineSizeInPixels2.Width + (15F + 15F * Math.PI / 180F) * SquareSizeInPixels2.Width),
-                //            (int)Math.Ceiling(LineSizeInPixels2.Height + 10.5F * HexHeight));
-                //        break;
-                //    default:
-                //        throw new Exception($"Shape {Details.Shape.ToString()} not supported.");
-                //}
-                //switch (BorderStyle)
-                //{
-                //    case BorderStyle.None:
-                //        break;
-                //    case BorderStyle.FixedSingle:
-                //        NewSize.Width += SystemInformation.BorderSize.Width + 1;
-                //        NewSize.Height = SystemInformation.BorderSize.Height + 1;
-                //        break;
-                //    case BorderStyle.Fixed3D:
-                //        NewSize.Width += SystemInformation.Border3DSize.Width + 1;
-                //        NewSize.Height = SystemInformation.Border3DSize.Height + 1;
-                //        break;
-                //}
-
-                //if (!Size.Equals(NewSize))
-                //    Size = NewSize;
-            }
-            catch 
-            {
-            }
-            finally
-            {
-                e.Graphics.Restore(gs2);
-            }
-
             switch (Details.Shape)
             {
                 case GraphPaper.Shapes.Triangles:
                 case GraphPaper.Shapes.Diamonds:
-                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels,SquareSizeInPixels);
+                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels,SquareSizeInPixels, ClientRectangle);
                     break;
                 case GraphPaper.Shapes.Squares:
-                    DrawSquares(e.Graphics, LineSizeInPixels, SquareSizeInPixels);
+                    DrawSquares(e.Graphics, LineSizeInPixels, SquareSizeInPixels, ClientRectangle);
                     break;
                 case GraphPaper.Shapes.Hexagons:
-                    DrawHexagons(e.Graphics, LineSizeInPixels, SquareSizeInPixels);
+                    DrawHexagons(e.Graphics, LineSizeInPixels, SquareSizeInPixels, ClientRectangle);
                     break;
             }
         }
 
-        private void DrawTrianglesOrDiamonds(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels) 
+        private void DrawTrianglesOrDiamonds(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels, RectangleF SurfaceArea)
         {
             if (Details != null)
             {
@@ -167,48 +89,48 @@ namespace SharkInSeine
                     {
                         do
                         {
-                            g.DrawLine(LinePen, 0, y, Width, y);
+                            g.DrawLine(LinePen, SurfaceArea.Left, y, SurfaceArea.Right, y);
                             y += dy;
                         } while (y < Height);
                     }
                 }
 
                 // diagonmal lines
-                float startX = -(float)Math.Tan(30 * Math.PI / 180) * Height;
+                float dx = (float)Math.Tan(30 * Math.PI / 180) * Height;      
+                float xyz = (float)Math.Round(dx / SquareSizeInPixels.Width,0);
+                float startX = -xyz * SquareSizeInPixels.Width; 
                 float endX = Width + (float)Math.Tan(30 * Math.PI / 180) * Height;
-                Debug.WriteLine($"Diagonals: start = {startX}, end = {endX}, Width = {Width}, Height = {Height}");
-                for (float x = startX; x < endX; x+= SquareSizeInPixels.Width)
+                for (float x = startX; x < endX; x += SquareSizeInPixels.Width)
                 {
-                    g.DrawLine(LinePen, x, 0, x + (float)Math.Tan(30 * Math.PI / 180) * Height, Height);
-                    g.DrawLine(LinePen, x, 0, x - (float)Math.Tan(30 * Math.PI / 180) * Height, Height);
+                    g.DrawLine(LinePen, x, SurfaceArea.Top, x + dx, Height);
+                    g.DrawLine(LinePen, x, SurfaceArea.Top, x - dx, Height);
                 }
             }
         }
-        private void DrawSquares(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels)
+        private void DrawSquares(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels, RectangleF SurfaceArea)
         {
             if (Details != null)
             {
-                using Pen LinePen = new Pen ( Details.LineColor ?? Color.Black, LineSizeInPixels.Width);
-                float x = 0F;
-                float y = 0F;
+                using Pen LinePen = new Pen(Details.LineColor ?? Color.Black, LineSizeInPixels.Width);
+                float x = SurfaceArea.Left;    // 0F;
+                float y = SurfaceArea.Top;
 
                 // draw vertical lines
                 do
                 {
-                    g.DrawLine(LinePen, x, 0, x, Height);
+                    g.DrawLine(LinePen, x, SurfaceArea.Top, x, SurfaceArea.Bottom);
                     x += SquareSizeInPixels.Width;
-                } while (x < Width);
+                } while (x < SurfaceArea.Right);
 
                 // draw horizontal lines
                 do
                 {
-                    g.DrawLine(LinePen, 0, y, Width, y);
+                    g.DrawLine(LinePen, SurfaceArea.Left, y, SurfaceArea.Right, y);
                     y += SquareSizeInPixels.Height;
-                } while (y < Height);
+                } while (y < SurfaceArea.Bottom);   // Height);
             }
         }
-
-        private void DrawHexagons(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels)
+        private void DrawHexagons(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels, RectangleF SurfaceArea)
         {
             // create the hexagon with a vertex at the top center
             List<PointF> points = new List<PointF>();
@@ -274,15 +196,23 @@ namespace SharkInSeine
             m.Dispose();
             m = null;
 
+            // shift both hexes to fit inside the margins
+            m = new Matrix();
+            m.Translate(SurfaceArea.Left, SurfaceArea.Top);
+            gpEvenRows.Transform(m);
+            gpOddRows.Transform(m);
+            m.Dispose();
+            m= null;
+
             // offsets
             using Matrix mMoveRight = new Matrix();
             mMoveRight.Translate(gpOddRows.PathPoints[3].X - gpOddRows.PathPoints[4].X + SquareSizeInPixels.Width, 0);
             using Matrix mMoveDown = new Matrix();
             mMoveDown.Translate(0, gpOddRows.PathPoints[1].Y - gpOddRows.PathPoints[3].Y);
 
-            using Pen LinePen = new Pen(Details.LineColor ?? Color.Black, LineSizeInPixels.Width);
-            GraphicsPath gpThisOddRow;
-            GraphicsPath gpThisEvenRow;
+            using Pen LinePen = new Pen(Details?.LineColor ?? Color.Black, LineSizeInPixels.Width);
+            GraphicsPath? gpThisOddRow;
+            GraphicsPath? gpThisEvenRow;
             // draw rows of staggered hexes
             do
             {
@@ -291,7 +221,7 @@ namespace SharkInSeine
                 {
                     g.DrawPath(LinePen, gpThisOddRow);
                     gpThisOddRow.Transform(mMoveRight);
-                } while (gpThisOddRow.PathPoints[4].X < Width);
+                } while (gpThisOddRow.PathPoints[4].X < SurfaceArea.Right);     // Width);
                 gpOddRows.Transform(mMoveDown);
                 gpThisOddRow.Dispose();
                 gpThisOddRow = null;
@@ -301,11 +231,11 @@ namespace SharkInSeine
                 {
                     g.DrawPath(LinePen, gpThisEvenRow);
                     gpThisEvenRow.Transform(mMoveRight);
-                } while (gpThisEvenRow.PathPoints[4].X < Width);
+                } while (gpThisEvenRow.PathPoints[4].X < SurfaceArea.Right);    // Width);
                 gpEvenRows.Transform(mMoveDown);
                 gpThisEvenRow.Dispose();
                 gpThisEvenRow = null;
-            } while (gpOddRows.PathPoints[0].Y < Height);
+            } while (gpOddRows.PathPoints[0].Y < SurfaceArea.Bottom);   // Height);
         }
     }
 }

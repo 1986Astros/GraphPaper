@@ -79,7 +79,7 @@ namespace GraphPaperCsharp
                 tlpRGB.Enabled = true;
                 cboxWebColor.SelectedItem = Color.Black;
             }
-            tbHexColor.Text = Strings.Right(((Color)Details.LineColor).ToArgb().ToString("x"), 6);
+            tbHexColor.Text = Strings.Right(((Color)Details?.LineColor).ToArgb().ToString("x"), 6);
             UpdateRGBFromHex(false);
 
             Initialized = true;
@@ -291,7 +291,7 @@ namespace GraphPaperCsharp
                 Details.LineColor = Color.FromArgb(255, r, g, b);
             }
             graphPaperControl1.Invalidate();
-            GridLineColor = (Color)Details.LineColor;
+            GridLineColor = Details?.LineColor ?? Color.Black;
 
             ChangingHex = false;
         }
