@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -157,46 +158,30 @@ namespace SharkInSeine
             if (Details != null)
             {
                 using Pen LinePen = new Pen(Details.LineColor ?? Color.Black, LineSizeInPixels.Width);
-                float y = LineSizeInPixels.Height / 2F;
-                float dy = SquareSizeInPixels.Height / 2F * (float)Math.Sqrt(3);
                 if (Details.Shape == GraphPaper.Shapes.Triangles)
                 {
                     // horizontal lines
-                    do
+                    float y = LineSizeInPixels.Height / 2F;
+                    float dy = SquareSizeInPixels.Height / 2F * (float)Math.Sqrt(3);
+                    if (Details.Shape == GraphPaper.Shapes.Triangles)
                     {
-                        g.DrawLine(LinePen,0,y,10F * SquareSizeInPixels.Width + LineSizeInPixels.Width / 2F, y);
-                        y += dy;
-                    } while (dy < Height);
+                        do
+                        {
+                            g.DrawLine(LinePen, 0, y, Width, y);
+                            y += dy;
+                        } while (y < Height);
+                    }
                 }
 
-                // diagonal lines starting at top
-                dy *= 2;
-                float x = 0!;
-                float dx = SquareSizeInPixels.Width / 2F * (float)Math.Sqrt(3);
-                float col = 0;
-                do
+                // diagonmal lines
+                float startX = -(float)Math.Tan(30 * Math.PI / 180) * Height;
+                float endX = Width + (float)Math.Tan(30 * Math.PI / 180) * Height;
+                Debug.WriteLine($"Diagonals: start = {startX}, end = {endX}, Width = {Width}, Height = {Height}");
+                for (float x = startX; x < endX; x+= SquareSizeInPixels.Width)
                 {
-                    // left - to - right; slope - 30 degrees
-                    // BUG: Wrong right X, should be using trig instead of original row counts
-                    g.DrawLine(LinePen,
-                        x,
-                        LineSizeInPixels.Height / 2F,
-                        LineSizeInPixels.Width / 2F + col * SquareSizeInPixels.Width,
-                        Height);
-
-                    // right - to - left; slope fop top = -150 degrees
-                    g.DrawLine(LinePen,
-                        x,
-                        0F,
-                        1F,
-                        1F);
-
-                    x += SquareSizeInPixels.Width;
-                    col += 1F;
-                } while (dx < Width);
-
-
-
+                    g.DrawLine(LinePen, x, 0, x + (float)Math.Tan(30 * Math.PI / 180) * Height, Height);
+                    g.DrawLine(LinePen, x, 0, x - (float)Math.Tan(30 * Math.PI / 180) * Height, Height);
+                }
             }
         }
         private void DrawSquares(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels)

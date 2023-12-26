@@ -120,11 +120,10 @@
             // 
             // tlpMain
             // 
-            tlpMain.ColumnCount = 4;
+            tlpMain.ColumnCount = 3;
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tlpMain.ColumnStyles.Add(new ColumnStyle());
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tlpMain.Controls.Add(tlpDetails, 1, 0);
             tlpMain.Controls.Add(graphPaperControl1, 2, 0);
@@ -547,7 +546,7 @@
             graphPaperControl1.Dock = DockStyle.Fill;
             graphPaperControl1.Location = new Point(278, 3);
             graphPaperControl1.Name = "graphPaperControl1";
-            graphPaperControl1.Size = new Size(499, 420);
+            graphPaperControl1.Size = new Size(519, 420);
             graphPaperControl1.TabIndex = 1;
             // 
             // Console

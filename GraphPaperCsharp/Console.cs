@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using SharkInSeine;
 using SharkInSeine.Settings;
 using System.Drawing.Drawing2D;
@@ -67,15 +68,19 @@ namespace GraphPaperCsharp
             if (Details.LineColor?.IsKnownColor ?? false)
             {
                 rbWebColor.Checked = true;
-                rbRGB.Checked = false;
+                cboxWebColor.Enabled = true;
+                tlpRGB.Enabled = false;
                 cboxWebColor.SelectedItem = Details.LineColor;
             }
             else
             {
-                rbWebColor.Checked = false;
                 rbRGB.Checked = true;
+                cboxWebColor.Enabled = false;
+                tlpRGB.Enabled = true;
+                cboxWebColor.SelectedItem = Color.Black;
             }
-            UpdateRGBFromHex();
+            tbHexColor.Text = Strings.Right(((Color)Details.LineColor).ToArgb().ToString("x"), 6);
+            UpdateRGBFromHex(false);
 
             Initialized = true;
         }
@@ -139,7 +144,13 @@ namespace GraphPaperCsharp
                 {
                     cboxWebColor.Enabled = true;
                     tlpRGB.Enabled = false;
-                    Details.LineColor = (Color)cboxWebColor.SelectedItem;
+                    if (cboxWebColor.SelectedItem != null)
+                        Details.LineColor = (Color)cboxWebColor.SelectedItem;
+                    else
+                    {
+                        Details.LineColor = Color.Black;
+                        cboxWebColor.SelectedItem = Details.LineColor;
+                    }
                     graphPaperControl1 .Invalidate();
                 }
             }
@@ -244,7 +255,7 @@ namespace GraphPaperCsharp
             }    
         }
 
-        private void UpdateRGBFromHex()
+        private void UpdateRGBFromHex(bool UpdateLineColor = true)
         {
             ChangingHex = true;
 
@@ -275,7 +286,10 @@ namespace GraphPaperCsharp
             nudR.Value = r;
             nudG.Value = g;
             nudB.Value = b;
-            Details.LineColor = Color.FromArgb(255, r, g, b);
+            if (UpdateLineColor)
+            {
+                Details.LineColor = Color.FromArgb(255, r, g, b);
+            }
             graphPaperControl1.Invalidate();
             GridLineColor = (Color)Details.LineColor;
 
