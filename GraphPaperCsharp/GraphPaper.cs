@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SharkInSeine
 {
-    internal class GraphPaper
+    public class GraphPaper
     {
         const string CatAppearance = "Appearance";
         public enum Shapes : ulong
@@ -21,7 +21,7 @@ namespace SharkInSeine
         [DefaultValue(DefaultShape)]
         [Category(CatAppearance)]
         [Description("Shape of the grid drawn on the page.")]
-        Shapes Shape
+        public Shapes Shape
         {
             get
             {
@@ -99,7 +99,7 @@ namespace SharkInSeine
             {
                 if (!value.Equals(LineColor))
                 {
-                    Globals.Settings.SetValueColor("Main", "LineColor", Color.FromName(DefaultLineColorOfGraphPaper));
+                    Globals.Settings.SetValueColor("Main", "LineColor", value ?? Color.Black);
                     Globals.WriteSettings();
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LineColor"));
                 }
@@ -126,7 +126,7 @@ namespace SharkInSeine
                 }
             }
         }
-        private const float DefaultShapeWidth = 025F;
+        private const float DefaultShapeWidth = 0.25F;
 
         [DefaultValue(DefaultShapeWidthUnits)]
         [Category(CatAppearance)]
