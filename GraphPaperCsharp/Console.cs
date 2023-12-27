@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic;
 using SharkInSeine;
 using SharkInSeine.Settings;
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 
 namespace GraphPaperCsharp
@@ -151,20 +152,24 @@ namespace GraphPaperCsharp
                         Details.LineColor = Color.Black;
                         cboxWebColor.SelectedItem = Details.LineColor;
                     }
-                    graphPaperControl1 .Invalidate();
+                    graphPaperControl1.Invalidate();
                 }
             }
         }
 
         private void cboxWebColor_DrawItem(object sender, DrawItemEventArgs e)
         {
-            if (e.Index  >= 0)
+            if (e.Index >= 0)
             {
                 Rectangle r;
                 using GraphicsPath gp = new GraphicsPath();
                 if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
                 {
                     e.Graphics.FillRectangle(SystemBrushes.Menu, e.Bounds);
+                }
+                else if ((e.State & DrawItemState.Disabled) == DrawItemState.Disabled)
+                {
+                    e.Graphics.FillRectangle(SystemBrushes.Control, e.Bounds);
                 }
                 else
                 {
@@ -249,10 +254,10 @@ namespace GraphPaperCsharp
         }
         private void tbHexColor_TextChanged(object sender, EventArgs e)
         {
-            if (Initialized) 
+            if (Initialized)
             {
                 UpdateRGBFromHex();
-            }    
+            }
         }
 
         private void UpdateRGBFromHex(bool UpdateLineColor = true)
@@ -301,7 +306,7 @@ namespace GraphPaperCsharp
             if (Initialized)
             {
                 Details.LineWidth = (float)nudLineWidth.Value;
-                graphPaperControl1 .Invalidate();
+                graphPaperControl1.Invalidate();
             }
         }
 
@@ -327,6 +332,11 @@ namespace GraphPaperCsharp
                     graphPaperControl1.Invalidate();
                 }
             }
+        }
+
+        private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphPaperControl1.PrintWithDialog();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace SharkInSeine
         private void GraphPaperControl_Paint(object sender, PaintEventArgs e)
         {
             if (Details == null)
-                Details = new GraphPaper();
+                return;
 
             GraphicsState gs = e.Graphics.Save();
             e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
@@ -58,13 +58,13 @@ namespace SharkInSeine
                     break;
                 default:
                     throw new Exception($"ShapeWidthUnits {Details.ShapeWidthUnits} not supported.");
-           }
+            }
 
             switch (Details.Shape)
             {
                 case GraphPaper.Shapes.Triangles:
                 case GraphPaper.Shapes.Diamonds:
-                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels,SquareSizeInPixels, ClientRectangle);
+                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, SquareSizeInPixels, ClientRectangle);
                     break;
                 case GraphPaper.Shapes.Squares:
                     DrawSquares(e.Graphics, LineSizeInPixels, SquareSizeInPixels, ClientRectangle);
@@ -96,9 +96,9 @@ namespace SharkInSeine
                 }
 
                 // diagonmal lines
-                float dx = (float)Math.Tan(30 * Math.PI / 180) * Height;      
-                float xyz = (float)Math.Round(dx / SquareSizeInPixels.Width,0);
-                float startX = -xyz * SquareSizeInPixels.Width; 
+                float dx = (float)Math.Tan(30 * Math.PI / 180) * Height;
+                float xyz = (float)Math.Round(dx / SquareSizeInPixels.Width, 0);
+                float startX = -xyz * SquareSizeInPixels.Width;
                 float endX = Width + (float)Math.Tan(30 * Math.PI / 180) * Height;
                 for (float x = startX; x < endX; x += SquareSizeInPixels.Width)
                 {
@@ -202,7 +202,7 @@ namespace SharkInSeine
             gpEvenRows.Transform(m);
             gpOddRows.Transform(m);
             m.Dispose();
-            m= null;
+            m = null;
 
             // offsets
             using Matrix mMoveRight = new Matrix();
@@ -236,6 +236,72 @@ namespace SharkInSeine
                 gpThisEvenRow.Dispose();
                 gpThisEvenRow = null;
             } while (gpOddRows.PathPoints[0].Y < SurfaceArea.Bottom);   // Height);
+        }
+
+        public void PrintWithDialog()
+        {
+            if (printDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
+            }
+        }
+
+        private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            if (Details == null)
+                return;
+
+            float DpmmX = e.Graphics.DpiX / 25.4F;
+            float DpmmY = e.Graphics.DpiY / 25.4F;
+            SizeF LineSizeInPixels = SizeF.Empty;
+            SizeF SquareSizeInPixels = SizeF.Empty;
+            Rectangle Margins = Globals.UsePrintMargins ? e.MarginBounds : e.PageBounds;
+            Margins = e.PageBounds;
+            RectangleF PrintArea = new RectangleF(e.Graphics.DpiX * Margins.Left / 100F, e.Graphics.DpiY * Margins.Top / 100F,                e.Graphics.DpiX * Margins.Width / 100F,                e.Graphics.DpiY * Margins.Height / 100F);
+
+            if (Details.LineWidthUnits == GraphPaper.Units.Inches)
+            {
+                LineSizeInPixels = new SizeF(e.Graphics.DpiX * Details.LineWidth, e.Graphics.DpiY * Details.LineWidth);
+            }
+            else if (Details.LineWidthUnits == GraphPaper.Units.Millimeters)
+            {
+                LineSizeInPixels = new SizeF(DpmmX * Details.LineWidth, DpmmY * Details.LineWidth);
+            }
+            if (Details.ShapeWidthUnits == GraphPaper.Units.Inches)
+            {
+                SquareSizeInPixels = new SizeF(e.Graphics.DpiX * Details.ShapeWidth, e.Graphics.DpiY * Details.ShapeWidth);
+            }
+            else if (Details.ShapeWidthUnits == GraphPaper.Units.Millimeters)
+            {
+                SquareSizeInPixels = new SizeF(DpmmX * Details.ShapeWidth, DpmmY * Details.ShapeWidth);
+            }
+
+            GraphicsState gs = e.Graphics.Save();
+            e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.PageUnit = GraphicsUnit.Pixel;
+            switch (Details.Shape)
+            {
+                case GraphPaper.Shapes.Triangles:
+                case GraphPaper.Shapes.Diamonds:
+                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, SquareSizeInPixels, PrintArea);
+                    break;
+                case GraphPaper.Shapes.Squares:
+                    DrawSquares(e.Graphics, LineSizeInPixels, SquareSizeInPixels, PrintArea);
+                    break;
+                case GraphPaper.Shapes.Hexagons:
+                    DrawHexagons(e.Graphics, LineSizeInPixels, SquareSizeInPixels, PrintArea);
+                    break;
+            }
+            e.Graphics.Restore(gs);
+        }
+
+        private void printDocument1_EndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
         }
     }
 }

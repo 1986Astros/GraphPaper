@@ -64,6 +64,8 @@
             Label10 = new Label();
             nudB = new NumericUpDown();
             graphPaperControl1 = new SharkInSeine.GraphPaperControl();
+            printDialog1 = new PrintDialog();
+            printDocument1 = new System.Drawing.Printing.PrintDocument();
             MenuStrip1.SuspendLayout();
             tlpMain.SuspendLayout();
             tlpDetails.SuspendLayout();
@@ -103,6 +105,7 @@
             PrintToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
             PrintToolStripMenuItem.Size = new Size(192, 22);
             PrintToolStripMenuItem.Text = "Print";
+            PrintToolStripMenuItem.Click += PrintToolStripMenuItem_Click;
             // 
             // PageSetupToolStripMenuItem
             // 
@@ -549,6 +552,11 @@
             graphPaperControl1.Size = new Size(519, 420);
             graphPaperControl1.TabIndex = 1;
             // 
+            // printDialog1
+            // 
+            printDialog1.Document = printDocument1;
+            printDialog1.UseEXDialog = true;
+            // 
             // Console
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -626,5 +634,7 @@
         internal Label Label10;
         internal NumericUpDown nudB;
         private SharkInSeine.GraphPaperControl graphPaperControl1;
+        private PrintDialog printDialog1;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }

@@ -28,7 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            printDocument1 = new System.Drawing.Printing.PrintDocument();
+            printDialog1 = new PrintDialog();
             SuspendLayout();
+            // 
+            // printDocument1
+            // 
+            printDocument1.BeginPrint += printDocument1_BeginPrint;
+            printDocument1.EndPrint += printDocument1_EndPrint;
+            printDocument1.PrintPage += printDocument1_PrintPage;
+            // 
+            // printDialog1
+            // 
+            printDialog1.Document = printDocument1;
+            printDialog1.UseEXDialog = true;
             // 
             // GraphPaperControl
             // 
@@ -41,5 +54,8 @@
         }
 
         #endregion
+
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private PrintDialog printDialog1;
     }
 }
