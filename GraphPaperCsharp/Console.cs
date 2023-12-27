@@ -35,11 +35,11 @@ namespace GraphPaperCsharp
             nudShapeWidth.Value = (decimal)Details.ShapeWidth;
             if (Details.ShapeWidthUnits == GraphPaper.Units.Millimeters)
             {
-                rbSizeMM.Checked = true;
+                rbShapeWidthMM.Checked = true;
             }
             else
             {
-                rbSizeIn.Checked = true;
+                rbShapeWidthIn.Checked = true;
             }
             if (Details.LineWidthUnits == GraphPaper.Units.Millimeters)
             {
@@ -80,7 +80,7 @@ namespace GraphPaperCsharp
                 tlpRGB.Enabled = true;
                 cboxWebColor.SelectedItem = Color.Black;
             }
-            tbHexColor.Text = Strings.Right(((Color)Details?.LineColor).ToArgb().ToString("x"), 6);
+            tbHexColor.Text = Strings.Right((Details.LineColor ?? Color.Black).ToArgb().ToString("x"), 6);
             UpdateRGBFromHex(false);
 
             Initialized = true;
@@ -117,7 +117,7 @@ namespace GraphPaperCsharp
         {
             if (Initialized)
             {
-                if (rbSizeMM.Checked)
+                if (rbShapeWidthMM.Checked)
                 {
                     Details.ShapeWidthUnits = GraphPaper.Units.Millimeters;
                     graphPaperControl1.Invalidate();
@@ -129,7 +129,7 @@ namespace GraphPaperCsharp
         {
             if (Initialized)
             {
-                if (rbSizeIn.Checked)
+                if (rbShapeWidthIn.Checked)
                 {
                     Details.ShapeWidthUnits = GraphPaper.Units.Inches;
                     graphPaperControl1.Invalidate();

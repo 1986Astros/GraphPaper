@@ -34,7 +34,7 @@ namespace SharkInSeine
             float DpmmX = e.Graphics.DpiX / 25.4F;
             float DpmmY = e.Graphics.DpiY / 25.4F;
             SizeF LineSizeInPixels;
-            SizeF SquareSizeInPixels;
+            SizeF ShapeSizeInPixels;
 
             switch (Details.LineWidthUnits)
             {
@@ -51,10 +51,10 @@ namespace SharkInSeine
             switch (Details.ShapeWidthUnits)
             {
                 case GraphPaper.Units.Inches:
-                    SquareSizeInPixels = new SizeF(e.Graphics.DpiX * Details.ShapeWidth, e.Graphics.DpiY * Details.ShapeWidth);
+                    ShapeSizeInPixels = new SizeF(e.Graphics.DpiX * Details.ShapeWidth, e.Graphics.DpiY * Details.ShapeWidth);
                     break;
                 case GraphPaper.Units.Millimeters:
-                    SquareSizeInPixels = new SizeF(DpmmX * Details.ShapeWidth, DpmmY * Details.ShapeWidth);
+                    ShapeSizeInPixels = new SizeF(DpmmX * Details.ShapeWidth, DpmmY * Details.ShapeWidth);
                     break;
                 default:
                     throw new Exception($"ShapeWidthUnits {Details.ShapeWidthUnits} not supported.");
@@ -64,18 +64,18 @@ namespace SharkInSeine
             {
                 case GraphPaper.Shapes.Triangles:
                 case GraphPaper.Shapes.Diamonds:
-                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, SquareSizeInPixels, ClientRectangle);
+                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, ClientRectangle);
                     break;
                 case GraphPaper.Shapes.Squares:
-                    DrawSquares(e.Graphics, LineSizeInPixels, SquareSizeInPixels, ClientRectangle);
+                    DrawSquares(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, ClientRectangle);
                     break;
                 case GraphPaper.Shapes.Hexagons:
-                    DrawHexagons(e.Graphics, LineSizeInPixels, SquareSizeInPixels, ClientRectangle);
+                    DrawHexagons(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, ClientRectangle);
                     break;
             }
         }
 
-        private void DrawTrianglesOrDiamonds(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels, RectangleF SurfaceArea)
+        private void DrawTrianglesOrDiamonds(Graphics g, SizeF LineSizeInPixels, SizeF ShapeSizeInPixels, RectangleF SurfaceArea)
         {
             if (Details != null)
             {
@@ -84,26 +84,26 @@ namespace SharkInSeine
                 {
                     // horizontal lines
                     float y = LineSizeInPixels.Height / 2F;
-                    float dy = SquareSizeInPixels.Height / 2F * (float)Math.Sqrt(3);
+                    float dy = ShapeSizeInPixels.Height / 2F * (float)Math.Sqrt(3);
                     if (Details.Shape == GraphPaper.Shapes.Triangles)
                     {
                         do
                         {
                             g.DrawLine(LinePen, SurfaceArea.Left, y, SurfaceArea.Right, y);
                             y += dy;
-                        } while (y < Height);
+                        } while (y < SurfaceArea.Height);  //Height);
                     }
                 }
 
                 // diagonmal lines
-                float dx = (float)Math.Tan(30 * Math.PI / 180) * Height;
-                float xyz = (float)Math.Round(dx / SquareSizeInPixels.Width, 0);
-                float startX = -xyz * SquareSizeInPixels.Width;
-                float endX = Width + (float)Math.Tan(30 * Math.PI / 180) * Height;
-                for (float x = startX; x < endX; x += SquareSizeInPixels.Width)
+                float dx = (float)Math.Tan(30 * Math.PI / 180) * SurfaceArea.Height;
+                float xyz = (float)Math.Round(dx / ShapeSizeInPixels.Width, 0); // ensure the first vertical stroke
+                float startX = -xyz * ShapeSizeInPixels.Width;                  // starts at the same location regardless of height
+                float endX = SurfaceArea.Width + dx; 
+                for (float x = startX; x < endX; x += ShapeSizeInPixels.Width)
                 {
-                    g.DrawLine(LinePen, x, SurfaceArea.Top, x + dx, Height);
-                    g.DrawLine(LinePen, x, SurfaceArea.Top, x - dx, Height);
+                    g.DrawLine(LinePen, x, SurfaceArea.Top, x + dx, SurfaceArea.Height);
+                    g.DrawLine(LinePen, x, SurfaceArea.Top, x - dx, SurfaceArea.Height);
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace SharkInSeine
                 } while (y < SurfaceArea.Bottom);   // Height);
             }
         }
-        private void DrawHexagons(Graphics g, SizeF LineSizeInPixels, SizeF SquareSizeInPixels, RectangleF SurfaceArea)
+        private void DrawHexagons(Graphics g, SizeF LineSizeInPixels, SizeF HexagonSizeInPixels, RectangleF SurfaceArea)
         {
             // create the hexagon with a vertex at the top center
             List<PointF> points = new List<PointF>();
@@ -138,8 +138,8 @@ namespace SharkInSeine
             for (int i = 0; i < 6; i++)
             {
                 points.Add(new PointF(
-                    SquareSizeInPixels.Width / 2F * (float)Math.Sin(i * angle),
-                    SquareSizeInPixels.Width / 2F * (float)Math.Cos(i * angle)
+                    HexagonSizeInPixels.Width / 2F * (float)Math.Sin(i * angle),
+                    HexagonSizeInPixels.Width / 2F * (float)Math.Cos(i * angle)
                     ));
             }
             points.Add(points[0]);
@@ -206,7 +206,7 @@ namespace SharkInSeine
 
             // offsets
             using Matrix mMoveRight = new Matrix();
-            mMoveRight.Translate(gpOddRows.PathPoints[3].X - gpOddRows.PathPoints[4].X + SquareSizeInPixels.Width, 0);
+            mMoveRight.Translate(gpOddRows.PathPoints[3].X - gpOddRows.PathPoints[4].X + HexagonSizeInPixels.Width, 0);
             using Matrix mMoveDown = new Matrix();
             mMoveDown.Translate(0, gpOddRows.PathPoints[1].Y - gpOddRows.PathPoints[3].Y);
 
@@ -252,7 +252,7 @@ namespace SharkInSeine
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            if (Details == null)
+            if (Details == null || e == null || e.Graphics == null)
                 return;
 
             float DpmmX = e.Graphics.DpiX / 25.4F;

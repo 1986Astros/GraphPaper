@@ -37,9 +37,9 @@
             tlpDetails = new TableLayoutPanel();
             tlpShape = new TableLayoutPanel();
             tlpShapeSize = new TableLayoutPanel();
-            rbSizeIn = new RadioButton();
+            rbShapeWidthIn = new RadioButton();
             nudShapeWidth = new NumericUpDown();
-            rbSizeMM = new RadioButton();
+            rbShapeWidthMM = new RadioButton();
             lbShape = new ListBox();
             Label1 = new Label();
             Label5 = new Label();
@@ -181,9 +181,9 @@
             tlpShapeSize.ColumnCount = 2;
             tlpShapeSize.ColumnStyles.Add(new ColumnStyle());
             tlpShapeSize.ColumnStyles.Add(new ColumnStyle());
-            tlpShapeSize.Controls.Add(rbSizeIn, 1, 1);
+            tlpShapeSize.Controls.Add(rbShapeWidthIn, 1, 1);
             tlpShapeSize.Controls.Add(nudShapeWidth, 0, 0);
-            tlpShapeSize.Controls.Add(rbSizeMM, 1, 0);
+            tlpShapeSize.Controls.Add(rbShapeWidthMM, 1, 0);
             tlpShapeSize.Location = new Point(90, 18);
             tlpShapeSize.Name = "tlpShapeSize";
             tlpShapeSize.RowCount = 2;
@@ -192,18 +192,18 @@
             tlpShapeSize.Size = new Size(115, 50);
             tlpShapeSize.TabIndex = 5;
             // 
-            // rbSizeIn
+            // rbShapeWidthIn
             // 
-            rbSizeIn.AutoSize = true;
-            rbSizeIn.Checked = true;
-            rbSizeIn.Location = new Point(65, 28);
-            rbSizeIn.Name = "rbSizeIn";
-            rbSizeIn.Size = new Size(35, 19);
-            rbSizeIn.TabIndex = 7;
-            rbSizeIn.TabStop = true;
-            rbSizeIn.Text = "in";
-            rbSizeIn.UseVisualStyleBackColor = true;
-            rbSizeIn.CheckedChanged += rbSizeIn_CheckedChanged;
+            rbShapeWidthIn.AutoSize = true;
+            rbShapeWidthIn.Checked = true;
+            rbShapeWidthIn.Location = new Point(65, 28);
+            rbShapeWidthIn.Name = "rbShapeWidthIn";
+            rbShapeWidthIn.Size = new Size(35, 19);
+            rbShapeWidthIn.TabIndex = 7;
+            rbShapeWidthIn.TabStop = true;
+            rbShapeWidthIn.Text = "in";
+            rbShapeWidthIn.UseVisualStyleBackColor = true;
+            rbShapeWidthIn.CheckedChanged += rbSizeIn_CheckedChanged;
             // 
             // nudShapeWidth
             // 
@@ -220,18 +220,18 @@
             nudShapeWidth.Value = new decimal(new int[] { 25, 0, 0, 131072 });
             nudShapeWidth.ValueChanged += nudShapeWidth_ValueChanged;
             // 
-            // rbSizeMM
+            // rbShapeWidthMM
             // 
-            rbSizeMM.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            rbSizeMM.AutoSize = true;
-            rbSizeMM.Location = new Point(65, 3);
-            rbSizeMM.Name = "rbSizeMM";
-            rbSizeMM.Size = new Size(47, 19);
-            rbSizeMM.TabIndex = 6;
-            rbSizeMM.TabStop = true;
-            rbSizeMM.Text = "mm";
-            rbSizeMM.UseVisualStyleBackColor = true;
-            rbSizeMM.CheckedChanged += rbSizeMM_CheckedChanged;
+            rbShapeWidthMM.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            rbShapeWidthMM.AutoSize = true;
+            rbShapeWidthMM.Location = new Point(65, 3);
+            rbShapeWidthMM.Name = "rbShapeWidthMM";
+            rbShapeWidthMM.Size = new Size(47, 19);
+            rbShapeWidthMM.TabIndex = 6;
+            rbShapeWidthMM.TabStop = true;
+            rbShapeWidthMM.Text = "mm";
+            rbShapeWidthMM.UseVisualStyleBackColor = true;
+            rbShapeWidthMM.CheckedChanged += rbSizeMM_CheckedChanged;
             // 
             // lbShape
             // 
@@ -607,9 +607,9 @@
         internal TableLayoutPanel tlpDetails;
         internal TableLayoutPanel tlpShape;
         internal TableLayoutPanel tlpShapeSize;
-        internal RadioButton rbSizeIn;
+        internal RadioButton rbShapeWidthIn;
         internal NumericUpDown nudShapeWidth;
-        internal RadioButton rbSizeMM;
+        internal RadioButton rbShapeWidthMM;
         internal ListBox lbShape;
         internal Label Label1;
         internal Label Label5;
