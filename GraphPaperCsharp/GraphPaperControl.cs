@@ -85,14 +85,11 @@ namespace SharkInSeine
                     // horizontal lines
                     float y = LineSizeInPixels.Height / 2F;
                     float dy = ShapeSizeInPixels.Height / 2F * (float)Math.Sqrt(3);
-                    if (Details.Shape == GraphPaper.Shapes.Triangles)
+                    do
                     {
-                        do
-                        {
-                            g.DrawLine(LinePen, SurfaceArea.Left, y, SurfaceArea.Right, y);
-                            y += dy;
-                        } while (y < SurfaceArea.Height);  //Height);
-                    }
+                        g.DrawLine(LinePen, SurfaceArea.Left, y, SurfaceArea.Right, y);
+                        y += dy;
+                    } while (y < SurfaceArea.Height);
                 }
 
                 // diagonmal lines
@@ -112,7 +109,7 @@ namespace SharkInSeine
             if (Details != null)
             {
                 using Pen LinePen = new Pen(Details.LineColor ?? Color.Black, LineSizeInPixels.Width);
-                float x = SurfaceArea.Left;    // 0F;
+                float x = SurfaceArea.Left;
                 float y = SurfaceArea.Top;
 
                 // draw vertical lines
@@ -127,7 +124,7 @@ namespace SharkInSeine
                 {
                     g.DrawLine(LinePen, SurfaceArea.Left, y, SurfaceArea.Right, y);
                     y += SquareSizeInPixels.Height;
-                } while (y < SurfaceArea.Bottom);   // Height);
+                } while (y < SurfaceArea.Bottom);
             }
         }
         private void DrawHexagons(Graphics g, SizeF LineSizeInPixels, SizeF HexagonSizeInPixels, RectangleF SurfaceArea)
@@ -154,7 +151,7 @@ namespace SharkInSeine
             m.Dispose();
             m = null;
 
-            // after rotation shift hex to the right by the amount where it will lock into the honeycomb
+            // after rotation, shift hex to the right by the amount where it will lock into the honeycomb
             m = new Matrix();
             m.Translate(
                 LineSizeInPixels.Width / 2 - gpOddRows.PathPoints.Min(p => p.X),
@@ -182,12 +179,12 @@ namespace SharkInSeine
             p3 = pts.Skip(1).First();
             p4 = pts.First();
 
-            float FullWidth = p2.X - p5.X;
-            float PartialWidth = p1.X - p0.X;
-            float OnThirdWidth = p0.X - p5.X;
-            float TwoThirdsWidth = p2.X - p0.X;
-            float FullHeight = p3.Y - p0.Y;
-            float PartialHeight = FullHeight / 2;
+            float FullWidth         = p2.X - p5.X;
+            float PartialWidth      = p1.X - p0.X;
+            float OnThirdWidth      = p0.X - p5.X;
+            float TwoThirdsWidth    = p2.X - p0.X;
+            float FullHeight        = p3.Y - p0.Y;
+            float PartialHeight     = FullHeight / 2;
 
             using GraphicsPath gpEvenRows = (GraphicsPath)gpOddRows.Clone();
             m = new Matrix();
@@ -221,7 +218,7 @@ namespace SharkInSeine
                 {
                     g.DrawPath(LinePen, gpThisOddRow);
                     gpThisOddRow.Transform(mMoveRight);
-                } while (gpThisOddRow.PathPoints[4].X < SurfaceArea.Right);     // Width);
+                } while (gpThisOddRow.PathPoints[4].X < SurfaceArea.Right);    
                 gpOddRows.Transform(mMoveDown);
                 gpThisOddRow.Dispose();
                 gpThisOddRow = null;
@@ -231,11 +228,11 @@ namespace SharkInSeine
                 {
                     g.DrawPath(LinePen, gpThisEvenRow);
                     gpThisEvenRow.Transform(mMoveRight);
-                } while (gpThisEvenRow.PathPoints[4].X < SurfaceArea.Right);    // Width);
+                } while (gpThisEvenRow.PathPoints[4].X < SurfaceArea.Right);    
                 gpEvenRows.Transform(mMoveDown);
                 gpThisEvenRow.Dispose();
                 gpThisEvenRow = null;
-            } while (gpOddRows.PathPoints[0].Y < SurfaceArea.Bottom);   // Height);
+            } while (gpOddRows.PathPoints[0].Y < SurfaceArea.Bottom);   
         }
 
         public void PrintWithDialog()
@@ -258,9 +255,8 @@ namespace SharkInSeine
             float DpmmX = e.Graphics.DpiX / 25.4F;
             float DpmmY = e.Graphics.DpiY / 25.4F;
             SizeF LineSizeInPixels = SizeF.Empty;
-            SizeF SquareSizeInPixels = SizeF.Empty;
+            SizeF ShapeSizeInPixels = SizeF.Empty;
             Rectangle Margins = Globals.UsePrintMargins ? e.MarginBounds : e.PageBounds;
-            Margins = e.PageBounds;
             RectangleF PrintArea = new RectangleF(e.Graphics.DpiX * Margins.Left / 100F, e.Graphics.DpiY * Margins.Top / 100F,                e.Graphics.DpiX * Margins.Width / 100F,                e.Graphics.DpiY * Margins.Height / 100F);
 
             if (Details.LineWidthUnits == GraphPaper.Units.Inches)
@@ -273,11 +269,11 @@ namespace SharkInSeine
             }
             if (Details.ShapeWidthUnits == GraphPaper.Units.Inches)
             {
-                SquareSizeInPixels = new SizeF(e.Graphics.DpiX * Details.ShapeWidth, e.Graphics.DpiY * Details.ShapeWidth);
+                ShapeSizeInPixels = new SizeF(e.Graphics.DpiX * Details.ShapeWidth, e.Graphics.DpiY * Details.ShapeWidth);
             }
             else if (Details.ShapeWidthUnits == GraphPaper.Units.Millimeters)
             {
-                SquareSizeInPixels = new SizeF(DpmmX * Details.ShapeWidth, DpmmY * Details.ShapeWidth);
+                ShapeSizeInPixels = new SizeF(DpmmX * Details.ShapeWidth, DpmmY * Details.ShapeWidth);
             }
 
             GraphicsState gs = e.Graphics.Save();
@@ -288,16 +284,17 @@ namespace SharkInSeine
             {
                 case GraphPaper.Shapes.Triangles:
                 case GraphPaper.Shapes.Diamonds:
-                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, SquareSizeInPixels, PrintArea);
+                    DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, PrintArea);
                     break;
                 case GraphPaper.Shapes.Squares:
-                    DrawSquares(e.Graphics, LineSizeInPixels, SquareSizeInPixels, PrintArea);
+                    DrawSquares(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, PrintArea);
                     break;
                 case GraphPaper.Shapes.Hexagons:
-                    DrawHexagons(e.Graphics, LineSizeInPixels, SquareSizeInPixels, PrintArea);
+                    DrawHexagons(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, PrintArea);
                     break;
             }
             e.Graphics.Restore(gs);
+            e.HasMorePages = false;
         }
 
         private void printDocument1_EndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
