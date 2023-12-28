@@ -22,7 +22,14 @@ Partial Class GraphPaperControl
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        PrintDialog1 = New PrintDialog()
+        PrintDocument1 = New Printing.PrintDocument()
         SuspendLayout()
+        ' 
+        ' PrintDialog1
+        ' 
+        PrintDialog1.Document = PrintDocument1
+        PrintDialog1.UseEXDialog = True
         ' 
         ' GraphPaperControl
         ' 
@@ -32,5 +39,8 @@ Partial Class GraphPaperControl
         Name = "GraphPaperControl"
         ResumeLayout(False)
     End Sub
+
+    Friend WithEvents PrintDialog1 As PrintDialog
+    Friend WithEvents PrintDocument1 As Printing.PrintDocument
 
 End Class

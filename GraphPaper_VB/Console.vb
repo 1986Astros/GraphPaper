@@ -247,4 +247,8 @@ Public Class Console
     End Sub
 
     Private GridlineColor As Color
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        GraphPaperControl1.PrintWithDialog()
+    End Sub
 End Class

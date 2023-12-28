@@ -130,7 +130,7 @@ Partial Class Console
         rbSizeIn.Text = "in"
         rbSizeIn.UseVisualStyleBackColor = True
         ' 
-        ' nudSize
+        ' nudShapeWidth
         ' 
         nudShapeWidth.Anchor = AnchorStyles.Right
         nudShapeWidth.AutoSize = True
@@ -138,7 +138,7 @@ Partial Class Console
         nudShapeWidth.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
         nudShapeWidth.Location = New Point(3, 13)
         nudShapeWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
-        nudShapeWidth.Name = "nudSize"
+        nudShapeWidth.Name = "nudShapeWidth"
         tlpShapeSize.SetRowSpan(nudShapeWidth, 2)
         nudShapeWidth.Size = New Size(56, 23)
         nudShapeWidth.TabIndex = 5
@@ -519,11 +519,10 @@ Partial Class Console
         ' 
         ' tlpMain
         ' 
-        tlpMain.ColumnCount = 4
+        tlpMain.ColumnCount = 3
         tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
         tlpMain.ColumnStyles.Add(New ColumnStyle())
         tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
-        tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
         tlpMain.ColumnStyles.Add(New ColumnStyle(SizeType.Absolute, 20F))
         tlpMain.Controls.Add(tlpDetails, 1, 0)
         tlpMain.Controls.Add(GraphPaperControl1, 2, 0)
@@ -541,7 +540,7 @@ Partial Class Console
         GraphPaperControl1.Dock = DockStyle.Fill
         GraphPaperControl1.Location = New Point(278, 3)
         GraphPaperControl1.Name = "GraphPaperControl1"
-        GraphPaperControl1.Size = New Size(499, 420)
+        GraphPaperControl1.Size = New Size(519, 420)
         GraphPaperControl1.TabIndex = 1
         ' 
         ' TableLayoutPanel3
