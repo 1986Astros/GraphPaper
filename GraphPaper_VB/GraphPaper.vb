@@ -5,7 +5,7 @@ Imports System.Runtime.CompilerServices
 Public Class GraphPaper
     Const CatAppearance = "Appearance"
     Public Enum Shapes As ULong
-        Circles
+        Circles = 1 ' setting to 1 hides a bug in [Enum].TryParse
         Triangles
         Diamonds
         Squares

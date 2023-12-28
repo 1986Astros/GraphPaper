@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Console));
             MenuStrip1 = new MenuStrip();
             PrintingToolStripMenuItem = new ToolStripMenuItem();
             PrintToolStripMenuItem = new ToolStripMenuItem();
@@ -560,6 +561,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tlpMain);
             Controls.Add(MenuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Console";
             Text = "Print graph paper";
             Load += Console_Load;

@@ -38,6 +38,8 @@ Public Class GraphPaperControl
         End If
 
         Select Case Details.Shape
+            Case GraphPaper.Shapes.Circles
+                DrawCircles(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, ClientRectangle)
             Case GraphPaper.Shapes.Triangles, GraphPaper.Shapes.Diamonds
                 DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, ClientRectangle)
             Case GraphPaper.Shapes.Squares
@@ -47,6 +49,18 @@ Public Class GraphPaperControl
         End Select
     End Sub
 
+    Private Sub DrawCircles(g As Graphics, LineSizeInPixels As SizeF, CircleSizeInPixels As SizeF, SurfaceArea As RectangleF)
+        Using LinePen = New Pen(Details.LineColor, LineSizeInPixels.Width)
+            Dim r As RectangleF = New RectangleF(SurfaceArea.Location, CircleSizeInPixels)
+            Do
+                Do
+                    g.DrawEllipse(LinePen, r)
+                    r.Offset(CircleSizeInPixels.Width, 0)
+                Loop While (r.Left < SurfaceArea.Right)
+                r = New RectangleF(SurfaceArea.Left, r.Bottom, CircleSizeInPixels.Width, CircleSizeInPixels.Height)
+            Loop While (r.Top < SurfaceArea.Bottom)
+        End Using
+    End Sub
     Private Sub DrawTrianglesOrDiamonds(g As Graphics, LineSizeInPixels As SizeF, ShapeSizeInPixels As SizeF, SurfaceArea As RectangleF)
         Dim LinePen As Pen = New Pen(Details.LineColor, LineSizeInPixels.Width)
         Try
@@ -247,6 +261,8 @@ Public Class GraphPaperControl
         e.Graphics.PageUnit = GraphicsUnit.Pixel
 
         Select Case Details.Shape
+            Case GraphPaper.Shapes.Circles
+                DrawCircles(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, PrintArea)
             Case GraphPaper.Shapes.Triangles, GraphPaper.Shapes.Diamonds
                 DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, PrintArea)
             Case GraphPaper.Shapes.Squares

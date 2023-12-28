@@ -22,7 +22,7 @@ namespace GraphPaperCsharp
             {
                 Directory.CreateDirectory(path);
             }
-            Globals.Settings = new SharkInSeine.Settings.Settings("GraphPaper", path);
+            Globals.Settings = new SharkInSeine.Settings.Settings("GraphPaperCS", path);
 
             // add Enum items to the listbox
             lbShape.Items.Clear();  // text items inserted at design time
@@ -82,6 +82,7 @@ namespace GraphPaperCsharp
             }
             tbHexColor.Text = Strings.Right((Details.LineColor ?? Color.Black).ToArgb().ToString("x"), 6);
             UpdateRGBFromHex(false);
+            IgnorePageMarginsToolStripMenuItem.Checked = !Globals.UsePrintMargins;
 
             Initialized = true;
         }
@@ -346,7 +347,8 @@ namespace GraphPaperCsharp
 
         private void IgnorePageMarginsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Globals.UsePrintMargins = !IgnorePageMarginsToolStripMenuItem.Checked
+            Globals.UsePrintMargins = IgnorePageMarginsToolStripMenuItem.Checked;
+            IgnorePageMarginsToolStripMenuItem.Checked = !Globals.UsePrintMargins;
         }
     }
 }

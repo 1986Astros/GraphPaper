@@ -1,5 +1,4 @@
 ﻿Imports System.Drawing.Drawing2D
-Imports System.Reflection
 
 Public Class Console
     Public Sub New()
@@ -9,11 +8,11 @@ Public Class Console
         If Not System.IO.Directory.Exists(path) Then
             System.IO.Directory.CreateDirectory(path)
         End If
-        path = System.IO.Path.Combine(path, "Settings")
+        path = System.IO.Path.Combine(path, "Graph paper")
         If Not System.IO.Directory.Exists(path) Then
             System.IO.Directory.CreateDirectory(path)
         End If
-        Settings = New SharkInSeine.Settings("GraphPaper", path)
+        Settings = New SharkInSeine.Settings("GraphPaperVB", path)
 
         ' add Enum items to the listbox
         lbShape.Items.Clear()
@@ -62,7 +61,8 @@ Public Class Console
             cboxWebColor.SelectedItem = Color.Black
         End If
         tbHexColor.Text = Strings.Right(Details.LineColor.ToArgb.ToString("x"), 6)
-        UpdateRGBFromHex()
+        UpdateRGBFromHex(False)
+        IgnorePageMarginsToolStripMenuItem.Checked = Not UsePrintMargins
 
         Initialized = True
     End Sub
@@ -272,7 +272,8 @@ Public Class Console
         PageSetupDialog1.ShowDialog()
     End Sub
 
-    Private Sub IgnorePageMarginsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnorePageMaringsToolStripMenuItem.Click
-        UsePrintMargins = Not IgnorePageMaringsToolStripMenuItem.Checked
+    Private Sub IgnorePageMarginsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnorePageMarginsToolStripMenuItem.Click
+        UsePrintMargins = IgnorePageMarginsToolStripMenuItem.Checked
+        IgnorePageMarginsToolStripMenuItem.Checked = Not UsePrintMargins
     End Sub
 End Class

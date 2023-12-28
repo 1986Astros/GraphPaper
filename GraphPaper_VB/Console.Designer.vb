@@ -22,6 +22,7 @@ Partial Class Console
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Console))
         Label1 = New Label()
         lbShape = New ListBox()
         tlpShapeSize = New TableLayoutPanel()
@@ -56,7 +57,7 @@ Partial Class Console
         PrintingToolStripMenuItem = New ToolStripMenuItem()
         PrintToolStripMenuItem = New ToolStripMenuItem()
         PageSetupToolStripMenuItem = New ToolStripMenuItem()
-        IgnorePageMaringsToolStripMenuItem = New ToolStripMenuItem()
+        IgnorePageMarginsToolStripMenuItem = New ToolStripMenuItem()
         tlpMain = New TableLayoutPanel()
         GraphPaperControl1 = New GraphPaperControl()
         TableLayoutPanel3 = New TableLayoutPanel()
@@ -492,7 +493,7 @@ Partial Class Console
         ' 
         ' PrintingToolStripMenuItem
         ' 
-        PrintingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PrintToolStripMenuItem, PageSetupToolStripMenuItem, IgnorePageMaringsToolStripMenuItem})
+        PrintingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PrintToolStripMenuItem, PageSetupToolStripMenuItem, IgnorePageMarginsToolStripMenuItem})
         PrintingToolStripMenuItem.Name = "PrintingToolStripMenuItem"
         PrintingToolStripMenuItem.Size = New Size(61, 20)
         PrintingToolStripMenuItem.Text = "Printing"
@@ -510,13 +511,13 @@ Partial Class Console
         PageSetupToolStripMenuItem.Size = New Size(183, 22)
         PageSetupToolStripMenuItem.Text = "Page setup"
         ' 
-        ' ObservePageMarginsToolStripMenuItem
+        ' IgnorePageMarginsToolStripMenuItem
         ' 
-        IgnorePageMaringsToolStripMenuItem.Checked = True
-        IgnorePageMaringsToolStripMenuItem.CheckState = CheckState.Checked
-        IgnorePageMaringsToolStripMenuItem.Name = "ObservePageMarginsToolStripMenuItem"
-        IgnorePageMaringsToolStripMenuItem.Size = New Size(183, 22)
-        IgnorePageMaringsToolStripMenuItem.Text = "Ignore page margins"
+        IgnorePageMarginsToolStripMenuItem.Checked = True
+        IgnorePageMarginsToolStripMenuItem.CheckState = CheckState.Checked
+        IgnorePageMarginsToolStripMenuItem.Name = "IgnorePageMarginsToolStripMenuItem"
+        IgnorePageMarginsToolStripMenuItem.Size = New Size(183, 22)
+        IgnorePageMarginsToolStripMenuItem.Text = "Ignore page margins"
         ' 
         ' tlpMain
         ' 
@@ -589,6 +590,7 @@ Partial Class Console
         Controls.Add(tlpMain)
         Controls.Add(Label6)
         Controls.Add(MenuStrip1)
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         MainMenuStrip = MenuStrip1
         Name = "Console"
         Text = "Print graph paper"
@@ -665,5 +667,6 @@ Partial Class Console
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents NumericUpDown4 As NumericUpDown
     Friend WithEvents PageSetupDialog1 As PageSetupDialog
+    Friend WithEvents IgnorePageMarginsToolStripMenuItem As ToolStripMenuItem
 
 End Class
