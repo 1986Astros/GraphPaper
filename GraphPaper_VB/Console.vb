@@ -62,7 +62,8 @@ Public Class Console
             cboxWebColor.SelectedItem = Color.Black
         End If
         tbHexColor.Text = Strings.Right(Details.LineColor.ToArgb.ToString("x"), 6)
-        UpdateRGBFromHex()
+        UpdateRGBFromHex(False)
+        IgnorePageMarginsToolStripMenuItem.Checked = Not UsePrintMargins
 
         Initialized = True
     End Sub
@@ -272,7 +273,8 @@ Public Class Console
         PageSetupDialog1.ShowDialog()
     End Sub
 
-    Private Sub IgnorePageMarginsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnorePageMaringsToolStripMenuItem.Click
-        UsePrintMargins = Not IgnorePageMaringsToolStripMenuItem.Checked
+    Private Sub IgnorePageMarginsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnorePageMarginsToolStripMenuItem.Click
+        UsePrintMargins = IgnorePageMarginsToolStripMenuItem.Checked
+        IgnorePageMarginsToolStripMenuItem.Checked = Not UsePrintMargins
     End Sub
 End Class

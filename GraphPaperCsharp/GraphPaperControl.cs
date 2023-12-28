@@ -62,6 +62,9 @@ namespace SharkInSeine
 
             switch (Details.Shape)
             {
+                case GraphPaper.Shapes.Circles:
+                    DrawCircles(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, ClientRectangle);
+                    break;
                 case GraphPaper.Shapes.Triangles:
                 case GraphPaper.Shapes.Diamonds:
                     DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, ClientRectangle);
@@ -74,7 +77,23 @@ namespace SharkInSeine
                     break;
             }
         }
-
+        private void DrawCircles(Graphics g, SizeF LineSizeInPixels, SizeF CircleSizeInPixels, RectangleF SurfaceArea)
+        {
+            if (Details != null)
+            {
+                using Pen LinePen = new Pen(Details.LineColor ?? Color.Black, LineSizeInPixels.Width);
+                RectangleF r = new RectangleF(SurfaceArea.Location, CircleSizeInPixels);
+                do
+                {
+                    do
+                    {
+                        g.DrawEllipse(LinePen, r);
+                        r.Offset(CircleSizeInPixels.Width, 0);
+                    } while (r.Left < SurfaceArea.Right);
+                    r = new RectangleF(SurfaceArea.Left, r.Bottom, CircleSizeInPixels.Width, CircleSizeInPixels.Height);
+                } while (r.Top < SurfaceArea.Bottom);
+            }
+        }
         private void DrawTrianglesOrDiamonds(Graphics g, SizeF LineSizeInPixels, SizeF ShapeSizeInPixels, RectangleF SurfaceArea)
         {
             if (Details != null)
@@ -96,7 +115,7 @@ namespace SharkInSeine
                 float dx = (float)Math.Tan(30 * Math.PI / 180) * SurfaceArea.Height;
                 float xyz = (float)Math.Round(dx / ShapeSizeInPixels.Width, 0); // ensure the first vertical stroke
                 float startX = -xyz * ShapeSizeInPixels.Width;                  // starts at the same location regardless of height
-                float endX = SurfaceArea.Width + dx; 
+                float endX = SurfaceArea.Width + dx;
                 for (float x = startX; x < endX; x += ShapeSizeInPixels.Width)
                 {
                     g.DrawLine(LinePen, x, SurfaceArea.Top, x + dx, SurfaceArea.Height);
@@ -179,12 +198,12 @@ namespace SharkInSeine
             p3 = pts.Skip(1).First();
             p4 = pts.First();
 
-            float FullWidth         = p2.X - p5.X;
-            float PartialWidth      = p1.X - p0.X;
-            float OnThirdWidth      = p0.X - p5.X;
-            float TwoThirdsWidth    = p2.X - p0.X;
-            float FullHeight        = p3.Y - p0.Y;
-            float PartialHeight     = FullHeight / 2;
+            float FullWidth = p2.X - p5.X;
+            float PartialWidth = p1.X - p0.X;
+            float OnThirdWidth = p0.X - p5.X;
+            float TwoThirdsWidth = p2.X - p0.X;
+            float FullHeight = p3.Y - p0.Y;
+            float PartialHeight = FullHeight / 2;
 
             using GraphicsPath gpEvenRows = (GraphicsPath)gpOddRows.Clone();
             m = new Matrix();
@@ -218,7 +237,7 @@ namespace SharkInSeine
                 {
                     g.DrawPath(LinePen, gpThisOddRow);
                     gpThisOddRow.Transform(mMoveRight);
-                } while (gpThisOddRow.PathPoints[4].X < SurfaceArea.Right);    
+                } while (gpThisOddRow.PathPoints[4].X < SurfaceArea.Right);
                 gpOddRows.Transform(mMoveDown);
                 gpThisOddRow.Dispose();
                 gpThisOddRow = null;
@@ -228,11 +247,11 @@ namespace SharkInSeine
                 {
                     g.DrawPath(LinePen, gpThisEvenRow);
                     gpThisEvenRow.Transform(mMoveRight);
-                } while (gpThisEvenRow.PathPoints[4].X < SurfaceArea.Right);    
+                } while (gpThisEvenRow.PathPoints[4].X < SurfaceArea.Right);
                 gpEvenRows.Transform(mMoveDown);
                 gpThisEvenRow.Dispose();
                 gpThisEvenRow = null;
-            } while (gpOddRows.PathPoints[0].Y < SurfaceArea.Bottom);   
+            } while (gpOddRows.PathPoints[0].Y < SurfaceArea.Bottom);
         }
 
         public void PrintWithDialog()
@@ -257,7 +276,7 @@ namespace SharkInSeine
             SizeF LineSizeInPixels = SizeF.Empty;
             SizeF ShapeSizeInPixels = SizeF.Empty;
             Rectangle Margins = Globals.UsePrintMargins ? e.MarginBounds : e.PageBounds;
-            RectangleF PrintArea = new RectangleF(e.Graphics.DpiX * Margins.Left / 100F, e.Graphics.DpiY * Margins.Top / 100F,                e.Graphics.DpiX * Margins.Width / 100F,                e.Graphics.DpiY * Margins.Height / 100F);
+            RectangleF PrintArea = new RectangleF(e.Graphics.DpiX * Margins.Left / 100F, e.Graphics.DpiY * Margins.Top / 100F, e.Graphics.DpiX * Margins.Width / 100F, e.Graphics.DpiY * Margins.Height / 100F);
 
             if (Details.LineWidthUnits == GraphPaper.Units.Inches)
             {
@@ -282,6 +301,9 @@ namespace SharkInSeine
             e.Graphics.PageUnit = GraphicsUnit.Pixel;
             switch (Details.Shape)
             {
+                case GraphPaper.Shapes.Circles:
+                    DrawCircles(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, PrintArea);
+                    break;
                 case GraphPaper.Shapes.Triangles:
                 case GraphPaper.Shapes.Diamonds:
                     DrawTrianglesOrDiamonds(e.Graphics, LineSizeInPixels, ShapeSizeInPixels, PrintArea);

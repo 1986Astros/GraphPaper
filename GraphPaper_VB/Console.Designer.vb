@@ -56,7 +56,7 @@ Partial Class Console
         PrintingToolStripMenuItem = New ToolStripMenuItem()
         PrintToolStripMenuItem = New ToolStripMenuItem()
         PageSetupToolStripMenuItem = New ToolStripMenuItem()
-        IgnorePageMaringsToolStripMenuItem = New ToolStripMenuItem()
+        IgnorePageMarginsToolStripMenuItem = New ToolStripMenuItem()
         tlpMain = New TableLayoutPanel()
         GraphPaperControl1 = New GraphPaperControl()
         TableLayoutPanel3 = New TableLayoutPanel()
@@ -492,7 +492,7 @@ Partial Class Console
         ' 
         ' PrintingToolStripMenuItem
         ' 
-        PrintingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PrintToolStripMenuItem, PageSetupToolStripMenuItem, IgnorePageMaringsToolStripMenuItem})
+        PrintingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PrintToolStripMenuItem, PageSetupToolStripMenuItem, IgnorePageMarginsToolStripMenuItem})
         PrintingToolStripMenuItem.Name = "PrintingToolStripMenuItem"
         PrintingToolStripMenuItem.Size = New Size(61, 20)
         PrintingToolStripMenuItem.Text = "Printing"
@@ -510,13 +510,13 @@ Partial Class Console
         PageSetupToolStripMenuItem.Size = New Size(183, 22)
         PageSetupToolStripMenuItem.Text = "Page setup"
         ' 
-        ' ObservePageMarginsToolStripMenuItem
+        ' UsePageMaringsToolStripMenuItem
         ' 
-        IgnorePageMaringsToolStripMenuItem.Checked = True
-        IgnorePageMaringsToolStripMenuItem.CheckState = CheckState.Checked
-        IgnorePageMaringsToolStripMenuItem.Name = "ObservePageMarginsToolStripMenuItem"
-        IgnorePageMaringsToolStripMenuItem.Size = New Size(183, 22)
-        IgnorePageMaringsToolStripMenuItem.Text = "Ignore page margins"
+        IgnorePageMarginsToolStripMenuItem.Checked = True
+        IgnorePageMarginsToolStripMenuItem.CheckState = CheckState.Checked
+        IgnorePageMarginsToolStripMenuItem.Name = "UsePageMaringsToolStripMenuItem"
+        IgnorePageMarginsToolStripMenuItem.Size = New Size(183, 22)
+        IgnorePageMarginsToolStripMenuItem.Text = "Ignore page margins"
         ' 
         ' tlpMain
         ' 
@@ -665,5 +665,6 @@ Partial Class Console
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents NumericUpDown4 As NumericUpDown
     Friend WithEvents PageSetupDialog1 As PageSetupDialog
+    Friend WithEvents IgnorePageMarginsToolStripMenuItem As ToolStripMenuItem
 
 End Class
