@@ -17,23 +17,22 @@ Public Class Console
 
         ' add Enum items to the listbox
         lbShape.Items.Clear()
-        lbShape.Items.Add(GraphPaper.Shapes.Triangles)
-        lbShape.Items.Add(GraphPaper.Shapes.Squares)
-        lbShape.Items.Add(GraphPaper.Shapes.Diamonds)
-        lbShape.Items.Add(GraphPaper.Shapes.Hexagons)
+        For Each Shape As GraphPaper.Shapes In [Enum].GetValues(GetType(GraphPaper.Shapes))
+            lbShape.Items.Add(Shape)
+        Next
         lbShape.SelectedItem = Details.Shape
         GraphPaperControl1.Details = Details
         nudShapeWidth.Value = Details.ShapeWidth
         If Details.ShapeWidthUnits = GraphPaper.Units.Millimeters Then
-            rbSizeMM.Checked = True
+            rbShapeWidthMM.Checked = True
         Else
-            rbSizeIn.Checked = True
+            rbShapeWidthIn.Checked = True
         End If
         nudLineWidth.Value = Details.LineWidth
         If Details.LineWidthUnits = GraphPaper.Units.Millimeters Then
-            rbLineWeightMM.Checked = True
+            rbLineWidthMM.Checked = True
         Else
-            rbLineWeightIn.Checked = True
+            rbLineWidthIn.Checked = True
         End If
 
         Using g As Graphics = cboxWebColor.CreateGraphics()
@@ -43,9 +42,9 @@ Public Class Console
             OrderBy(Function(kc) Color.FromName(kc).GetHue).
             ThenBy(Function(kc) Color.FromName(kc).GetSaturation).
             ThenBy(Function(kc) Color.FromName(kc).GetBrightness)
-                Dim Syscolor As Color = Color.FromName(ColorName)
-                If Not Syscolor.IsSystemColor AndAlso Not Syscolor.Equals(Color.Transparent) Then
-                    cboxWebColor.Items.Add(Color.FromName(ColorName))
+                Dim c As Color = Color.FromName(ColorName)
+                If Not c.IsSystemColor AndAlso Not c.Equals(Color.Transparent) Then
+                    cboxWebColor.Items.Add(c)
                     MaxWidth = Math.Max(MaxWidth, Math.Round(g.MeasureString(ColorName, cboxWebColor.Font).Width))
                 End If
             Next
@@ -53,11 +52,14 @@ Public Class Console
         End Using
         If Details.LineColor.IsKnownColor Then
             rbWebColor.Checked = True
-            rbRGB.Checked = False
+            cboxWebColor.Enabled = True
+            tlpRGB.Enabled = False
             cboxWebColor.SelectedItem = Details.LineColor
         Else
-            rbWebColor.Checked = False
             rbRGB.Checked = True
+            cboxWebColor.Enabled = False
+            tlpRGB.Enabled = True
+            cboxWebColor.SelectedItem = Color.Black
         End If
         tbHexColor.Text = Strings.Right(Details.LineColor.ToArgb.ToString("x"), 6)
         UpdateRGBFromHex()
@@ -67,6 +69,7 @@ Public Class Console
 
     Private Details As GraphPaper = New GraphPaper
     Private Initialized As Boolean = False
+    Private GridlineColor As Color
 
     Private Sub Console_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Settings.AddForm(Me)
@@ -86,18 +89,18 @@ Public Class Console
         End If
     End Sub
 
-    Private Sub rbSizeMM_CheckedChanged(sender As Object, e As EventArgs) Handles rbSizeMM.CheckedChanged
+    Private Sub rbSizeMM_CheckedChanged(sender As Object, e As EventArgs) Handles rbShapeWidthMM.CheckedChanged
         If Initialized Then
-            If rbSizeMM.Checked Then
+            If rbShapeWidthMM.Checked Then
                 Details.ShapeWidthUnits = GraphPaper.Units.Millimeters
                 GraphPaperControl1.Invalidate()
             End If
         End If
     End Sub
 
-    Private Sub rbSizeIn_CheckedChanged(sender As Object, e As EventArgs) Handles rbSizeIn.CheckedChanged
+    Private Sub rbSizeIn_CheckedChanged(sender As Object, e As EventArgs) Handles rbShapeWidthIn.CheckedChanged
         If Initialized Then
-            If rbSizeIn.Checked Then
+            If rbShapeWidthIn.Checked Then
                 Details.ShapeWidthUnits = GraphPaper.Units.Inches
                 GraphPaperControl1.Invalidate()
             End If
@@ -109,7 +112,12 @@ Public Class Console
             If rbWebColor.Checked Then
                 cboxWebColor.Enabled = True
                 tlpRGB.Enabled = False
-                Details.LineColor = cboxWebColor.SelectedItem
+                If cboxWebColor.SelectedItem <> Nothing Then
+                    Details.LineColor = cboxWebColor.SelectedItem
+                Else
+                    Details.LineColor = Color.Black
+                    cboxWebColor.SelectedItem = Details.LineColor
+                End If
                 GraphPaperControl1.Invalidate()
             End If
         End If
@@ -121,6 +129,8 @@ Public Class Console
             Using gp As GraphicsPath = New GraphicsPath
                 If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
                     e.Graphics.FillRectangle(SystemBrushes.Menu, e.Bounds)
+                ElseIf ((e.State And DrawItemState.Disabled) = DrawItemState.Disabled) Then
+                    e.Graphics.FillRectangle(SystemBrushes.Control, e.Bounds)
                 Else
                     e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds)
                 End If
@@ -184,8 +194,8 @@ Public Class Console
         If Not ChangingHex Then
             ChangingHex = True
             tbHexColor.Text = (nudR.Value << 16 Or nudG.Value << 8 Or nudB.Value).ToString("x")
-            GraphPaperControl1.Invalidate()
             GridlineColor = Details.LineColor
+            GraphPaperControl1.Invalidate()
             ChangingHex = False
         End If
     End Sub
@@ -195,8 +205,9 @@ Public Class Console
             UpdateRGBFromHex()
         End If
     End Sub
-    Private Sub UpdateRGBFromHex()
+    Private Sub UpdateRGBFromHex(Optional UpdateLineColor As Boolean = True)
         ChangingHex = True
+
         Dim s As String = tbHexColor.Text.Trim()
         Dim result As Integer
         Dim r, b, g As Integer
@@ -211,14 +222,21 @@ Public Class Console
             g = 0
             b = 0
         Catch ex As Exception
+            result = 0
+            r = 0
+            g = 0
+            b = 0
         End Try
         nudR.Value = r
         nudG.Value = g
         nudB.Value = b
-        Details.LineColor = Color.FromArgb(255, r, g, b)
+        If UpdateLineColor Then
+            Details.LineColor = Color.FromArgb(255, r, g, b)
+        End If
         GraphPaperControl1.Invalidate()
-        ChangingHex = False
         GridlineColor = Details.LineColor
+
+        ChangingHex = False
     End Sub
 
     Private Sub nudLineWeight_ValueChanged(sender As Object, e As EventArgs) Handles nudLineWidth.ValueChanged
@@ -228,27 +246,33 @@ Public Class Console
         End If
     End Sub
 
-    Private Sub rbLineWeightMM_CheckedChanged(sender As Object, e As EventArgs) Handles rbLineWeightMM.CheckedChanged
+    Private Sub rbLineWeightMM_CheckedChanged(sender As Object, e As EventArgs) Handles rbLineWidthMM.CheckedChanged
         If Initialized Then
-            If rbLineWeightMM.Checked Then
+            If rbLineWidthMM.Checked Then
                 Details.LineWidthUnits = GraphPaper.Units.Millimeters
                 GraphPaperControl1.Invalidate()
             End If
         End If
     End Sub
 
-    Private Sub rbLineWeightIn_CheckedChanged(sender As Object, e As EventArgs) Handles rbLineWeightIn.CheckedChanged
+    Private Sub rbLineWeightIn_CheckedChanged(sender As Object, e As EventArgs) Handles rbLineWidthIn.CheckedChanged
         If Initialized Then
-            If rbLineWeightIn.Checked Then
+            If rbLineWidthIn.Checked Then
                 Details.LineWidthUnits = GraphPaper.Units.Inches
                 GraphPaperControl1.Invalidate()
             End If
         End If
     End Sub
 
-    Private GridlineColor As Color
-
     Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
         GraphPaperControl1.PrintWithDialog()
+    End Sub
+
+    Private Sub PageSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PageSetupToolStripMenuItem.Click
+        PageSetupDialog1.ShowDialog()
+    End Sub
+
+    Private Sub IgnorePageMarginsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnorePageMaringsToolStripMenuItem.Click
+        UsePrintMargins = Not IgnorePageMaringsToolStripMenuItem.Checked
     End Sub
 End Class

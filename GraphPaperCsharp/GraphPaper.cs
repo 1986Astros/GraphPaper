@@ -13,6 +13,7 @@ namespace SharkInSeine
         const string CatAppearance = "Appearance";
         public enum Shapes : ulong
         {
+            Circles,
             Triangles,
             Diamonds,
             Squares,
@@ -44,6 +45,7 @@ namespace SharkInSeine
             Millimeters,
             Inches
         }
+        // overload to change the description to include inches
         [DefaultValue(DefaultLineWidth)]
         [Category(CatAppearance)]
         [Description("Width in mm or inches of the outlines and dividers.")]
@@ -135,7 +137,7 @@ namespace SharkInSeine
         {
             get
             {
-               return  Globals.Settings.GetValueEnum<Units>("Main", "ShapeWidthUnits", DefaultShapeWidthUnits);
+                return Globals.Settings.GetValueEnum<Units>("Main", "ShapeWidthUnits", DefaultShapeWidthUnits);
             }
             set
             {
@@ -151,7 +153,7 @@ namespace SharkInSeine
 
         public class PropertyChangedEventArgs : EventArgs
         {
-           public PropertyChangedEventArgs(string Name)
+            public PropertyChangedEventArgs(string Name)
             {
                 this.Name = Name;
             }

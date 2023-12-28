@@ -32,7 +32,7 @@
             PrintingToolStripMenuItem = new ToolStripMenuItem();
             PrintToolStripMenuItem = new ToolStripMenuItem();
             PageSetupToolStripMenuItem = new ToolStripMenuItem();
-            ObservePageMarginsToolStripMenuItem = new ToolStripMenuItem();
+            IgnorePageMarginsToolStripMenuItem = new ToolStripMenuItem();
             tlpMain = new TableLayoutPanel();
             tlpDetails = new TableLayoutPanel();
             tlpShape = new TableLayoutPanel();
@@ -64,8 +64,7 @@
             Label10 = new Label();
             nudB = new NumericUpDown();
             graphPaperControl1 = new SharkInSeine.GraphPaperControl();
-            printDialog1 = new PrintDialog();
-            printDocument1 = new System.Drawing.Printing.PrintDocument();
+            pageSetupDialog1 = new PageSetupDialog();
             MenuStrip1.SuspendLayout();
             tlpMain.SuspendLayout();
             tlpDetails.SuspendLayout();
@@ -94,7 +93,7 @@
             // 
             // PrintingToolStripMenuItem
             // 
-            PrintingToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PrintToolStripMenuItem, PageSetupToolStripMenuItem, ObservePageMarginsToolStripMenuItem });
+            PrintingToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PrintToolStripMenuItem, PageSetupToolStripMenuItem, IgnorePageMarginsToolStripMenuItem });
             PrintingToolStripMenuItem.Name = "PrintingToolStripMenuItem";
             PrintingToolStripMenuItem.Size = new Size(61, 20);
             PrintingToolStripMenuItem.Text = "Printing";
@@ -103,23 +102,25 @@
             // 
             PrintToolStripMenuItem.Name = "PrintToolStripMenuItem";
             PrintToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
-            PrintToolStripMenuItem.Size = new Size(192, 22);
+            PrintToolStripMenuItem.Size = new Size(183, 22);
             PrintToolStripMenuItem.Text = "Print";
             PrintToolStripMenuItem.Click += PrintToolStripMenuItem_Click;
             // 
             // PageSetupToolStripMenuItem
             // 
             PageSetupToolStripMenuItem.Name = "PageSetupToolStripMenuItem";
-            PageSetupToolStripMenuItem.Size = new Size(192, 22);
+            PageSetupToolStripMenuItem.Size = new Size(183, 22);
             PageSetupToolStripMenuItem.Text = "Page setup";
+            PageSetupToolStripMenuItem.Click += PageSetupToolStripMenuItem_Click;
             // 
-            // ObservePageMarginsToolStripMenuItem
+            // IgnorePageMarginsToolStripMenuItem
             // 
-            ObservePageMarginsToolStripMenuItem.Checked = true;
-            ObservePageMarginsToolStripMenuItem.CheckState = CheckState.Checked;
-            ObservePageMarginsToolStripMenuItem.Name = "ObservePageMarginsToolStripMenuItem";
-            ObservePageMarginsToolStripMenuItem.Size = new Size(192, 22);
-            ObservePageMarginsToolStripMenuItem.Text = "Observe page margins";
+            IgnorePageMarginsToolStripMenuItem.Checked = true;
+            IgnorePageMarginsToolStripMenuItem.CheckState = CheckState.Checked;
+            IgnorePageMarginsToolStripMenuItem.Name = "IgnorePageMarginsToolStripMenuItem";
+            IgnorePageMarginsToolStripMenuItem.Size = new Size(183, 22);
+            IgnorePageMarginsToolStripMenuItem.Text = "Ignore page margins";
+            IgnorePageMarginsToolStripMenuItem.Click += IgnorePageMarginsToolStripMenuItem_Click;
             // 
             // tlpMain
             // 
@@ -152,7 +153,7 @@
             tlpDetails.RowStyles.Add(new RowStyle());
             tlpDetails.RowStyles.Add(new RowStyle());
             tlpDetails.RowStyles.Add(new RowStyle());
-            tlpDetails.Size = new Size(249, 277);
+            tlpDetails.Size = new Size(249, 292);
             tlpDetails.TabIndex = 0;
             // 
             // tlpShape
@@ -171,7 +172,7 @@
             tlpShape.RowCount = 2;
             tlpShape.RowStyles.Add(new RowStyle());
             tlpShape.RowStyles.Add(new RowStyle());
-            tlpShape.Size = new Size(208, 85);
+            tlpShape.Size = new Size(208, 100);
             tlpShape.TabIndex = 1;
             // 
             // tlpShapeSize
@@ -237,10 +238,10 @@
             // 
             lbShape.FormattingEnabled = true;
             lbShape.ItemHeight = 15;
-            lbShape.Items.AddRange(new object[] { "Squares", "Hexagons", "Triangles", "Diamonds" });
+            lbShape.Items.AddRange(new object[] { "Circles", "Squares", "Hexagons", "Triangles", "Diamonds" });
             lbShape.Location = new Point(3, 18);
             lbShape.Name = "lbShape";
-            lbShape.Size = new Size(81, 64);
+            lbShape.Size = new Size(81, 79);
             lbShape.TabIndex = 3;
             lbShape.SelectedIndexChanged += lbShape_SelectedIndexChanged;
             // 
@@ -268,7 +269,7 @@
             gbGridlines.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             gbGridlines.Controls.Add(tlpGridLines);
             gbGridlines.Dock = DockStyle.Fill;
-            gbGridlines.Location = new Point(3, 111);
+            gbGridlines.Location = new Point(3, 126);
             gbGridlines.Margin = new Padding(3, 20, 3, 3);
             gbGridlines.Name = "gbGridlines";
             gbGridlines.Size = new Size(243, 163);
@@ -552,11 +553,6 @@
             graphPaperControl1.Size = new Size(519, 420);
             graphPaperControl1.TabIndex = 1;
             // 
-            // printDialog1
-            // 
-            printDialog1.Document = printDocument1;
-            printDialog1.UseEXDialog = true;
-            // 
             // Console
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -602,7 +598,7 @@
         internal ToolStripMenuItem PrintingToolStripMenuItem;
         internal ToolStripMenuItem PrintToolStripMenuItem;
         internal ToolStripMenuItem PageSetupToolStripMenuItem;
-        internal ToolStripMenuItem ObservePageMarginsToolStripMenuItem;
+        internal ToolStripMenuItem IgnorePageMarginsToolStripMenuItem;
         internal TableLayoutPanel tlpMain;
         internal TableLayoutPanel tlpDetails;
         internal TableLayoutPanel tlpShape;
@@ -634,7 +630,6 @@
         internal Label Label10;
         internal NumericUpDown nudB;
         private SharkInSeine.GraphPaperControl graphPaperControl1;
-        private PrintDialog printDialog1;
-        private System.Drawing.Printing.PrintDocument printDocument1;
+        private PageSetupDialog pageSetupDialog1;
     }
 }

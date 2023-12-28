@@ -26,10 +26,10 @@ namespace GraphPaperCsharp
 
             // add Enum items to the listbox
             lbShape.Items.Clear();  // text items inserted at design time
-            lbShape.Items.Add(GraphPaper.Shapes.Triangles);
-            lbShape.Items.Add(GraphPaper.Shapes.Squares);
-            lbShape.Items.Add(GraphPaper.Shapes.Diamonds);
-            lbShape.Items.Add(GraphPaper.Shapes.Hexagons);
+            foreach (GraphPaper.Shapes shape in Enum.GetValues(typeof(GraphPaper.Shapes)))
+            {
+                lbShape.Items.Add(shape);
+            }
             lbShape.SelectedItem = Details.Shape;
             graphPaperControl1.Details = Details;
             nudShapeWidth.Value = (decimal)Details.ShapeWidth;
@@ -337,6 +337,16 @@ namespace GraphPaperCsharp
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
             graphPaperControl1.PrintWithDialog();
+        }
+
+        private void PageSetupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pageSetupDialog1.ShowDialog();
+        }
+
+        private void IgnorePageMarginsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Globals.UsePrintMargins = !IgnorePageMarginsToolStripMenuItem.Checked
         }
     }
 }

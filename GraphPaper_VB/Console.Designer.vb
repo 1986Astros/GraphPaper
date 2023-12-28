@@ -25,17 +25,17 @@ Partial Class Console
         Label1 = New Label()
         lbShape = New ListBox()
         tlpShapeSize = New TableLayoutPanel()
-        rbSizeIn = New RadioButton()
+        rbShapeWidthIn = New RadioButton()
         nudShapeWidth = New NumericUpDown()
-        rbSizeMM = New RadioButton()
+        rbShapeWidthMM = New RadioButton()
         gbGridlines = New GroupBox()
         tlpGridLines = New TableLayoutPanel()
         TableLayoutPanel4 = New TableLayoutPanel()
         cboxWebColor = New ComboBox()
         tlpLineWidth = New TableLayoutPanel()
-        rbLineWeightIn = New RadioButton()
+        rbLineWidthIn = New RadioButton()
         nudLineWidth = New NumericUpDown()
-        rbLineWeightMM = New RadioButton()
+        rbLineWidthMM = New RadioButton()
         Label12 = New Label()
         rbWebColor = New RadioButton()
         rbRGB = New RadioButton()
@@ -56,12 +56,13 @@ Partial Class Console
         PrintingToolStripMenuItem = New ToolStripMenuItem()
         PrintToolStripMenuItem = New ToolStripMenuItem()
         PageSetupToolStripMenuItem = New ToolStripMenuItem()
-        ObservePageMarginsToolStripMenuItem = New ToolStripMenuItem()
+        IgnorePageMaringsToolStripMenuItem = New ToolStripMenuItem()
         tlpMain = New TableLayoutPanel()
         GraphPaperControl1 = New GraphPaperControl()
         TableLayoutPanel3 = New TableLayoutPanel()
         RadioButton3 = New RadioButton()
         NumericUpDown4 = New NumericUpDown()
+        PageSetupDialog1 = New PageSetupDialog()
         tlpShapeSize.SuspendLayout()
         CType(nudShapeWidth, ComponentModel.ISupportInitialize).BeginInit()
         gbGridlines.SuspendLayout()
@@ -94,10 +95,10 @@ Partial Class Console
         ' 
         lbShape.FormattingEnabled = True
         lbShape.ItemHeight = 15
-        lbShape.Items.AddRange(New Object() {"Squares", "Hexagons", "Triangles", "Diamonds"})
+        lbShape.Items.AddRange(New Object() {"Circles", "Squares", "Hexagons", "Triangles", "Diamonds"})
         lbShape.Location = New Point(3, 18)
         lbShape.Name = "lbShape"
-        lbShape.Size = New Size(81, 64)
+        lbShape.Size = New Size(81, 79)
         lbShape.TabIndex = 3
         ' 
         ' tlpShapeSize
@@ -107,9 +108,9 @@ Partial Class Console
         tlpShapeSize.ColumnCount = 2
         tlpShapeSize.ColumnStyles.Add(New ColumnStyle())
         tlpShapeSize.ColumnStyles.Add(New ColumnStyle())
-        tlpShapeSize.Controls.Add(rbSizeIn, 1, 1)
+        tlpShapeSize.Controls.Add(rbShapeWidthIn, 1, 1)
         tlpShapeSize.Controls.Add(nudShapeWidth, 0, 0)
-        tlpShapeSize.Controls.Add(rbSizeMM, 1, 0)
+        tlpShapeSize.Controls.Add(rbShapeWidthMM, 1, 0)
         tlpShapeSize.Location = New Point(90, 18)
         tlpShapeSize.Name = "tlpShapeSize"
         tlpShapeSize.RowCount = 2
@@ -118,17 +119,17 @@ Partial Class Console
         tlpShapeSize.Size = New Size(115, 50)
         tlpShapeSize.TabIndex = 5
         ' 
-        ' rbSizeIn
+        ' rbShapeWidthIn
         ' 
-        rbSizeIn.AutoSize = True
-        rbSizeIn.Checked = True
-        rbSizeIn.Location = New Point(65, 28)
-        rbSizeIn.Name = "rbSizeIn"
-        rbSizeIn.Size = New Size(35, 19)
-        rbSizeIn.TabIndex = 7
-        rbSizeIn.TabStop = True
-        rbSizeIn.Text = "in"
-        rbSizeIn.UseVisualStyleBackColor = True
+        rbShapeWidthIn.AutoSize = True
+        rbShapeWidthIn.Checked = True
+        rbShapeWidthIn.Location = New Point(65, 28)
+        rbShapeWidthIn.Name = "rbShapeWidthIn"
+        rbShapeWidthIn.Size = New Size(35, 19)
+        rbShapeWidthIn.TabIndex = 7
+        rbShapeWidthIn.TabStop = True
+        rbShapeWidthIn.Text = "in"
+        rbShapeWidthIn.UseVisualStyleBackColor = True
         ' 
         ' nudShapeWidth
         ' 
@@ -144,17 +145,17 @@ Partial Class Console
         nudShapeWidth.TabIndex = 5
         nudShapeWidth.Value = New Decimal(New Integer() {25, 0, 0, 131072})
         ' 
-        ' rbSizeMM
+        ' rbShapeWidthMM
         ' 
-        rbSizeMM.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-        rbSizeMM.AutoSize = True
-        rbSizeMM.Location = New Point(65, 3)
-        rbSizeMM.Name = "rbSizeMM"
-        rbSizeMM.Size = New Size(47, 19)
-        rbSizeMM.TabIndex = 6
-        rbSizeMM.TabStop = True
-        rbSizeMM.Text = "mm"
-        rbSizeMM.UseVisualStyleBackColor = True
+        rbShapeWidthMM.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        rbShapeWidthMM.AutoSize = True
+        rbShapeWidthMM.Location = New Point(65, 3)
+        rbShapeWidthMM.Name = "rbShapeWidthMM"
+        rbShapeWidthMM.Size = New Size(47, 19)
+        rbShapeWidthMM.TabIndex = 6
+        rbShapeWidthMM.TabStop = True
+        rbShapeWidthMM.Text = "mm"
+        rbShapeWidthMM.UseVisualStyleBackColor = True
         ' 
         ' gbGridlines
         ' 
@@ -162,7 +163,7 @@ Partial Class Console
         gbGridlines.AutoSizeMode = AutoSizeMode.GrowAndShrink
         gbGridlines.Controls.Add(tlpGridLines)
         gbGridlines.Dock = DockStyle.Fill
-        gbGridlines.Location = New Point(3, 111)
+        gbGridlines.Location = New Point(3, 126)
         gbGridlines.Margin = New Padding(3, 20, 3, 3)
         gbGridlines.Name = "gbGridlines"
         gbGridlines.Size = New Size(243, 163)
@@ -227,9 +228,9 @@ Partial Class Console
         tlpLineWidth.ColumnCount = 2
         tlpLineWidth.ColumnStyles.Add(New ColumnStyle())
         tlpLineWidth.ColumnStyles.Add(New ColumnStyle())
-        tlpLineWidth.Controls.Add(rbLineWeightIn, 1, 2)
+        tlpLineWidth.Controls.Add(rbLineWidthIn, 1, 2)
         tlpLineWidth.Controls.Add(nudLineWidth, 0, 1)
-        tlpLineWidth.Controls.Add(rbLineWeightMM, 1, 1)
+        tlpLineWidth.Controls.Add(rbLineWidthMM, 1, 1)
         tlpLineWidth.Controls.Add(Label12, 0, 0)
         tlpLineWidth.Location = New Point(0, 46)
         tlpLineWidth.Margin = New Padding(0)
@@ -241,15 +242,15 @@ Partial Class Console
         tlpLineWidth.Size = New Size(115, 70)
         tlpLineWidth.TabIndex = 27
         ' 
-        ' rbLineWeightIn
+        ' rbLineWidthIn
         ' 
-        rbLineWeightIn.AutoSize = True
-        rbLineWeightIn.Location = New Point(65, 48)
-        rbLineWeightIn.Name = "rbLineWeightIn"
-        rbLineWeightIn.Size = New Size(35, 19)
-        rbLineWeightIn.TabIndex = 30
-        rbLineWeightIn.Text = "in"
-        rbLineWeightIn.UseVisualStyleBackColor = True
+        rbLineWidthIn.AutoSize = True
+        rbLineWidthIn.Location = New Point(65, 48)
+        rbLineWidthIn.Name = "rbLineWidthIn"
+        rbLineWidthIn.Size = New Size(35, 19)
+        rbLineWidthIn.TabIndex = 30
+        rbLineWidthIn.Text = "in"
+        rbLineWidthIn.UseVisualStyleBackColor = True
         ' 
         ' nudLineWidth
         ' 
@@ -265,18 +266,18 @@ Partial Class Console
         nudLineWidth.TabIndex = 28
         nudLineWidth.Value = New Decimal(New Integer() {1, 0, 0, 131072})
         ' 
-        ' rbLineWeightMM
+        ' rbLineWidthMM
         ' 
-        rbLineWeightMM.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-        rbLineWeightMM.AutoSize = True
-        rbLineWeightMM.Checked = True
-        rbLineWeightMM.Location = New Point(65, 23)
-        rbLineWeightMM.Name = "rbLineWeightMM"
-        rbLineWeightMM.Size = New Size(47, 19)
-        rbLineWeightMM.TabIndex = 29
-        rbLineWeightMM.TabStop = True
-        rbLineWeightMM.Text = "mm"
-        rbLineWeightMM.UseVisualStyleBackColor = True
+        rbLineWidthMM.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        rbLineWidthMM.AutoSize = True
+        rbLineWidthMM.Checked = True
+        rbLineWidthMM.Location = New Point(65, 23)
+        rbLineWidthMM.Name = "rbLineWidthMM"
+        rbLineWidthMM.Size = New Size(47, 19)
+        rbLineWidthMM.TabIndex = 29
+        rbLineWidthMM.TabStop = True
+        rbLineWidthMM.Text = "mm"
+        rbLineWidthMM.UseVisualStyleBackColor = True
         ' 
         ' Label12
         ' 
@@ -442,7 +443,7 @@ Partial Class Console
         tlpShape.RowCount = 2
         tlpShape.RowStyles.Add(New RowStyle())
         tlpShape.RowStyles.Add(New RowStyle())
-        tlpShape.Size = New Size(208, 85)
+        tlpShape.Size = New Size(208, 100)
         tlpShape.TabIndex = 1
         ' 
         ' Label5
@@ -477,7 +478,7 @@ Partial Class Console
         tlpDetails.RowStyles.Add(New RowStyle())
         tlpDetails.RowStyles.Add(New RowStyle())
         tlpDetails.RowStyles.Add(New RowStyle())
-        tlpDetails.Size = New Size(249, 277)
+        tlpDetails.Size = New Size(249, 292)
         tlpDetails.TabIndex = 0
         ' 
         ' MenuStrip1
@@ -491,7 +492,7 @@ Partial Class Console
         ' 
         ' PrintingToolStripMenuItem
         ' 
-        PrintingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PrintToolStripMenuItem, PageSetupToolStripMenuItem, ObservePageMarginsToolStripMenuItem})
+        PrintingToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PrintToolStripMenuItem, PageSetupToolStripMenuItem, IgnorePageMaringsToolStripMenuItem})
         PrintingToolStripMenuItem.Name = "PrintingToolStripMenuItem"
         PrintingToolStripMenuItem.Size = New Size(61, 20)
         PrintingToolStripMenuItem.Text = "Printing"
@@ -500,22 +501,22 @@ Partial Class Console
         ' 
         PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
         PrintToolStripMenuItem.ShortcutKeys = Keys.Control Or Keys.P
-        PrintToolStripMenuItem.Size = New Size(192, 22)
+        PrintToolStripMenuItem.Size = New Size(183, 22)
         PrintToolStripMenuItem.Text = "Print"
         ' 
         ' PageSetupToolStripMenuItem
         ' 
         PageSetupToolStripMenuItem.Name = "PageSetupToolStripMenuItem"
-        PageSetupToolStripMenuItem.Size = New Size(192, 22)
+        PageSetupToolStripMenuItem.Size = New Size(183, 22)
         PageSetupToolStripMenuItem.Text = "Page setup"
         ' 
         ' ObservePageMarginsToolStripMenuItem
         ' 
-        ObservePageMarginsToolStripMenuItem.Checked = True
-        ObservePageMarginsToolStripMenuItem.CheckState = CheckState.Checked
-        ObservePageMarginsToolStripMenuItem.Name = "ObservePageMarginsToolStripMenuItem"
-        ObservePageMarginsToolStripMenuItem.Size = New Size(192, 22)
-        ObservePageMarginsToolStripMenuItem.Text = "Observe page margins"
+        IgnorePageMaringsToolStripMenuItem.Checked = True
+        IgnorePageMaringsToolStripMenuItem.CheckState = CheckState.Checked
+        IgnorePageMaringsToolStripMenuItem.Name = "ObservePageMarginsToolStripMenuItem"
+        IgnorePageMaringsToolStripMenuItem.Size = New Size(183, 22)
+        IgnorePageMaringsToolStripMenuItem.Text = "Ignore page margins"
         ' 
         ' tlpMain
         ' 
@@ -626,8 +627,8 @@ Partial Class Console
     Friend WithEvents lbShape As ListBox
     Friend WithEvents Label1 As Label
     Friend WithEvents gbGridlines As GroupBox
-    Friend WithEvents rbSizeIn As RadioButton
-    Friend WithEvents rbSizeMM As RadioButton
+    Friend WithEvents rbShapeWidthIn As RadioButton
+    Friend WithEvents rbShapeWidthMM As RadioButton
     Friend WithEvents nudShapeWidth As NumericUpDown
     Friend WithEvents tlpShapeSize As TableLayoutPanel
     Friend WithEvents tlpDetails As TableLayoutPanel
@@ -638,7 +639,7 @@ Partial Class Console
     Friend WithEvents PrintingToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PageSetupToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ObservePageMarginsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents IgnorePageMaringsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents tlpMain As TableLayoutPanel
     Friend WithEvents GraphPaperControl1 As GraphPaperControl
     Friend WithEvents tlpGridLines As TableLayoutPanel
@@ -656,12 +657,13 @@ Partial Class Console
     Friend WithEvents tbHexColor As TextBox
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
     Friend WithEvents tlpLineWidth As TableLayoutPanel
-    Friend WithEvents rbLineWeightIn As RadioButton
+    Friend WithEvents rbLineWidthIn As RadioButton
     Friend WithEvents nudLineWidth As NumericUpDown
-    Friend WithEvents rbLineWeightMM As RadioButton
+    Friend WithEvents rbLineWidthMM As RadioButton
     Friend WithEvents Label12 As Label
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents NumericUpDown4 As NumericUpDown
+    Friend WithEvents PageSetupDialog1 As PageSetupDialog
 
 End Class
