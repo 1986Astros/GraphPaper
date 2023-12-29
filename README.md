@@ -6,7 +6,7 @@ The application will generate graph paper in the familiar squares, as well as ci
 
 The applications make use of:
 * GraphicsPath for drawing hexagons of a specified size
-* trigonometric functions to draw somme of the shapes
+* trigonometric functions to draw some of the shapes
 * Matrix for rotating and moving shapes
 * LINQ
 * lambda expressions
@@ -24,3 +24,4 @@ There are opportunities to learn or practive skills by enhancing the application
 * Change the color of the background
 * Interlocking circles or other shapes
 * Writing the paper as an image file (JPG, PNG, etc) instead of sending it to the printer
+* Implementing the GraphPaperControl in a Class Library (VB.Net version only)
