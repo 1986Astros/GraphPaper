@@ -65,7 +65,6 @@
             Label10 = new Label();
             nudB = new NumericUpDown();
             graphPaperControl1 = new SharkInSeine.GraphPaperControl();
-            pageSetupDialog1 = new PageSetupDialog();
             MenuStrip1.SuspendLayout();
             tlpMain.SuspendLayout();
             tlpDetails.SuspendLayout();
@@ -632,6 +631,5 @@
         internal Label Label10;
         internal NumericUpDown nudB;
         private SharkInSeine.GraphPaperControl graphPaperControl1;
-        private PageSetupDialog pageSetupDialog1;
     }
 }

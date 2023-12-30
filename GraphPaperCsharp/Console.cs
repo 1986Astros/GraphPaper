@@ -342,7 +342,7 @@ namespace GraphPaperCsharp
 
         private void PageSetupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pageSetupDialog1.ShowDialog();
+            graphPaperControl1.DoPageSetup(); 
         }
 
         private void IgnorePageMarginsToolStripMenuItem_Click(object sender, EventArgs e)

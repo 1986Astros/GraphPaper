@@ -63,7 +63,6 @@ Partial Class Console
         TableLayoutPanel3 = New TableLayoutPanel()
         RadioButton3 = New RadioButton()
         NumericUpDown4 = New NumericUpDown()
-        PageSetupDialog1 = New PageSetupDialog()
         tlpShapeSize.SuspendLayout()
         CType(nudShapeWidth, ComponentModel.ISupportInitialize).BeginInit()
         gbGridlines.SuspendLayout()
@@ -666,7 +665,6 @@ Partial Class Console
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents NumericUpDown4 As NumericUpDown
-    Friend WithEvents PageSetupDialog1 As PageSetupDialog
     Friend WithEvents IgnorePageMarginsToolStripMenuItem As ToolStripMenuItem
 
 End Class

@@ -269,7 +269,7 @@ Public Class Console
     End Sub
 
     Private Sub PageSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PageSetupToolStripMenuItem.Click
-        PageSetupDialog1.ShowDialog()
+        GraphPaperControl1.DoPageSetup()
     End Sub
 
     Private Sub IgnorePageMarginsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnorePageMarginsToolStripMenuItem.Click

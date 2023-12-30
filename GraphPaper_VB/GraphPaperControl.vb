@@ -233,6 +233,10 @@ Public Class GraphPaperControl
         End If
     End Sub
 
+    Public Sub DoPageSetup()
+        PageSetupDialog1.ShowDialog()
+    End Sub
+
     Public Sub BeginPrint(sender As Object, e As PrintEventArgs) Handles PrintDocument1.BeginPrint
     End Sub
 
@@ -274,7 +278,7 @@ Public Class GraphPaperControl
         e.HasMorePages = False
     End Sub
 
-    Public Sub EndPrint(sender As Object, e As EventArgs) Handles PrintDocument1.EndPrint
+    Public Sub EndPrint(sender As Object, e As EventArgs)
     End Sub
 
 End Class

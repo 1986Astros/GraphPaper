@@ -30,6 +30,7 @@
         {
             printDocument1 = new System.Drawing.Printing.PrintDocument();
             printDialog1 = new PrintDialog();
+            pageSetupDialog1 = new PageSetupDialog();
             SuspendLayout();
             // 
             // printDocument1
@@ -42,6 +43,10 @@
             // 
             printDialog1.Document = printDocument1;
             printDialog1.UseEXDialog = true;
+            // 
+            // pageSetupDialog1
+            // 
+            pageSetupDialog1.Document = printDocument1;
             // 
             // GraphPaperControl
             // 
@@ -57,5 +62,6 @@
 
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintDialog printDialog1;
+        private PageSetupDialog pageSetupDialog1;
     }
 }

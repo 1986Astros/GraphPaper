@@ -262,6 +262,11 @@ namespace SharkInSeine
             }
         }
 
+        public void DoPageSetup()
+        {
+            pageSetupDialog1.ShowDialog();
+        }
+
         private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
         }

@@ -24,12 +24,20 @@ Partial Class GraphPaperControl
     Private Sub InitializeComponent()
         PrintDialog1 = New PrintDialog()
         PrintDocument1 = New Printing.PrintDocument()
+        PageSetupDialog1 = New PageSetupDialog()
         SuspendLayout()
         ' 
         ' PrintDialog1
         ' 
         PrintDialog1.Document = PrintDocument1
         PrintDialog1.UseEXDialog = True
+        ' 
+        ' PrintDocument1
+        ' 
+        ' 
+        ' PageSetupDialog1
+        ' 
+        PageSetupDialog1.Document = PrintDocument1
         ' 
         ' GraphPaperControl
         ' 
@@ -42,5 +50,6 @@ Partial Class GraphPaperControl
 
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
+    Friend WithEvents PageSetupDialog1 As PageSetupDialog
 
 End Class
